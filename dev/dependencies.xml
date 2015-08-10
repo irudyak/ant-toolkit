@@ -55,7 +55,7 @@
 		<slf4j.version>1.7.5</slf4j.version>
 
 		<!-- Apache Hadoop -->
-		<hadoop.version>2.7.1</hadoop.version>
+		<hadoop.version>2.6.0.2.2.4.2-2</hadoop.version>
 
 		<!-- Guava -->
 		<guava.version>11.0.2</guava.version>
@@ -83,7 +83,7 @@
 		<htrace-core.version>2.04</htrace-core.version>
 
 		<!-- HBase -->
-		<hbase.version>0.98.4-hadoop2</hbase.version>
+		<hbase.version>0.98.4.2.2.4.2-2-hadoop2</hbase.version>
 
 		<!-- MySQL JDBC driver -->
 		<mysql-jdbc.version>5.1.24</mysql-jdbc.version>
@@ -112,7 +112,7 @@
 		<jline.version>1.0</jline.version>
 
 		<!-- Zookeeper -->
-		<zookeeper.version>3.4.6</zookeeper.version>
+		<zookeeper.version>3.4.6.2.2.4.2-2</zookeeper.version>
 
 		<!-- Joda Time -->
 		<joda-time.version>2.1</joda-time.version>
@@ -121,6 +121,34 @@
 		<aws-java-sdk.version>1.10.9</aws-java-sdk.version>
 
 	</properties>
+
+	<!-- Dependencies repositories -->
+	<repositories>
+		<!-- HDP Hadoop Repository -->
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<id>HDPReleases</id>
+			<name>HDP Releases</name>
+			<url>http://repo.hortonworks.com/content/repositories/releases</url>
+			<layout>default</layout>
+		</repository>
+
+		<!-- HDP Jetty repository -->
+		<repository>
+			<id>HDPJetty</id>
+			<name>HDP Jetty</name>
+			<url>http://repo.hortonworks.com/content/repositories/jetty-hadoop</url>
+		</repository>
+	</repositories>
 
 	<dependencyManagement>
 		<dependencies>
