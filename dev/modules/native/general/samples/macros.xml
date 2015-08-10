@@ -1,0 +1,33 @@
+<project name="Macros test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+		<generalRunMacros macros="hello">
+			<attribute name="firstName" value="John"/>
+			<attribute name="secondName" value="Silver"/>
+		</generalRunMacros>
+
+		<generalRunMacros macros="hello">
+			<attribute name="firstName" value="Bob"/>
+			<attribute name="secondName" value="Marley"/>
+		</generalRunMacros>
+
+		<generalRunMacros macros="helloWorld"/>
+	</target>
+
+	<macrodef name="hello">
+		<attribute name="firstName"/>
+		<attribute name="secondName"/>
+		<sequential>
+			<echo>Hello @{firstName} @{secondName}</echo>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="helloWorld">
+		<sequential>
+			<echo>HELLO WORLD</echo>
+		</sequential>
+	</macrodef>
+
+</project>

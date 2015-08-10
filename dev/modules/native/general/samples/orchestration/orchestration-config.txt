@@ -1,0 +1,45 @@
+###------------------------------------------------------------------------------------------------------
+### ORCHESTRATION CSV COMMAND FILE
+###------------------------------------------------------------------------------------------------------
+###
+### General file format information:
+### 	1. Empty lines are ignored
+### 	2. Comment symbol: "#"
+### 	3. CSV separator symbol: ";"
+###
+### CSV columns interpretation (by column number):
+### 	1 - Ant target name (required). The name of the target in specified (see below) Ant file.
+### 	2 - Ant file (optional). If empty, target from the current Ant file will be used.
+### 	3 - Thread group name (optional). If task should be executed in a separate thread.
+### 	4 - Log file (optional). The name of the file where to log the output of the specified target.
+###
+### SYSTEM tasks:
+###		1. SYSTEM-WAIT-THREADS - waits for all threads in specified threads group (column 3)
+###
+###------------------------------------------------------------------------------------------------------
+
+# Executing AAA1 and AAA2 targets in parallel
+AAA1;;THREAD-GROUP-1
+AAA2;;THREAD-GROUP-1
+
+# Waiting for the AAA1 and AAA2 to complete
+SYSTEM-WAIT-THREADS;;THREAD-GROUP-1
+
+# Executing AAA3 target three times in parallel
+AAA3;;THREAD-GROUP-2
+AAA3;;THREAD-GROUP-2
+AAA3;;THREAD-GROUP-2
+
+# Waiting for three AAA3 targets to complete
+SYSTEM-WAIT-THREADS;;THREAD-GROUP-2
+
+# Executing AAA4 target
+AAA4
+
+# Executing test1, test2 and test3 targets from test.xml in parallel
+test1;test.xml;THREAD-GROUP-3
+test2;test.xml;THREAD-GROUP-3
+test3;test.xml;THREAD-GROUP-3
+
+# Waiting for three AAA3 targets to complete
+SYSTEM-WAIT-THREADS;;THREAD-GROUP-3

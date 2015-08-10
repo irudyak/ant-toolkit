@@ -1,0 +1,68 @@
+<project name="Queue test" default="test2" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+		<generalInitQueue name="testQueue" file="test_queue.txt"
+						  separator="\n" sizeProperty="testQueue.length"/>
+
+		<echo>Queue length=${testQueue.length}</echo>
+
+		<generalClearQueue queue="testQueue"/>
+
+		<echo>testQueue</echo>
+		<generalInitQueue name="testQueue" values="a,b,c,d,e,f,g,h"/>
+		<generalAddToQueue queue="testQueue" value="AAA"/>
+		<generalAddToQueue queue="testQueue" value="BBB"/>
+
+		<generalCopyQueue src="testQueue" dest="queueCopy"/>
+
+		<generalProperty name="stopQueueProcessing" value="false"/>
+		<generalWhileLoop arg1="${stopQueueProcessing}" arg2="false" condition="=">
+			<generalExtractFromQueue queue="testQueue" property="message"/>
+			<generalIf arg1="${message}" arg2="" condition="!=">
+				<echo>${message}</echo>
+			</generalIf>
+			<generalIf arg1="${message}" arg2="" condition="=">
+				<generalProperty name="stopQueueProcessing" value="true"/>
+			</generalIf>
+		</generalWhileLoop>
+
+		<generalProperty name="stopQueueProcessing" value="false"/>
+		<generalWhileLoop arg1="${stopQueueProcessing}" arg2="false" condition="=">
+			<generalExtractFromQueue queue="queueCopy" property="message"/>
+			<generalIf arg1="${message}" arg2="" condition="!=">
+				<echo>${message}</echo>
+			</generalIf>
+			<generalIf arg1="${message}" arg2="" condition="=">
+				<generalProperty name="stopQueueProcessing" value="true"/>
+			</generalIf>
+		</generalWhileLoop>
+
+		<echo>Testing queue serialization</echo>
+		<generalInitQueue name="testQueue" values="a,b,c,d,e,f,g,h"/>
+		<generalSerializeQueue queue="testQueue" file="ddd.txt"/>
+
+		<generalInitQueue name="testQueue2" file="ddd.txt"/>
+
+		<generalProperty name="stopQueueProcessing" value="false"/>
+
+		<generalWhileLoop arg1="${stopQueueProcessing}" arg2="false" condition="=">
+			<generalExtractFromQueue queue="testQueue2" property="message"/>
+			<generalIf arg1="${message}" arg2="" condition="!=">
+				<echo>${message}</echo>
+			</generalIf>
+			<generalIf arg1="${message}" arg2="" condition="=">
+				<generalProperty name="stopQueueProcessing" value="true"/>
+			</generalIf>
+		</generalWhileLoop>
+	</target>
+
+	<target name="test2">
+		<generalInitQueue name="testQueue" values="111,block_222,3333,block_444,e,f,g,h"/>
+		<generalProcessQueue queue="testQueue" property="message" blockingPrefix="block_" echo="true">
+			<echo>===> ${message}</echo>
+		</generalProcessQueue>
+	</target>
+
+</project>

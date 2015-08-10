@@ -1,0 +1,22 @@
+<project name="Array test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<echo>HELLO WORLD</echo>
+
+	<target name="test">
+		<echo>TEST</echo>
+		<generalCallTarget target="test1"/>
+		<generalCallTarget target="test1"/>
+
+	</target>
+
+	<target name="test1" depends="test2">
+		<echo>TEST1</echo>
+	</target>
+
+	<target name="test2">
+		<echo>TEST2</echo>
+	</target>
+
+</project>

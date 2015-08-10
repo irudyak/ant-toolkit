@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DQL batch" default="test" basedir="">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+		<dmDocbaseBatch docbase="dctm" login="dmadmin" password="qwerty">
+
+			<dmDql file="dql-batch.dql"/>
+
+		</dmDocbaseBatch>
+	</target>
+
+</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<antlib>
+	<!-- Instance tasks -->
+	<taskdef name="aws.ec2.runInstances" classname="com.anttoolkit.aws.ec2.tasks.instance.RunInstancesTask" />
+	<taskdef name="aws.ec2.stopInstances" classname="com.anttoolkit.aws.ec2.tasks.instance.StopInstancesTask" />
+	<taskdef name="aws.ec2.startInstances" classname="com.anttoolkit.aws.ec2.tasks.instance.StartInstancesTask" />
+	<taskdef name="aws.ec2.rebootInstances" classname="com.anttoolkit.aws.ec2.tasks.instance.RebootInstancesTask" />
+	<taskdef name="aws.ec2.terminateInstances" classname="com.anttoolkit.aws.ec2.tasks.instance.TerminateInstancesTask" />
+	<taskdef name="aws.ec2.waitInstances" classname="com.anttoolkit.aws.ec2.tasks.instance.WaitInstancesStateTask" />
+	<taskdef name="aws.ec2.describeInstance" classname="com.anttoolkit.aws.ec2.tasks.instance.DescribeInstanceTask" />
+	<taskdef name="aws.ec2.instancesLoop" classname="com.anttoolkit.aws.ec2.tasks.instance.InstancesLoopTask" />
+
+	<!-- Tag tasks -->
+	<taskdef name="aws.ec2.createTags" classname="com.anttoolkit.aws.ec2.tasks.tag.CreateTagsTask" />
+	<taskdef name="aws.ec2.deleteTags" classname="com.anttoolkit.aws.ec2.tasks.tag.DeleteTagsTask" />
+	<taskdef name="aws.ec2.describeTags" classname="com.anttoolkit.aws.ec2.tasks.tag.DescribeTagsTask" />
+	<taskdef name="aws.ec2.getTagValue" classname="com.anttoolkit.aws.ec2.tasks.tag.GetTagValueTask" />
+
+	<!-- Security Group tasks -->
+	<taskdef name="aws.ec2.createSecurityGroup" classname="com.anttoolkit.aws.ec2.tasks.securitygroup.CreateSecurityGroupTask" />
+	<taskdef name="aws.ec2.deleteSecurityGroup" classname="com.anttoolkit.aws.ec2.tasks.securitygroup.DeleteSecurityGroupTask" />
+	<taskdef name="aws.ec2.modifySecurityGroup" classname="com.anttoolkit.aws.ec2.tasks.securitygroup.ModifySecurityGroupTask" />
+	<taskdef name="aws.ec2.describeSecurityGroup" classname="com.anttoolkit.aws.ec2.tasks.securitygroup.DescribeSecurityGroupTask" />
+	<taskdef name="aws.ec2.securityGroupsLoop" classname="com.anttoolkit.aws.ec2.tasks.securitygroup.SecurityGroupsLoopTask" />
+
+</antlib>

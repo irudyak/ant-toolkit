@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="docbase-update" basedir="." default="end">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+    <!-- Validate current docbase-update.xml script, so that it has valid structure of dmBuild containers -->
+    <target name="validate">
+        <dmBuildFileValidator file="${ant.file.docbase-update}" xPath="/project/target[@name='update']/dmDocbaseBatch/dmBuild"/>
+    </target>
+
+    <!-- Log update start time -->
+    <target name="start" depends="validate">
+
+        <tstamp>
+            <format property="update.start" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+        </tstamp>
+
+        <echo>---- Start docbase update at ${update.start} ----</echo>
+    </target>
+
+    <!-- Log update finish time -->
+    <target name="end" depends="update">
+
+        <tstamp>
+            <format property="update.finish" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+        </tstamp>
+
+        <echo>---- Docbase update started at ${update.start} was finished at ${update.finish} ----</echo>
+
+    </target>
+	
+	<target name="update" depends="start">
+	</target>
+	
+
+    <!-- Makes update -->
+    <target name="update1" depends="start">
+
+		<!-- Check that logs folder exist, if not it will be created -->
+		<checkDeploymentPrerequisites/>
+
+		<!-- Specifying docbase connection options -->
+        <dmDocbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}" buildQualifier="TEST-WORKFLOW-1">
+
+			<!-- Creating test folders structure -->
+			<dmBuild number="1.0" comment="Creating test folders structure">
+				<!-- Check if '/TEST-WORKFLOW-1' cabinet already exists-->
+				<dmDqlExist property="exists">
+					select r_object_id from dm_cabinet where object_name='TEST-WORKFLOW-1'
+				</dmDqlExist>
+
+				<!-- Create '/TEST-WORKFLOW-1' cabinet if it doesn't exist -->
+				<generalIf arg1="${exists}" condition="!=" arg2="true">
+					<!-- Cabinet creation -->
+					<dmDql>
+						create dm_cabinet object
+						set object_name='TEST-WORKFLOW-1'
+					</dmDql>
+
+					<!-- Granting WRITE permissions for the created cabinet -->
+					<dmSetPermit objectId="select r_object_id from dm_cabinet where object_name='TEST-WORKFLOW-1'">
+						<user name="dm_world" permit="WRITE"/>
+					</dmSetPermit>
+				</generalIf>
+
+				<!-- Check if '/TEST-WORKFLOW-1/APPROVED' folder already exists-->
+				<dmDqlExist property="exists">
+					select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/APPROVED'
+				</dmDqlExist>
+
+				<!-- Create '/TEST-WORKFLOW-1/APPROVED' folder if it doesn't exist -->
+				<generalIf arg1="${exists}" condition="!=" arg2="true">
+					<!-- Folder creation -->
+					<dmDql>
+						create dm_folder object
+						set object_name='APPROVED'
+						move to '/TEST-WORKFLOW-1'
+					</dmDql>
+
+					<!-- Granting WRITE permissions for the created folder -->
+					<dmSetPermit objectId="select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/APPROVED'">
+						<user name="dm_world" permit="WRITE"/>
+					</dmSetPermit>
+				</generalIf>
+
+				<!-- Check if '/TEST-WORKFLOW-1/COORDINATED' folder already exists-->
+				<dmDqlExist property="exists">
+					select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/COORDINATED'
+				</dmDqlExist>
+
+				<!-- Create '/TEST-WORKFLOW-1/COORDINATED' folder if it doesn't exist -->
+				<generalIf arg1="${exists}" condition="!=" arg2="true">
+					<!-- Folder creation -->
+					<dmDql>
+						create dm_folder object
+						set object_name='COORDINATED'
+						move to '/TEST-WORKFLOW-1'
+					</dmDql>
+
+					<!-- Granting WRITE permissions for the created folder -->
+					<dmSetPermit objectId="select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/COORDINATED'">
+						<user name="dm_world" permit="WRITE"/>
+					</dmSetPermit>
+				</generalIf>
+
+				<!-- Check if '/TEST-WORKFLOW-1/REDESIGNED' folder already exists-->
+				<dmDqlExist property="exists">
+					select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/REDESIGNED'
+				</dmDqlExist>
+
+				<!-- Create '/TEST-WORKFLOW-1/REDESIGNED' folder if it doesn't exist -->
+				<generalIf arg1="${exists}" condition="!=" arg2="true">
+					<!-- Folder creation -->
+					<dmDql>
+						create dm_folder object
+						set object_name='REDESIGNED'
+						move to '/TEST-WORKFLOW-1'
+					</dmDql>
+
+					<!-- Granting WRITE permissions for the created folder -->
+					<dmSetPermit objectId="select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/REDESIGNED'">
+						<user name="dm_world" permit="WRITE"/>
+					</dmSetPermit>
+				</generalIf>
+
+				<!-- Check if '/TEST-WORKFLOW-1/NEW' folder already exists-->
+				<dmDqlExist property="exists">
+					select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/NEW'
+				</dmDqlExist>
+
+				<!-- Create '/TEST-WORKFLOW-1/NEW' folder if it doesn't exist -->
+				<generalIf arg1="${exists}" condition="!=" arg2="true">
+					<!-- Folder creation -->
+					<dmDql>
+						create dm_folder object
+						set object_name='NEW'
+						move to '/TEST-WORKFLOW-1'
+					</dmDql>
+
+					<!-- Granting WRITE permissions for the created folder -->
+					<dmSetPermit objectId="select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/NEW'">
+						<user name="dm_world" permit="WRITE"/>
+					</dmSetPermit>
+				</generalIf>
+
+			</dmBuild>
+
+			<!-- Creating test user accounts -->
+			<dmBuild number="1.1" comment="Creating test user accounts">
+				<ant antfile="../test-scripts/test-users-creation/test-users-creation.xml" useNativeBasedir="true"/>
+			</dmBuild>
+
+			<!-- Installing workflow template -->
+			<dmBuild number="1.2" comment="Workflow installation">
+				<dmInstallDar darFile="dar/test-workflow-1.dar"/>
+			</dmBuild>
+
+			<!-- Granting rights to workflow template -->
+			<dmBuild number="1.3" comment="Granting rights to workflow template">
+				<dmSetPermit objectId="select r_object_id from dm_process where object_name='test-workflow-1'">
+					<user name="dm_world" permit="RELATE" xpermit="EXECUTE_PROC,CHANGE_LOCATION"/>
+				</dmSetPermit>
+			</dmBuild>
+
+		</dmDocbaseBatch>
+
+    </target>
+
+</project>

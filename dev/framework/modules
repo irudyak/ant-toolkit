@@ -1,0 +1,33 @@
+# Using this file, you can specify what modules should be included in the framework
+# during its packaging.
+# -----------------------------------------------------------------------------------------
+# You just should specify each module name per line. Empty lines are ignored and # symbol
+# at the beginning of the line is used like a comment.
+# -----------------------------------------------------------------------------------------
+# Deleting this file, means that all existing modules will be included in the framework package.
+# -----------------------------------------------------------------------------------------
+
+######### Native ########
+
+general
+documentum
+sql
+svn
+hadoop
+pig
+jasperreports
+hbase
+zookeeper
+mongodb
+maestro
+ldap
+aws
+aws-ec2
+
+###### Third party ######
+
+jsch
+expectit
+xmltask
+ant-contrib
+missing-link

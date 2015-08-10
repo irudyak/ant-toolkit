@@ -1,0 +1,23 @@
+<project name="Profiles test" default="test1" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test1">
+		<generalAttachProfile>
+			<resource name="my.properties"/>
+		</generalAttachProfile>
+
+		<echo>aaa=${aaa}</echo>
+		<echo>bbb=${bbb}</echo>
+	</target>
+
+	<target name="test2">
+		<generalAttachProfile>
+			<resource name="com/aaa/my-new.properties"/>
+		</generalAttachProfile>
+
+		<echo>aaa1=${aaa1}</echo>
+		<echo>bbb1=${bbb1}</echo>
+	</target>
+
+</project>

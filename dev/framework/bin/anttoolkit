@@ -1,0 +1,83 @@
+#!/bin/sh
+
+# Initializing environment
+. $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/init $@
+
+# Print header
+echo "---------------------------------------------------------"
+echo "-----------    AntToolkit framework    ------------------"
+echo "---------------------------------------------------------"
+
+# Print profile info
+if [ "$ANTTOOLKIT_PROFILE" != "" ]; then
+	echo "Profile:     | $ANTTOOLKIT_PROFILE"
+	echo "---------------------------------------------------------"
+	echo "Profile dir: | $ANTTOOLKIT_PROFILES_DIR/$ANTTOOLKIT_PROFILE"
+	echo "---------------------------------------------------------"
+fi
+
+# Print logging info
+if [ "$ANTTOOLKIT_LOG_FILE" != "" ]; then
+	echo "Log file:    | $ANTTOOLKIT_LOG_FILE"
+	echo "---------------------------------------------------------"
+fi
+
+# Saving previous version of CLASSPATH and ANT_OPTS values
+OLD_CLASSPATH=$CLASSPATH
+OLD_ANT_OPTS=$ANT_OPTS
+
+# Initializing classpath
+if [ "$ANTTOOLKIT_CLASSPATH" == "" ]; then
+	export CLASSPATH="$ANT_HOME/lib/ant.jar:$CLASSPATH"
+else
+	export CLASSPATH="$ANT_HOME/lib/ant.jar:$ANTTOOLKIT_CLASSPATH:$CLASSPATH"
+fi
+
+export ANT_OPTS
+
+result=0
+
+# Executing Apache Ant without specifying log file
+if [ "$ANTTOOLKIT_LOG_FILE" == "" ]; then
+	echo "ant -logger $ANTTOOLKIT_LOGGER $ANTTOOLKIT_NORMALIZED_ARGS"
+	echo "---------------------------------------------------------"
+	echo
+	ant -logger "$ANTTOOLKIT_LOGGER" $ANTTOOLKIT_NORMALIZED_ARGS
+	result=$?
+else
+	# Executing Apache Ant specifying log file
+	if [ "$ANTTOOLKIT_LOGS_DIR" == "" ]; then
+		echo "ant -logger $ANTTOOLKIT_LOGGER -logfile \"$ANTTOOLKIT_LOG_FILE\" $ANTTOOLKIT_NORMALIZED_ARGS"
+		echo "---------------------------------------------------------"
+		echo
+		ant -logger "$ANTTOOLKIT_LOGGER" -logfile "$ANTTOOLKIT_LOG_FILE" $ANTTOOLKIT_NORMALIZED_ARGS
+		result=$?
+	# Executing Apache Ant specifying log file and LOGS_DIR parameter
+	else
+		echo "ant -logger $ANTTOOLKIT_LOGGER -logfile \"$ANTTOOLKIT_LOG_FILE\" \"-DLOGS_DIR=$ANTTOOLKIT_LOGS_DIR\" $ANTTOOLKIT_NORMALIZED_ARGS"
+		echo "---------------------------------------------------------"
+		echo
+		ant -logger "$ANTTOOLKIT_LOGGER" -logfile "$ANTTOOLKIT_LOG_FILE" "-DLOGS_DIR=$ANTTOOLKIT_LOGS_DIR" $ANTTOOLKIT_NORMALIZED_ARGS
+		result=$?
+	fi
+fi
+
+# Restoring previous version of CLASSPATH and ANT_OPTS
+export CLASSPATH=$OLD_CLASSPATH
+export ANT_OPTS=$OLD_ANT_OPTS
+
+# Report error
+if [ $result -ne 0 ]; then
+	echo "-----------------------------------------------------"
+	echo "---------  !!! EXECUTION FAILED !!!  ----------------"
+	echo "-----------------------------------------------------"
+	echo
+
+	exit $result
+fi
+
+# Report success
+echo "----------------------------------------------"
+echo "---------  EXECUTION SUCCEED  ----------------"
+echo "----------------------------------------------"
+echo

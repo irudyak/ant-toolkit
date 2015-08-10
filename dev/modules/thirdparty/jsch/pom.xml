@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<relativePath>../../../pom.xml</relativePath>
+		<groupId>anttoolkit</groupId>
+		<artifactId>anttoolkit-root</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<name>jsch</name>
+	<description>Jsch third party module, providing tasks to work with SSH</description>
+	<url>http://www.jcraft.com/jsch/</url>
+	<artifactId>anttoolkit-jsch</artifactId>
+	<version>0.1.45</version>
+
+	<properties>
+		<module.taskdef>com/anttoolkit/jsch/antlib.xml</module.taskdef>
+	</properties>
+
+	<dependencies>
+		<!-- Jsch -->
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>package-module</id>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

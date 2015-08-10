@@ -1,0 +1,12 @@
+update dm_sysobject object
+set object_name='xxx'
+where r_object_id='123'
+go
+update dm_sysobject object
+set object_name='yyy'
+where r_object_id='234'
+go
+update dm_sysobject object
+set object_name='zzz'
+where r_object_id='567'
+

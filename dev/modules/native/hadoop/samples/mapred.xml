@@ -1,0 +1,157 @@
+<project name="MapReduce test" default="test9" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test1">
+
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<mapredRunJar hadoopConfig="saturn"
+					  jar="../../../../../lib/hadoop-mapred/hadoop-mapreduce-examples-2.2.0.jar"
+					  args="wordcount /user/IGOR/in /user/IGOR/out"/>
+
+	</target>
+
+	<target name="test2">
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<mapredCreateJob hadoopConfig="saturn" reference="job" jobName="HELLO-WORLD-1" jobFile="job-file.xml"/>
+		<mapredSubmitJob hadoopConfig="saturn" refid="job" jobIdProperty="jobId"/>
+
+		<echo>Job started: ${jobId}</echo>
+
+	</target>
+
+	<target name="test21">
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<mapredCreateJob hadoopConfig="saturn" reference="job" jobName="Word Count">
+			<jobJarByClass>org.apache.hadoop.examples.WordCount</jobJarByClass>
+			<property name="mapreduce.job.map.class" value="org.apache.hadoop.examples.WordCount$TokenizerMapper"/>
+			<property name="mapreduce.job.combine.class" value="org.apache.hadoop.examples.WordCount$IntSumReducer"/>
+			<property name="mapreduce.job.reduce.class" value="org.apache.hadoop.examples.WordCount$IntSumReducer"/>
+			<property name="mapreduce.job.output.key.class" value="org.apache.hadoop.io.Text"/>
+			<property name="mapreduce.job.output.value.class" value="org.apache.hadoop.io.IntWritable"/>
+			<property name="mapreduce.input.fileinputformat.inputdir" value="/user/IGOR/in"/>
+			<property name="mapreduce.output.fileoutputformat.outputdir" value="/user/IGOR/out"/>
+		</mapredCreateJob>
+
+		<mapredSubmitJob hadoopConfig="saturn" refid="job" jobIdProperty="jobId"/>
+
+		<echo>Job started: ${jobId}</echo>
+	</target>
+
+
+	<target name="test3">
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<mapredJobState hadoopConfig="saturn" jobId="job_1392259121195_0001" property="state"/>
+
+		<echo>Job state=${state}</echo>
+	</target>
+
+	<target name="test4" depends="test2">
+		<hadoopConfig id="saturn" hadoopUser="hadoop">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<mapredKillJob hadoopConfig="saturn" jobId="${jobId}"/>
+	</target>
+
+	<target name="test5" depends="test2">
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<mapredWaitJobToComplete hadoopConfig="saturn" jobId="${jobId}" stateProperty="state"/>
+
+		<echo>Job state=${state}</echo>
+	</target>
+
+	<target name="test6" depends="test2">
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<sleep seconds="8"/>
+
+		<mapredGetJobEvents hadoopConfig="saturn" jobId="${jobId}"/>
+	</target>
+
+	<target name="test7" depends="test2">
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<sleep seconds="5"/>
+
+		<mapredSetJobPriority hadoopConfig="saturn" jobId="${jobId}" priority="HIGH"/>
+	</target>
+
+	<target name="test8">
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<mapredJobListLoop hadoopConfig="saturn" jobStatusRef="status" stateFilter="FAILED|KILLED">
+			<generalProperty name="jobID" refid="status" refMethod="getJobID"/>
+			<generalProperty name="userName" refid="status" refMethod="getUsername"/>
+			<generalProperty name="priority" refid="status" refMethod="getPriority"/>
+			<generalProperty name="state" refid="status" refMethod="getState"/>
+			<generalProperty name="startTime" refid="status" refMethod="getStartTime" timeFormat="MM/dd/yyyy hh:mm:ss aaa"/>
+
+			<echo>${jobID}  ${startTime}  ${state}  ${priority}  ${userName}</echo>
+		</mapredJobListLoop>
+	</target>
+
+	<target name="test9">
+		<hadoopConfig id="saturn" hadoopUser="IGOR">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<mapredDistCp hadoopConfig="saturn"
+					  jobName="custom-distcp"
+					  src="hdfs://saturn:8020/user/IGOR/test"
+					  dest="hdfs://saturn:8020/user/IGOR/test-backup"/>
+
+	</target>
+
+</project>

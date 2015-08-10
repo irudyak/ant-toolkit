@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="docbase_update" default="test2" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+		<generalValidateBuildFile file="${ant.file.docbase_update}" xPath="/project/target[@name='update']/dmDocbaseBatch/generalBuild"/>
+	</target>
+
+	<target name="test1">
+		<dmBuildVersionProvider/>
+
+		<dmDocbaseBatch docbase="archive" login="dmadmin" password="ZSE$zse4">
+
+			<generalBuild number="1.0">
+				<echo>version - 1.0</echo>
+			</generalBuild>
+
+			<generalBuild number="1.1">
+				<echo>version - 1.1</echo>
+			</generalBuild>
+
+			<generalBuild number="1.2">
+				<echo>version - 1.2</echo>
+			</generalBuild>
+
+		</dmDocbaseBatch>
+	</target>
+
+	<target name="test2">
+		<dmBuildVersionProvider>
+			<property name="build.qualifier" value="AAA"/>
+			<property name="docbase.name" value="archive"/>
+			<property name="docbase.user" value="dmadmin"/>
+			<property name="docbase.password" value="ZSE$zse4"/>
+		</dmBuildVersionProvider>
+
+
+		<generalBuild number="1.0">
+			<echo>version - 1.0</echo>
+		</generalBuild>
+
+		<generalBuild number="1.1">
+			<echo>version - 1.1</echo>
+		</generalBuild>
+
+		<generalBuild number="1.2">
+			<echo>version - 1.2</echo>
+		</generalBuild>
+
+	</target>
+
+</project>

@@ -1,0 +1,72 @@
+<project name="Test svn" default="create-unmerged-changes-report" basedir="">
+
+	<property file="svnTargets.properties"/>
+
+	<taskdef file="${svn.anttoolkit.taskdef}" />
+	<taskdef file="${general.anttoolkit.taskdef}" />
+
+	<target name="create-report">
+
+		<svnLogReport logFile="${basedir}/svnBranchLog.xml"
+		              reportFile="${basedir}/svnBranchLog.html"
+		              xsltStyle="${basedir}/../../../defenitions/svnReport.xsl"/>
+
+	</target>
+
+	<target name="create-unmerged-changes-report">
+		<delete dir="${basedir}/user-reports" quiet="true"/>
+		<delete file="${basedir}/summaryReport.html" quiet="true"/>
+		<mkdir dir="${basedir}/user-reports"/>
+
+		<generalInitMap name="userMailsMap" file="user-mails.txt"/>
+
+		<svnUnmergedChangesReport trunkLogFile="${basedir}/svnTrunkLog.xml"
+								  branchLogFile="${basedir}/svnBranchLog.xml"
+								  trunkRoot="/Test/AAA"
+								  branchRoot="/Test/branch/AAA-1"
+								  summaryReport="${basedir}/summaryReport.html"
+								  userReportsDir="${basedir}/user-reports"
+								  summaryReportXsltStyle="${basedir}/../../../defenitions/svnUnmergedSummaryReport.xsl"
+								  userReportXsltStyle="${basedir}/../../../defenitions/svnUnmergedUserReport.xsl"
+								  usersArray="unmergedUsers"
+								  usersCountProperty="unmergedUsersCount"/>
+
+		<condition property="hasUnmergedChanges" value="true" else="false">
+			<not>
+				<equals arg1="${unmergedUsersCount}" arg2="0" />
+			</not>
+		</condition>
+
+		<generalPropertyCondition property="hasUnmergedChanges" equals="false">
+			<echo>There are no unmerged changes</echo>
+		</generalPropertyCondition>
+
+		<generalPropertyCondition property="hasUnmergedChanges" equals="true">
+			<antcall target="send-notification-about-unmerged-changes"/>
+		</generalPropertyCondition>
+
+	</target>
+
+	<target name="send-notification-about-unmerged-changes">
+		<echo>There are ${unmergedUsersCount} users which have unmerged changes:</echo>
+
+		<generalArrayLoop array="unmergedUsers" elementProperty="userName" indexProperty="index">
+			<generalAddToInteger property="index" argument="1"/>
+
+			<echo>[${index}] User ${userName} has unmerged changes</echo>
+
+			<generalCheckMapContainsKey map="userMailsMap" key="${userName}" property="hasMail"/>
+
+			<generalPropertyCondition property="hasMail" equals="true">
+				<generalGetMapElement map="userMailsMap" key="${userName}" property="userEmail"/>
+				<echo>[${index}] Sending unmerged report file ${basedir}/user-reports/${userName}.html to ${userEmail}</echo>
+			</generalPropertyCondition>
+
+			<generalPropertyCondition property="hasMail" equals="false">
+				<echo>[${index}] There are no e-mail specified for user ${userName} to send him unmerged report</echo>
+			</generalPropertyCondition>
+		</generalArrayLoop>
+
+	</target>
+
+</project>

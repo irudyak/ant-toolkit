@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".">
+
+	<!-- Reading all users info into array -->
+	<generalInitArray name="users" file="../../test-users.txt"
+					  separator="\n" trimValues="true"
+					  removeEmptyValues="true" sizeProperty="usersCount"/>
+
+	<!-- Check that array is not empty -->
+	<fail message="There are no users specified in test-users.txt file">
+		<condition>
+			<equals arg1="${usersCount}" arg2=""/>
+		</condition>
+	</fail>
+
+	<!-- Creating map which will store login/password for test users-->
+	<generalInitMap name="credentials"/>
+
+	<!-- Iterating through users array-->
+	<generalArrayLoop array="users" elementProperty="value">
+		<!--
+		Creating new temporary array based on raw line from file.
+		This array will hold parsed user details (login, user_name, password and etc...) -->
+		<generalInitArray name="userDetails" values="${value}"
+						  separator=";" trimValues="true"
+						  sizeProperty="count"/>
+
+		<!-- Additional check -->
+		<fail message="Incorrect format of test-users.txt file">
+			<condition>
+				<not>
+					<equals arg1="${count}" arg2="10"/>
+				</not>
+			</condition>
+		</fail>
+
+		<!-- Extracting login and password from array -->
+		<generalGetArrayElement array="userDetails" index="0" property="login"/>
+		<generalGetArrayElement array="userDetails" index="8" property="password"/>
+
+		<!-- Add login/password pair to credentials map -->
+		<generalPutMapElement map="credentials" key="${login}" value="${password}"/>
+	</generalArrayLoop>
+
+<!-- ******* Test case for APPROVE route ******* -->
+
+	<macrodef name="runApproveRouteTest">
+		<attribute name="template" default="test-workflow-1"/>
+		<sequential>
+
+			<!-- Defining local scope to prevent modification of outer scope properties -->
+			<generalScope>
+
+<!-- [STEP-1] Getting test start time -->
+
+				<generalTimeStamp>
+					<format property="startTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+				</generalTimeStamp>
+
+				<echo>Start testing APPROVE route</echo>
+
+<!-- [STEP-2] Getting random users login/password from credentials map -->
+
+				<!-- This user will be used to create new document, start workflow and perform REVIEW activity -->
+				<generalGetRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
+
+				<!-- This user will be used to perform APPROVE activity -->
+				<generalGetRandomMapElement map="credentials" keyProperty="approverLogin" valueProperty="approverPassword"/>
+
+				<echo>User selected to act as reviewer: ${reviewerLogin}</echo>
+				<echo>User selected to act as approver: ${approverLogin}</echo>
+
+				<!-- Starting reviewer docbase session -->
+				<dmDocbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
+
+<!-- [STEP-3] Document creation -->
+					<echo>Creating new document...</echo>
+
+					<dmDocbaseObject type="dm_document" newObjectIdProperty="documentId">
+						<property name="object_name" value="[@{template}] APPROVE ROUTE ${startTime}"/>
+					</dmDocbaseObject>
+
+					<echo>Document ${documentId} was created</echo>
+
+<!-- [STEP-4] Starting new workflow instance -->
+					<echo>Starting new workflow instance...</echo>
+
+					<!-- Starting new workflow based on specified template -->
+					<dmStartWorkflow template="@{template}" workflowName="[@{template}] APPROVE ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
+						<!-- Specifying what packages and documents should be added to workflow -->
+						<package name="document" objectId="${documentId}"/>
+						<!-- Specifying performer for REVIEW activity -->
+						<activity name="REVIEW" performer="${reviewerLogin}" />
+					</dmStartWorkflow>
+
+					<echo>Workflow ${workflowId} was started</echo>
+
+<!-- [STEP-5] Waiting until workitem associated with REVIEW activity appears in reviewer inbox, or
+			throwing exception if 5min timeout expires -->
+
+					<echo>Waiting for REVIEW workitem to appear in reviewer inbox...</echo>
+
+					<dmWaitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
+
+					<echo>REVIEW workitem ${workitemId} appeared in reviewer inbox</echo>
+
+<!-- [STEP-6] Completing REVIEW workitem to proceed to APPROVE activity -->
+
+					<echo>Completing REVIEW workitem...</echo>
+
+					<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
+					<dmUpdateWorkflow workflowId="${workflowId}">
+						<!-- Specifying performer for APPROVE activity -->
+						<activity name="APPROVE" performer="${approverLogin}" />
+
+						<!-- Setting workflow variable so that it will proceed to APPROVE activity -->
+						<variable name="route" value="APPROVE"/>
+
+						<!-- Specifying that we want to complete REVIEW activity -->
+						<completeWorkitem activity="REVIEW"/>
+					</dmUpdateWorkflow>
+
+					<echo>REVIEW workitem was completed</echo>
+
+<!-- [STEP-7] Now we need to connect with approver account and wait until
+			workitem associated with APPROVE activity appears in approver inbox -->
+
+					<!-- Starting approver docbase session -->
+					<dmDocbaseBatch docbase="${docbase.name}" login="${approverLogin}" password="${approverPassword}">
+
+						<echo>Waiting for APPROVE workitem to appear in approver inbox...</echo>
+
+						<dmWaitForWorkitem workflowId="${workflowId}" activity="APPROVE" workitemIdProperty="workitemId" waitTime="3m"/>
+
+						<echo>APPROVE workitem ${workitemId} appeared in approver inbox</echo>
+
+<!-- [STEP-8] Completing APPROVE workitem to finish the workflow -->
+
+						<echo>Completing APPROVE workitem...</echo>
+
+						<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
+						<dmUpdateWorkflow workflowId="${workflowId}">
+							<!-- Specifying that we want to complete APPROVE activity -->
+							<completeWorkitem activity="APPROVE"/>
+						</dmUpdateWorkflow>
+
+						<echo>APPROVE workitem was completed</echo>
+
+					</dmDocbaseBatch>
+
+<!-- [STEP-9] Waiting for the workflow to complete. As far as reviewer is also the workflow supervisor,
+			we will use its docbase session to wait for workflow completion  -->
+
+					<echo>Waiting for workflow completion...</echo>
+
+					<dmWaitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
+
+					<echo>Workflow completed</echo>
+
+				</dmDocbaseBatch>
+
+			</generalScope>
+
+		</sequential>
+	</macrodef>
+
+<!-- ******* Test case for COORDINATE route ******* -->
+
+	<macrodef name="runCoordinateRouteTest">
+		<attribute name="template" default="test-workflow-1"/>
+		<sequential>
+			<!-- Defining local scope to prevent modification of outer scope properties -->
+			<generalScope>
+
+<!-- [STEP-1] Getting test start time -->
+
+				<generalTimeStamp>
+					<format property="startTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+				</generalTimeStamp>
+
+				<echo>Start testing COORDINATE route</echo>
+
+<!-- [STEP-2] Getting random users login/password from credentials map -->
+
+				<!-- This user will be used to create new document, start workflow and perform REVIEW activity -->
+				<generalGetRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
+
+				<!-- This user will be used to perform COORDINATE activity -->
+				<generalGetRandomMapElement map="credentials" keyProperty="coordinatorLogin" valueProperty="coordinatorPassword"/>
+
+				<echo>User selected to act as reviewer: ${reviewerLogin}</echo>
+				<echo>User selected to act as coordinator: ${coordinatorLogin}</echo>
+
+				<!-- Starting reviewer docbase session -->
+				<dmDocbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
+
+<!-- [STEP-3] Document creation -->
+					<echo>Creating new document...</echo>
+
+					<dmDocbaseObject type="dm_document" newObjectIdProperty="documentId">
+						<property name="object_name" value="[@{template}] COORDINATE ROUTE ${startTime}"/>
+					</dmDocbaseObject>
+
+					<echo>Document ${documentId} was created</echo>
+
+<!-- [STEP-4] Starting new workflow instance -->
+					<echo>Starting new workflow instance...</echo>
+
+					<!-- Starting new workflow based on specified template -->
+					<dmStartWorkflow template="@{template}" workflowName="[@{template}] COORDINATE ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
+						<!-- Specifying what packages and documents should be added to workflow -->
+						<package name="document" objectId="${documentId}"/>
+						<!-- Specifying performer for REVIEW activity -->
+						<activity name="REVIEW" performer="${reviewerLogin}" />
+					</dmStartWorkflow>
+
+					<echo>Workflow ${workflowId} was started</echo>
+
+<!-- [STEP-5] Waiting until workitem associated with REVIEW activity appears in reviewer inbox, or
+			throwing exception if 5min timeout expires -->
+
+					<echo>Waiting for REVIEW workitem to appear in reviewer inbox...</echo>
+
+					<dmWaitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
+
+					<echo>REVIEW workitem ${workitemId} appeared in reviewer inbox</echo>
+
+<!-- [STEP-6] Completing REVIEW workitem to proceed to COORDINATE activity -->
+
+					<echo>Completing REVIEW workitem...</echo>
+
+					<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
+					<dmUpdateWorkflow workflowId="${workflowId}">
+						<!-- Specifying performer for COORDINATE activity -->
+						<activity name="COORDINATE" performer="${coordinatorLogin}" />
+
+						<!-- Setting workflow variable so that it will proceed to COORDINATE activity -->
+						<variable name="route" value="COORDINATE"/>
+
+						<!-- Specifying that we want to complete REVIEW activity -->
+						<completeWorkitem activity="REVIEW"/>
+					</dmUpdateWorkflow>
+
+					<echo>REVIEW workitem was completed</echo>
+
+<!-- [STEP-7] Now we need to connect with coordinator account and wait until
+			workitem associated with COORDINATE activity appears in coordinator inbox -->
+
+					<!-- Starting coordinator docbase session -->
+					<dmDocbaseBatch docbase="${docbase.name}" login="${coordinatorLogin}" password="${coordinatorPassword}">
+
+						<echo>Waiting for COORDINATE workitem to appear in coordinator inbox...</echo>
+
+						<dmWaitForWorkitem workflowId="${workflowId}" activity="COORDINATE" workitemIdProperty="workitemId" waitTime="3m"/>
+
+						<echo>COORDINATE workitem ${workitemId} appeared in coordinator inbox</echo>
+
+<!-- [STEP-8] Completing APPROVE workitem to finish the workflow -->
+
+						<echo>Completing COORDINATE workitem...</echo>
+
+						<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
+						<dmUpdateWorkflow workflowId="${workflowId}">
+							<!-- Specifying that we want to complete COORDINATE activity -->
+							<completeWorkitem activity="COORDINATE"/>
+						</dmUpdateWorkflow>
+
+						<echo>COORDINATE workitem was completed</echo>
+
+					</dmDocbaseBatch>
+
+<!-- [STEP-9] Waiting for the workflow to complete. As far as reviewer is also the workflow supervisor,
+			we will use its docbase session to wait for workflow completion  -->
+
+					<echo>Waiting for workflow completion...</echo>
+
+					<dmWaitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
+
+					<echo>Workflow completed</echo>
+
+				</dmDocbaseBatch>
+
+			</generalScope>
+
+		</sequential>
+	</macrodef>
+
+<!-- ******* Test case for REDESIGN route ******* -->
+
+	<macrodef name="runRedesignRouteTest">
+		<attribute name="template" default="test-workflow-1"/>
+		<sequential>
+
+			<!-- Defining local scope to prevent modification of outer scope properties -->
+			<generalScope>
+
+<!-- [STEP-1] Getting test start time -->
+
+				<generalTimeStamp>
+					<format property="startTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+				</generalTimeStamp>
+
+				<echo>Start testing REDESIGN route</echo>
+
+<!-- [STEP-2] Getting random users login/password from credentials map -->
+
+				<!-- This user will be used to create new document, start workflow and perform REVIEW activity -->
+				<generalGetRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
+
+				<!-- This user will be used to perform REDESIGN activity -->
+				<generalGetRandomMapElement map="credentials" keyProperty="redesignerLogin" valueProperty="redesignerPassword"/>
+
+				<echo>User selected to act as reviewer: ${reviewerLogin}</echo>
+				<echo>User selected to act as redesigner: ${redesignerLogin}</echo>
+
+				<!-- Starting reviewer docbase session -->
+				<dmDocbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
+
+<!-- [STEP-3] Document creation -->
+					<echo>Creating new document...</echo>
+
+					<dmDocbaseObject type="dm_document" newObjectIdProperty="documentId">
+						<property name="object_name" value="[@{template}] REDESIGN ROUTE ${startTime}"/>
+					</dmDocbaseObject>
+
+					<echo>Document ${documentId} was created</echo>
+
+<!-- [STEP-4] Starting new workflow instance -->
+					<echo>Starting new workflow instance...</echo>
+
+					<!-- Starting new workflow based on specified template -->
+					<dmStartWorkflow template="@{template}" workflowName="[@{template}] REDESIGN ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
+						<!-- Specifying what packages and documents should be added to workflow -->
+						<package name="document" objectId="${documentId}"/>
+						<!-- Specifying performer for REVIEW activity -->
+						<activity name="REVIEW" performer="${reviewerLogin}" />
+					</dmStartWorkflow>
+
+					<echo>Workflow ${workflowId} was started</echo>
+
+<!-- [STEP-5] Waiting until workitem associated with REVIEW activity appears in reviewer inbox, or
+			throwing exception if 5min timeout expires -->
+
+					<echo>Waiting for REVIEW workitem to appear in reviewer inbox...</echo>
+
+					<dmWaitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
+
+					<echo>REVIEW workitem ${workitemId} appeared in reviewer inbox</echo>
+
+<!-- [STEP-6] Completing REVIEW workitem to proceed to REDESIGN activity -->
+
+					<echo>Completing REVIEW workitem...</echo>
+
+					<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
+					<dmUpdateWorkflow workflowId="${workflowId}">
+						<!-- Specifying performer for REDESIGN activity -->
+						<activity name="REDESIGN" performer="${redesignerLogin}" />
+
+						<!-- Setting workflow variable so that it will proceed to REDESIGN activity -->
+						<variable name="route" value="REDESIGN"/>
+
+						<!-- Specifying that we want to complete REVIEW activity -->
+						<completeWorkitem activity="REVIEW"/>
+					</dmUpdateWorkflow>
+
+					<echo>REVIEW workitem was completed</echo>
+
+<!-- [STEP-7] Now we need to connect with redesigner account and wait until
+			workitem associated with REDESIGN activity appears in redesigner inbox -->
+
+					<!-- Starting approver docbase session -->
+					<dmDocbaseBatch docbase="${docbase.name}" login="${redesignerLogin}" password="${redesignerPassword}">
+
+						<echo>Waiting for REDESIGN workitem to appear in redesigner inbox...</echo>
+
+						<dmWaitForWorkitem workflowId="${workflowId}" activity="REDESIGN" workitemIdProperty="workitemId" waitTime="3m"/>
+
+						<echo>REDESIGN workitem ${workitemId} appeared in redesigner inbox</echo>
+
+<!-- [STEP-8] Completing REDESIGN workitem to finish the workflow -->
+
+						<echo>Completing REDESIGN workitem...</echo>
+
+						<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
+						<dmUpdateWorkflow workflowId="${workflowId}">
+							<!-- Specifying that we want to complete REDESIGN activity -->
+							<completeWorkitem activity="REDESIGN"/>
+						</dmUpdateWorkflow>
+
+						<echo>REDESIGN workitem was completed</echo>
+
+					</dmDocbaseBatch>
+
+<!-- [STEP-9] Waiting for the workflow to complete. As far as reviewer is also the workflow supervisor,
+			we will use its docbase session to wait for workflow completion  -->
+
+					<echo>Waiting for workflow completion...</echo>
+
+					<dmWaitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
+
+					<echo>Workflow completed</echo>
+
+				</dmDocbaseBatch>
+
+			</generalScope>
+
+		</sequential>
+	</macrodef>
+
+</project>

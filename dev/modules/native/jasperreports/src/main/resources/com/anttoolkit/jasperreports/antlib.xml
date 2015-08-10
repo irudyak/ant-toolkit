@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<antlib>
+	<!-- Tasks -->
+	<taskdef name="jasperDataSource" classname="com.anttoolkit.jasperreports.tasks.DataSourceTask"/>
+	<taskdef name="jasperAddToDataSource" classname="com.anttoolkit.jasperreports.tasks.AddToDataSourceTask"/>
+	<taskdef name="jasperReport" classname="com.anttoolkit.jasperreports.tasks.ReportTask"/>
+	<taskdef name="jasperCompile" classname="com.anttoolkit.jasperreports.tasks.CompileReportTask"/>
+
+</antlib>

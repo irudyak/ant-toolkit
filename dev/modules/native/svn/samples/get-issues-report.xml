@@ -1,0 +1,13 @@
+<project name="issues report" default="report" basedir="">
+
+	<import file="../ant-toolkit-taskdefs.xml"/>
+
+	<target name="report">
+
+		<delete file="issues.csv"/>
+
+		<svnIssueReport logFile="svn-log.xml" reportFile="issues.csv" issueRegExp="CCRTKDOCUPG-[0-9]+"/>
+
+	</target>
+
+</project>

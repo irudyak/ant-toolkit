@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<relativePath>../../../pom.xml</relativePath>
+		<groupId>anttoolkit</groupId>
+		<artifactId>anttoolkit-root</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<name>aws</name>
+	<description>AWS module, providing core Ant tasks and classes to work with Amazon Web Services</description>
+	<url>https://aws.amazon.com</url>
+	<artifactId>anttoolkit-aws</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<properties>
+		<module.taskdef>com/anttoolkit/aws/antlib.xml</module.taskdef>
+	</properties>
+
+	<dependencies>
+		<!-- General module -->
+		<dependency>
+			<groupId>anttoolkit</groupId>
+			<artifactId>anttoolkit-general</artifactId>
+		</dependency>
+
+		<!-- Apache commons -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+
+		<!-- Apache HTTP components -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+
+		<!-- Jackson for JSON -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<!-- Joda Time -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
+
+		<!-- Amazon Web Services -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-core</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>package-module</id>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

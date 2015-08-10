@@ -1,0 +1,264 @@
+<project name="Maestro test" default="test2" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<maestroConfig id="maestro"
+				   userId="xxx" token="yyy"/>
+
+	<target name="test1">
+		<maestroInstanceReport maestroConfig="maestro"
+							   project="EPM-ATL"
+							   region="EPAM-BUD"
+							   year="2014"
+							   month="12"
+							   day="4"
+							   instance="EVHUBUDSD240C"
+							   property="cost"/>
+
+		<echo>Instance cost : ${cost}</echo>
+	</target>
+
+	<target name="test2">
+
+		<maestroInstancesLoop maestroConfig="maestro" project="EPM-ATL" region="EPAM-HU1" xmlItemReference="item">
+			<maestroXmlItemAttribute reference="item" attribute="instanceID" property="instanceID"/>
+			<maestroXmlItemAttribute reference="item" attribute="dnsName" property="dnsName"/>
+			<maestroXmlItemAttribute reference="item" attribute="privateIP" property="privateIP"/>
+			<maestroXmlItemAttribute reference="item" attribute="state" property="state"/>
+			<maestroXmlItemAttribute reference="item" attribute="cpu" property="cpu"/>
+			<maestroXmlItemAttribute reference="item" attribute="memory" property="memory"/>
+			<maestroXmlItemAttribute reference="item" attribute="guestOS" property="guestOS"/>
+			<maestroXmlItemAttribute reference="item" attribute="owner" property="owner"/>
+			<maestroXmlItemAttribute reference="item" attribute="image" property="image"/>
+			<maestroXmlItemAttribute reference="item" attribute="shape" property="shape"/>
+			<maestroXmlItemAttribute reference="item" attribute="vlan" property="vlan"/>
+			<maestroXmlItemAttribute reference="item" attribute="schedules" property="schedules"/>
+			<maestroXmlItemAttribute reference="item" attribute="autoConfigurationState" property="autoConfigurationState"/>
+			<maestroXmlItemAttribute reference="item" attribute="sshKeySet" property="sshKeySet"/>
+			<maestroXmlItemAttribute reference="item" attribute="lastAutoConfigurationDate" property="lastAutoConfigurationDate"/>
+			<maestroXmlItemAttribute reference="item" attribute="chefServer" property="chefServer"/>
+			<maestroXmlItemAttribute reference="item" attribute="keyName" property="keyName"/>
+			<maestroXmlItemAttribute reference="item" attribute="properties" property="properties"/>
+
+			<echo>${instanceID}, ${dnsName}, ${privateIP}, ${state}, ${cpu}, ${memory}, ${guestOS}, ${owner}, ${image}, ${shape}, ${vlan}, ${schedules}, ${autoConfigurationState}, ${sshKeySet}, ${lastAutoConfigurationDate}, ${chefServer}, ${keyName}, ${properties}</echo>
+		</maestroInstancesLoop>
+
+		<!-- Getting info just for only one instance -->
+		<maestroInstanceInfo instance="EVHUBUDSD21B5" maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD" xmlItemReference="item"/>
+		<maestroXmlItemAttribute reference="item" attribute="instanceID" property="instanceID"/>
+		<maestroXmlItemAttribute reference="item" attribute="dnsName" property="dnsName"/>
+		<maestroXmlItemAttribute reference="item" attribute="privateIP" property="privateIP"/>
+		<maestroXmlItemAttribute reference="item" attribute="state" property="state"/>
+		<maestroXmlItemAttribute reference="item" attribute="cpu" property="cpu"/>
+		<maestroXmlItemAttribute reference="item" attribute="memory" property="memory"/>
+		<maestroXmlItemAttribute reference="item" attribute="guestOS" property="guestOS"/>
+		<maestroXmlItemAttribute reference="item" attribute="owner" property="owner"/>
+		<maestroXmlItemAttribute reference="item" attribute="image" property="image"/>
+		<maestroXmlItemAttribute reference="item" attribute="shape" property="shape"/>
+		<maestroXmlItemAttribute reference="item" attribute="vlan" property="vlan"/>
+		<maestroXmlItemAttribute reference="item" attribute="schedules" property="schedules"/>
+		<maestroXmlItemAttribute reference="item" attribute="autoConfigurationState" property="autoConfigurationState"/>
+		<maestroXmlItemAttribute reference="item" attribute="sshKeySet" property="sshKeySet"/>
+		<maestroXmlItemAttribute reference="item" attribute="lastAutoConfigurationDate" property="lastAutoConfigurationDate"/>
+		<maestroXmlItemAttribute reference="item" attribute="chefServer" property="chefServer"/>
+		<maestroXmlItemAttribute reference="item" attribute="keyName" property="keyName"/>
+		<maestroXmlItemAttribute reference="item" attribute="properties" property="properties"/>
+		<echo>${instanceID}, ${dnsName}, ${privateIP}, ${state}, ${cpu}, ${memory}, ${guestOS}, ${owner}, ${image}, ${shape}, ${vlan}, ${schedules}, ${autoConfigurationState}, ${sshKeySet}, ${lastAutoConfigurationDate}, ${chefServer}, ${keyName}, ${properties}</echo>
+	</target>
+
+	<target name="test3">
+		<maestroSubtotalReport maestroConfig="maestro"
+							   project="EPM-ATL"
+							   region="EPAM-HU1"
+							   year="2015"
+							   month="1"
+							   currencyProperty="currency"
+							   baseCostProperty="baseCost"
+							   initCostProperty="initCost"
+							   cpuCostProperty="cpuCost"
+							   memoryCostProperty="memoryCost"
+							   activeCheckpointCostProperty="activeCheckpointCost"
+							   passiveCheckpointCostProperty="passiveCheckpointCost"
+							   imageCostProperty="imageCost"
+							   activeVolumeCostProperty="activeVolumeCost"
+							   passiveVolumeCostProperty="passiveVolumeCost"
+							   totalCostProperty="totalCost"/>
+
+		<echo>Base cost: ${baseCost} ${currency}</echo>
+		<echo>CPU cost: ${cpuCost} ${currency}</echo>
+		<echo>RAM cost: ${memoryCost} ${currency}</echo>
+		<echo>Initialization cost: ${initCost} ${currency}</echo>
+		<echo>Image cost: ${imageCost} ${currency}</echo>
+		<echo>Active checkpoint cost: ${activeCheckpointCost} ${currency}</echo>
+		<echo>Passive checkpoint cost: ${passiveCheckpointCost} ${currency}</echo>
+		<echo>Active volume cost: ${activeVolumeCost} ${currency}</echo>
+		<echo>Passive volume cost: ${passiveVolumeCost} ${currency}</echo>
+		<echo>TOTAL: ${totalCost} ${currency}</echo>
+	</target>
+
+	<target name="test4">
+		<maestroVolumesLoop maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD" xmlItemReference="item">
+			<maestroXmlItemAttribute reference="item" attribute="id" property="id"/>
+			<maestroXmlItemAttribute reference="item" attribute="system" property="system"/>
+			<maestroXmlItemAttribute reference="item" attribute="size_MB" property="size_MB"/>
+			<maestroXmlItemAttribute reference="item" attribute="usedSpace_MB" property="usedSpace_MB"/>
+			<maestroXmlItemAttribute reference="item" attribute="state" property="state"/>
+			<maestroXmlItemAttribute reference="item" attribute="used" property="used"/>
+			<maestroXmlItemAttribute reference="item" attribute="instanceID" property="instanceID"/>
+
+			<echo>${id}, ${system}, ${size_MB}, ${usedSpace_MB}, ${state}, ${used}, ${instanceID}</echo>
+		</maestroVolumesLoop>
+	</target>
+
+	<target name="test5">
+		<maestroSchedulesLoop maestroConfig="maestro" project="PERSONAL" region="EPAM-MSQ" xmlItemReference="item">
+			<maestroXmlItemAttribute reference="item" attribute="name" property="name"/>
+			<maestroXmlItemAttribute reference="item" attribute="cron" property="cron"/>
+			<maestroXmlItemAttribute reference="item" attribute="action" property="action"/>
+
+			<echo>${name}, ${cron}, ${action}</echo>
+		</maestroSchedulesLoop>
+	</target>
+
+	<target name="test6">
+		<maestroCheckpointLoop maestroConfig="maestro" project="PERSONAL" region="EPAM-MSQ" xmlItemReference="item">
+			<maestroXmlItemAttribute reference="item" attribute="id" property="id"/>
+			<maestroXmlItemAttribute reference="item" attribute="instanceID" property="instanceID"/>
+			<maestroXmlItemAttribute reference="item" attribute="size_MB" property="size_MB"/>
+			<maestroXmlItemAttribute reference="item" attribute="description" property="description"/>
+			<maestroXmlItemAttribute reference="item" attribute="current" property="current"/>
+
+			<echo>${id}, ${instanceID}, ${size_MB}, ${description}, ${current}</echo>
+		</maestroCheckpointLoop>
+	</target>
+
+	<target name="test7">
+		<generalInitMap name="ips"/>
+
+		<maestroStartInstance maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  instance="EVHUBUDSD21B5,EVHUBUDSD21CE"
+							  ipsMap="ips"
+							  wait="600000"/>
+
+		<generalMapLoop map="ips" keyProperty="key" valueProperty="value">
+			<echo>${key} / ${value}</echo>
+		</generalMapLoop>
+
+	</target>
+
+	<target name="test8">
+		<maestroStopInstance maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  instance="EVHUBUDSD21B5,EVHUBUDSD21CE"/>
+	</target>
+
+	<target name="test9">
+		<maestroSuspendInstance maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  instance="EVHUBUDSD21B5,EVHUBUDSD21CE"/>
+	</target>
+
+	<target name="test10">
+		<maestroRebootInstance maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  instance="EVHUBUDSD21B5,EVHUBUDSD21CE"/>
+	</target>
+
+	<target name="test11">
+		<maestroTerminateInstance maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  instance="EVHUBUDSD21B5,EVHUBUDSD21CE"/>
+	</target>
+
+	<target name="test12">
+		<generalInitMap name="ips"/>
+
+		<maestroRunInstance maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  image="CentOS6-template"
+							  shape="SMALL"
+							  count="2"
+							  ipsMap="ips"/>
+
+		<generalMapLoop map="ips" keyProperty="key" valueProperty="value">
+			<echo>${key} / ${value}</echo>
+		</generalMapLoop>
+
+	</target>
+
+	<target name="test13">
+		<generalInitMap name="props"/>
+
+		<maestroGetProperties maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD">
+			<instance id="EVHUBUDSD21B7" propertiesMap="props"/>
+		</maestroGetProperties>
+
+		<generalMapLoop map="props" keyProperty="key" valueProperty="value">
+			<echo>${key}=${value}</echo>
+		</generalMapLoop>
+	</target>
+
+	<target name="test14">
+		<maestroSetProperties maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  instance="EVHUBUDSD21B7">
+			<property name="xxx" value="000"/>
+			<property name="yyy" value="111"/>
+		</maestroSetProperties>
+	</target>
+
+	<target name="test15">
+		<maestroDeleteProperties maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  instance="EVHUBUDSD21B7"
+							  properties="xxx,yyy"/>
+	</target>
+
+	<target name="test16">
+		<maestroCreateVolume maestroConfig="maestro"
+							  project="EPM-ATL"
+							  region="EPAM-BUD"
+							  instance="EVHUBUDSD21B5"
+							  size="1"/>
+	</target>
+
+	<target name="test17">
+		<maestroVolumeInfo volume="vol-41bc2f2d" maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD" xmlItemReference="item"/>
+		<maestroXmlItemAttribute reference="item" attribute="system" property="system"/>
+		<maestroXmlItemAttribute reference="item" attribute="size_MB" property="size_MB"/>
+		<maestroXmlItemAttribute reference="item" attribute="usedSpace_MB" property="usedSpace_MB"/>
+		<maestroXmlItemAttribute reference="item" attribute="state" property="state"/>
+		<maestroXmlItemAttribute reference="item" attribute="used" property="used"/>
+		<maestroXmlItemAttribute reference="item" attribute="instanceID" property="instanceID"/>
+		<echo>${system}, ${size_MB}, ${usedSpace_MB}, ${state}, ${used}, ${instanceID}</echo>
+	</target>
+
+	<target name="test18">
+		<maestroDetachVolume volume="vol-41bc2f2d" maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD"/>
+	</target>
+
+	<target name="test19">
+		<maestroAttachVolume volume="vol-41bc2f2d" instance="EVHUBUDSD21B5" maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD"/>
+	</target>
+
+	<target name="test20">
+		<maestroReattachVolume volume="vol-41bc2f2d" instance="EVHUBUDSD21CE" maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD"/>
+	</target>
+
+	<target name="test21">
+		<maestroResizeVolume volume="vol-41bc2f2d" size="2" maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD"/>
+	</target>
+
+	<target name="test22">
+		<maestroDeleteVolume volume="vol-41bc2f2d" maestroConfig="maestro" project="EPM-ATL" region="EPAM-BUD"/>
+	</target>
+</project>

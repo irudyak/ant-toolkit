@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<antlib>
+<!-- Array related tasks -->
+	<taskdef name="generalInitArray" classname="com.anttoolkit.general.tasks.collections.array.InitArrayTask" />
+	<taskdef name="generalSerializeArray" classname="com.anttoolkit.general.tasks.collections.array.SerializeArrayTask" />
+	<taskdef name="generalGetArraySize" classname="com.anttoolkit.general.tasks.collections.array.GetArraySizeTask" />
+	<taskdef name="generalClearArray" classname="com.anttoolkit.general.tasks.collections.array.ClearArrayTask" />
+	<taskdef name="generalDestroyArray" classname="com.anttoolkit.general.tasks.collections.array.DestroyArrayTask" />
+	<taskdef name="generalGetArrayElement" classname="com.anttoolkit.general.tasks.collections.array.GetArrayElementTask" />
+	<taskdef name="generalAddArrayElement" classname="com.anttoolkit.general.tasks.collections.array.AddArrayElementTask" />
+	<taskdef name="generalRemoveArrayElement" classname="com.anttoolkit.general.tasks.collections.array.RemoveArrayElementTask" />
+	<taskdef name="generalSetArrayElement" classname="com.anttoolkit.general.tasks.collections.array.SetArrayElementTask" />
+	<taskdef name="generalSortArray" classname="com.anttoolkit.general.tasks.collections.array.SortArrayTask" />
+	<taskdef name="generalArrayLoop" classname="com.anttoolkit.general.tasks.collections.array.ArrayLoopTask" />
+	<taskdef name="generalCheckArrayContainsValue" classname="com.anttoolkit.general.tasks.collections.array.CheckArrayContainsValueTask" />
+	<taskdef name="generalCheckArrayExists" classname="com.anttoolkit.general.tasks.collections.array.CheckArrayExistsTask" />
+	<taskdef name="generalGetRandomArrayElement" classname="com.anttoolkit.general.tasks.collections.array.GetRandomArrayElementTask" />
+	<taskdef name="generalCopyArray" classname="com.anttoolkit.general.tasks.collections.array.CopyArrayTask" />
+
+<!-- Map related tasks -->
+	<taskdef name="generalInitMap" classname="com.anttoolkit.general.tasks.collections.map.InitMapTask" />
+	<taskdef name="generalSerializeMap" classname="com.anttoolkit.general.tasks.collections.map.SerializeMapTask" />
+	<taskdef name="generalGetMapSize" classname="com.anttoolkit.general.tasks.collections.map.GetMapSizeTask" />
+	<taskdef name="generalClearMap" classname="com.anttoolkit.general.tasks.collections.map.ClearMapTask" />
+	<taskdef name="generalDestroyMap" classname="com.anttoolkit.general.tasks.collections.map.DestroyMapTask" />
+	<taskdef name="generalGetMapElement" classname="com.anttoolkit.general.tasks.collections.map.GetMapElementTask" />
+	<taskdef name="generalPutMapElement" classname="com.anttoolkit.general.tasks.collections.map.PutMapElementTask" />
+	<taskdef name="generalRemoveMapElement" classname="com.anttoolkit.general.tasks.collections.map.RemoveMapElementTask" />
+	<taskdef name="generalGetRandomMapElement" classname="com.anttoolkit.general.tasks.collections.map.GetRandomMapElementTask" />
+	<taskdef name="generalCheckMapContainsKey" classname="com.anttoolkit.general.tasks.collections.map.CheckMapContainsKeyTask" />
+	<taskdef name="generalCheckMapExists" classname="com.anttoolkit.general.tasks.collections.map.CheckMapExistsTask" />
+	<taskdef name="generalMapLoop" classname="com.anttoolkit.general.tasks.collections.map.MapLoopTask" />
+	<taskdef name="generalCopyMap" classname="com.anttoolkit.general.tasks.collections.map.CopyMapTask" />
+
+<!-- Queue related tasks -->
+	<taskdef name="generalInitQueue" classname="com.anttoolkit.general.tasks.collections.queue.InitQueueTask" />
+	<taskdef name="generalSerializeQueue" classname="com.anttoolkit.general.tasks.collections.queue.SerializeQueueTask" />
+	<taskdef name="generalGetQueueSize" classname="com.anttoolkit.general.tasks.collections.queue.GetQueueSizeTask" />
+	<taskdef name="generalClearQueue" classname="com.anttoolkit.general.tasks.collections.queue.ClearQueueTask" />
+	<taskdef name="generalDestroyQueue" classname="com.anttoolkit.general.tasks.collections.queue.DestroyQueueTask" />
+	<taskdef name="generalExtractFromQueue" classname="com.anttoolkit.general.tasks.collections.queue.ExtractFromQueueTask" />
+	<taskdef name="generalAddToQueue" classname="com.anttoolkit.general.tasks.collections.queue.AddToQueueTask" />
+	<taskdef name="generalCopyQueue" classname="com.anttoolkit.general.tasks.collections.queue.CopyQueueTask" />
+	<taskdef name="generalCheckQueueExists" classname="com.anttoolkit.general.tasks.collections.queue.CheckQueueExistsTask" />
+	<taskdef name="generalProcessQueue" classname="com.anttoolkit.general.tasks.collections.queue.ProcessQueueTask" />
+
+<!-- Thread related tasks -->
+	<taskdef name="generalStartThread" classname="com.anttoolkit.general.tasks.concurrent.ThreadTask" />
+	<taskdef name="generalWaitThread" classname="com.anttoolkit.general.tasks.concurrent.WaitThreadTask" />
+	<taskdef name="generalCreateCyclicBarrier" classname="com.anttoolkit.general.tasks.concurrent.CreateCyclicBarrierTask" />
+	<taskdef name="generalGetThreadInfo" classname="com.anttoolkit.general.tasks.concurrent.GetThreadInfoTask" />
+	<taskdef name="generalWaitCyclicBarrier" classname="com.anttoolkit.general.tasks.concurrent.WaitCyclicBarrierTask" />
+	<taskdef name="generalSynchronizationSection" classname="com.anttoolkit.general.tasks.concurrent.SynchronizationSectionTask" />
+	<taskdef name="generalGetThreadAssociatedValue" classname="com.anttoolkit.general.tasks.concurrent.GetThreadAssociatedValueTask"/>
+
+<!-- Math tasks -->
+	<taskdef name="generalDivide" classname="com.anttoolkit.general.tasks.math.DivideTask" />
+	<taskdef name="generalMultiply" classname="com.anttoolkit.general.tasks.math.MultiplyTask" />
+	<taskdef name="generalRemainder" classname="com.anttoolkit.general.tasks.math.RemainderTask" />
+	<taskdef name="generalSubstract" classname="com.anttoolkit.general.tasks.math.SubstractTask" />
+	<taskdef name="generalAdd" classname="com.anttoolkit.general.tasks.math.AddTask" />
+	<taskdef name="generalGenerateRandomInteger" classname="com.anttoolkit.general.tasks.math.GenerateRandomIntegerTask" />
+	<taskdef name="generalCastToInteger" classname="com.anttoolkit.general.tasks.math.CastToIntegerTask" />
+	<taskdef name="generalGetUniqueNumber" classname="com.anttoolkit.general.tasks.math.GetUniqueNumberTask" />
+
+<!-- File related tasks -->
+	<taskdef name="generalFileLinesLoop" classname="com.anttoolkit.general.tasks.file.FileLinesLoopTask" />
+	<taskdef name="generalDirectoryFilesLoop" classname="com.anttoolkit.general.tasks.file.DirectoryFilesLoopTask" />
+	<taskdef name="generalGetDirectoryFiles" classname="com.anttoolkit.general.tasks.file.GetDirectoryFilesTask" />
+	<taskdef name="generalSetFileReadOnlyAttr" classname="com.anttoolkit.general.tasks.file.FileReadOnlyAttributeTask"/>
+	<taskdef name="generalGetFileFullPath" classname="com.anttoolkit.general.tasks.file.GetFileFullPathTask"/>
+	<taskdef name="generalGetFileSize" classname="com.anttoolkit.general.tasks.file.GetFileSizeTask"/>
+	<taskdef name="generalGetFileShortName" classname="com.anttoolkit.general.tasks.file.GetFileShortNameTask"/>
+
+<!-- Property related tasks -->
+	<taskdef name="generalProperty" classname="com.anttoolkit.general.tasks.props.PropertyTask" />
+	<taskdef name="generalSubstituteProp" classname="com.anttoolkit.general.tasks.props.SubstitutePropertiesTask"/>
+
+<!-- Reference related tasks -->
+	<taskdef name="generalDropReference" classname="com.anttoolkit.general.tasks.refs.DropReferenceTask" />
+	<taskdef name="generalCheckReferenceIsNull" classname="com.anttoolkit.general.tasks.refs.CheckReferenceIsNullTask" />
+	<taskdef name="generalGetReferences" classname="com.anttoolkit.general.tasks.refs.GetReferencesTask" />
+
+<!-- Tasks to manipulate with strings -->
+	<taskdef name="generalMessageFormat" classname="com.anttoolkit.general.tasks.strings.MessageFormatTask" />
+	<taskdef name="generalReplaceTextSubstring" classname="com.anttoolkit.general.tasks.strings.ReplaceTextSubstringTask" />
+	<taskdef name="generalIsEmptyString" classname="com.anttoolkit.general.tasks.strings.IsEmptyStringTask" />
+	<taskdef name="generalStartsFrom" classname="com.anttoolkit.general.tasks.strings.StartsFromTask" />
+	<taskdef name="generalEndsWith" classname="com.anttoolkit.general.tasks.strings.EndsWithTask" />
+	<taskdef name="generalToLowerCase" classname="com.anttoolkit.general.tasks.strings.ToLowercaseTask"/>
+	<taskdef name="generalToUpperCase" classname="com.anttoolkit.general.tasks.strings.ToUppercaseTask"/>
+	<taskdef name="generalGetStringLength" classname="com.anttoolkit.general.tasks.strings.GetStringLengthTask"/>
+	<taskdef name="generalStringTokensLoop" classname="com.anttoolkit.general.tasks.strings.StringTokensLoopTask"/>
+	<taskdef name="generalGetStringToken" classname="com.anttoolkit.general.tasks.strings.GetStringTokenTask"/>
+	<taskdef name="generalGetSubstring" classname="com.anttoolkit.general.tasks.strings.GetSubstringTask"/>
+
+<!-- Time related tasks -->
+	<taskdef name="generalTimeDifference" classname="com.anttoolkit.general.tasks.time.TimeDifferenceTask" />
+	<taskdef name="generalTimeStamp" classname="com.anttoolkit.general.tasks.time.TimeStampTask" />
+	<taskdef name="generalAddTime" classname="com.anttoolkit.general.tasks.time.AddTimeTask" />
+
+<!-- Loop related tasks -->
+	<taskdef name="generalForLoop" classname="com.anttoolkit.general.tasks.loops.ForLoopTask" />
+	<taskdef name="generalWhileLoop" classname="com.anttoolkit.general.tasks.loops.WhileLoopTask" />
+
+<!-- Exception handling tasks -->
+	<taskdef name="generalGetExceptionStackTrace" classname="com.anttoolkit.general.tasks.exception.GetExceptionStackTraceTask" />
+	<taskdef name="generalPrintExceptionStackTrace" classname="com.anttoolkit.general.tasks.exception.PrintExceptionStackTraceTask" />
+
+<!-- Orchestration tasks -->
+	<taskdef name="generalOrchestration" classname="com.anttoolkit.general.tasks.orchestration.OrchestrationTask"/>
+	<taskdef name="generalWorkStep" classname="com.anttoolkit.general.tasks.orchestration.WorkStepTask"/>
+
+<!-- Class loading -->
+	<taskdef name="generalThreadClassLoader" classname="com.anttoolkit.general.tasks.classload.SetThreadClassLoaderTask" />
+
+<!-- Reflection related tasks -->
+	<taskdef name="generalCreateObject" classname="com.anttoolkit.general.tasks.reflection.CreateObjectTask" />
+	<taskdef name="generalCreateObjectArray" classname="com.anttoolkit.general.tasks.reflection.CreateObjectArrayTask" />
+	<taskdef name="generalGetObjectArrayElement" classname="com.anttoolkit.general.tasks.reflection.GetObjectArrayElementTask" />
+	<taskdef name="generalSetObjectArrayElement" classname="com.anttoolkit.general.tasks.reflection.SetObjectArrayElementTask" />
+	<taskdef name="generalGetObjectArrayLength" classname="com.anttoolkit.general.tasks.reflection.GetObjectArrayLengthTask" />
+	<taskdef name="generalObjectsArrayLoop" classname="com.anttoolkit.general.tasks.reflection.ObjectsArrayLoopTask" />
+	<taskdef name="generalExecuteClassMethod" classname="com.anttoolkit.general.tasks.reflection.ExecuteClassMethodTask" />
+	<taskdef name="generalExecuteObjectMethod" classname="com.anttoolkit.general.tasks.reflection.ExecuteObjectMethodTask" />
+
+<!-- Path manipulation tasks -->
+	<taskdef name="generalGetPathFiles" classname="com.anttoolkit.general.tasks.path.GetPathFilesTask" />
+	<taskdef name="generalPathFilesLoop" classname="com.anttoolkit.general.tasks.path.PathFilesLoopTask" />
+
+<!-- Checksum tasks -->
+	<taskdef name="generalGenerateChecksum" classname="com.anttoolkit.general.tasks.checksum.GenerateChecksumTask"/>
+	<taskdef name="generalVerifyChecksum" classname="com.anttoolkit.general.tasks.checksum.VerifyChecksumTask"/>
+
+<!-- Build related tasks -->
+	<taskdef name="generalBuild" classname="com.anttoolkit.general.tasks.build.BuildTask" />
+	<taskdef name="generalBuildQualifier" classname="com.anttoolkit.general.tasks.build.BuildQualifierTask" />
+	<taskdef name="generalValidateBuildFile" classname="com.anttoolkit.general.tasks.build.ValidateBuildFileTask" />
+	<taskdef name="generalBuildVersionProvider" classname="com.anttoolkit.general.tasks.build.BuildVersionProviderTask" />
+	<taskdef name="generalCsvBuildVersionProvider" classname="com.anttoolkit.general.tasks.build.CsvVersionProviderTask" />
+
+<!-- Scope related tasks -->
+	<taskdef name="generalScope" classname="com.anttoolkit.general.tasks.scope.ScopeTask" />
+
+<!-- Profile related tasks -->
+	<taskdef name="generalAttachProfile" classname="com.anttoolkit.general.tasks.profile.AttachProfileTask" />
+
+<!-- Other tasks -->
+	<taskdef name="generalIf" classname="com.anttoolkit.general.tasks.IfTask" />
+	<taskdef name="generalCondition" classname="com.anttoolkit.general.tasks.ConditionTask" />
+	<taskdef name="generalCallTarget" classname="com.anttoolkit.general.tasks.CallTargetTask" />
+	<taskdef name="generalRunMacros" classname="com.anttoolkit.general.tasks.RunMacrosTask" />
+	<taskdef name="generalSystemInfo" classname="com.anttoolkit.general.tasks.SystemInfoTask" />
+
+<!-- Conditions -->
+	<typedef name="less" classname="com.anttoolkit.general.conditions.Less"/>
+	<typedef name="more" classname="com.anttoolkit.general.conditions.More"/>
+	<typedef name="lessorequal" classname="com.anttoolkit.general.conditions.LessOrEqual"/>
+	<typedef name="moreorequal" classname="com.anttoolkit.general.conditions.MoreOrEqual"/>
+	<typedef name="empty" classname="com.anttoolkit.general.conditions.Empty"/>
+
+<!-- MACRODEFS -->
+    <macrodef name="generalScopePropertyHandler">
+   		<sequential>
+           <componentdef name="compoundEvaluator" classname="com.anttoolkit.general.props.ScopePropertyHandler"/>
+           <propertyhelper>
+               <compoundEvaluator/>
+           </propertyhelper>
+   		</sequential>
+   	</macrodef>
+
+</antlib>

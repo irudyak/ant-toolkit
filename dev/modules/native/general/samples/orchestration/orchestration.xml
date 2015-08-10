@@ -1,0 +1,64 @@
+<project name="Orchestration test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<import file="macrodefs.xml"/>
+
+	<target name="test">
+
+		<generalOrchestration name="AAA"
+							  configFile="orchestration-config.txt"
+							  progressLog="progress.log"
+							  statusLogs="status.log, status2.log"
+							  threadsLogFolder=".">
+
+			<generalWorkStep name="BBB">
+				<echo>HELLO 1</echo>
+				<emulateFailure />
+			</generalWorkStep>
+
+			<generalWorkStep name="CCC">
+				<echo>HELLO 2</echo>
+				<emulateFailure />
+			</generalWorkStep>
+
+			<generalWorkStep name="DDD" threadGroup="DDD">
+				<echo>HELLO 3</echo>
+				<emulateFailure />
+			</generalWorkStep>
+
+			<generalWorkStep name="EEE" threadGroup="MMM">
+				<echo>HELLO 4</echo>
+				<sleep seconds="5"/>
+				<emulateFailure />
+			</generalWorkStep>
+
+		</generalOrchestration>
+
+	</target>
+
+	<target name="AAA1">
+		<echo>HELLO WORLD 1</echo>
+		<sleep seconds="4"/>
+		<emulateFailure />
+	</target>
+
+	<target name="AAA2">
+		<echo>HELLO WORLD 2</echo>
+		<sleep seconds="4"/>
+		<emulateFailure />
+	</target>
+
+	<target name="AAA3">
+		<echo>HELLO WORLD 3</echo>
+		<sleep seconds="6"/>
+		<emulateFailure />
+	</target>
+
+	<target name="AAA4">
+		<echo>HELLO WORLD 4</echo>
+		<sleep seconds="1"/>
+		<emulateFailure />
+	</target>
+
+</project>

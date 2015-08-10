@@ -1,0 +1,35 @@
+<project name="MapReduce test" default="test2" basedir="">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test2">
+		<hadoopConfig id="saturn" hadoopUser="hadoop">
+			<pathelement location="D:/TEMP/hadoop-new-1-client/hdfs-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/mapred-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/yarn-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-new-1-client/core-site.xml"/>
+		</hadoopConfig>
+
+		<yarnApplicationsListLoop hadoopConfig="saturn" appReportRef="report">
+
+			<generalProperty name="appId" refid="report" refMethod="getApplicationId"/>
+			<generalProperty name="appUser" refid="report" refMethod="getUser"/>
+			<generalProperty name="appName" refid="report" refMethod="getName"/>
+			<generalProperty name="startTime" refid="report" refMethod="getStartTime" timeFormat="MM/dd/yyyy hh:mm:ss"/>
+			<generalProperty name="finishTime" refid="report" refMethod="getFinishTime" timeFormat="MM/dd/yyyy hh:mm:ss"/>
+			<generalProperty name="appType" refid="report" refMethod="getApplicationType"/>
+			<generalProperty name="queue" refid="report" refMethod="getQueue"/>
+			<generalProperty name="appState" refid="report" refMethod="getYarnApplicationState"/>
+			<generalProperty name="appStatus" refid="report" refMethod="getFinalApplicationStatus"/>
+			<generalProperty name="appProgress" refid="report" refMethod="getProgress"/>
+			<generalProperty name="appTrackingUrl" refid="report" refMethod="getTrackingUrl"/>
+
+			<generalMultiply arg1="${appProgress}" arg2="100" property="appProgress"/>
+			<generalCastToInteger value="${appProgress}" property="appProgress"/>
+
+			<echo>${appId},${appUser},${appName},${startTime},${finishTime},${appType},${queue},${appState},${appStatus},${appProgress},${appTrackingUrl}</echo>
+		</yarnApplicationsListLoop>
+
+	</target>
+
+</project>

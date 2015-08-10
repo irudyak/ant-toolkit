@@ -1,0 +1,27 @@
+<project name="Classloader test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+
+		<path id="AAA">
+	        <pathelement location="D:/Distr/BigData/hadoop 2.2.0/hadoop-2.2.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.2.0.jar"/>
+			<pathelement location="D:/TEMP/hadoop-old/core-site.xml"/>
+			<pathelement location="D:/TEMP/hadoop-old"/>
+			<pathelement path="D:/TEMP;D:/downloads"/>
+			<fileset dir="D:/Distr/BigData/hadoop 2.2.0/hadoop-2.2.0/share/hadoop/hdfs/lib">
+				<include name="**/*.jar"/>
+			</fileset>
+			<dirset dir="D:/Distr/BigData/hadoop 2.2.0/hadoop-2.2.0/share/hadoop">
+				<include name="com*/**"/>
+				<exclude name="h*"/>
+			</dirset>
+		</path>
+
+		<generalThreadClassLoader classpathRef="AAA">
+			<echo>HELLO WORLD</echo>
+		</generalThreadClassLoader>
+
+	</target>
+
+</project>

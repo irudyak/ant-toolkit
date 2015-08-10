@@ -1,0 +1,40 @@
+<project default="package">
+
+	<taskdef resource="com/anttoolkit/general/antlib.xml"/>
+
+	<import>
+		<javaresource name="com/anttoolkit/system/tools/packaging/macrodefs.xml"/>
+	</import>
+
+	<target name="prerequisites">
+		<fail message="Framework basedir should be specified">
+			<condition>
+				<not>
+					<isset property="frameworkBasedir"/>
+				</not>
+			</condition>
+		</fail>
+
+		<fail message="Modules root dirs should be specified">
+			<condition>
+				<not>
+					<isset property="modulesRootDirs"/>
+				</not>
+			</condition>
+		</fail>
+
+		<echo></echo>
+		<echo>-------------------------------------------------------------------------------------</echo>
+		<echo>Packaging 'anttoolkit' into: ${frameworkBasedir}/target/package/anttoolkit-${frameworkVersion}</echo>
+		<echo>Creating zip archive: ${frameworkBasedir}/target/anttoolkit-${frameworkVersion}.zip</echo>
+		<echo>Using modules roots: ${modulesRootDirs}</echo>
+		<echo>-------------------------------------------------------------------------------------</echo>
+		<echo></echo>
+
+	</target>
+
+	<target name="package" depends="prerequisites">
+		<packageFramework frameworkVersion="${frameworkVersion}" frameworkBasedir="${frameworkBasedir}" modulesRootDirs="${modulesRootDirs}"/>
+	</target>
+
+</project>

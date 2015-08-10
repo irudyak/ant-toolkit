@@ -1,0 +1,9 @@
+common {0} svn://irudyak/Test/common
+common_1 {0} svn://irudyak/Test/common_1
+common_2 {0} svn://irudyak/Test/common_2
+;
+common {0} svn://irudyak/Test/common
+;
+common {0} svn://irudyak/Test/common_1
+;
+common_2 {0} svn://irudyak/Test/common_2

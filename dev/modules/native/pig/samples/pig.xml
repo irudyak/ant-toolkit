@@ -1,0 +1,91 @@
+<project name="Pig test" default="test3" basedir="">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<property name="pigX" value="111"/>
+	<property name="pigY" value="222"/>
+	<property name="pigZ" value="333"/>
+
+	<propertyset id="PIG-PARAMS">
+		<propertyref prefix="pig"/>
+	</propertyset>
+
+	<target name="test1">
+		<hadoopConfig id="saturn" hadoopUser="pig">
+			<pathelement location="D:/TEMP/hadoop-new-1-client"/>
+		</hadoopConfig>
+
+		<generalInitArray name="pigJobs"/>
+
+		<pigScript hadoopConfig="saturn" params="PIG-PARAMS" hadoopJobsArray="pigJobs">
+			A = LOAD '/user/pig/passwords.txt' USING PigStorage(':')
+				AS (login:chararray, password:chararray, userid:int,
+					groupid:int, display_name:chararray,
+					home_dir:chararray, shell:chararray);
+
+			B = GROUP A BY SIZE($0);
+			C = GROUP A BY SIZE($2);
+
+			STORE B INTO '/user/pig/result-B' USING PigStorage(':');
+			STORE C INTO '/user/pig/result-C' USING PigStorage(':');
+		</pigScript>
+
+		<echo>Pig script related Hadoop jobs:</echo>
+
+		<generalArrayLoop array="pigJobs" elementProperty="jobName">
+			<echo>${jobName}</echo>
+		</generalArrayLoop>
+
+	</target>
+
+	<target name="test2">
+		<hadoopConfig id="saturn" hadoopUser="pig">
+			<pathelement location="D:/TEMP/hadoop-new-1-client"/>
+		</hadoopConfig>
+
+		<property name="pigScript">
+			A = LOAD '/user/pig/sample1.txt' USING PigStorage(',') AS (first:int, second:int, third:int, start_time:datetime);
+			B = GROUP A BY first;
+		</property>
+
+		<pigRelationTuplesLoop hadoopConfig="saturn" relation="B" script="${pigScript}">
+			<pigGetTupleFieldValue fieldNumber="0" property="group"/>
+
+			<echo></echo>
+			<echo>GROUP ${group} tuples:</echo>
+
+			<pigBagTuplesLoop fieldNumber="1">
+				<pigGetTupleFieldValue fieldNumber="0" property="first"/>
+				<pigGetTupleFieldValue fieldNumber="1" property="second"/>
+				<pigGetTupleFieldValue fieldNumber="2" property="third"/>
+				<pigGetTupleFieldValue fieldNumber="3" property="start_time" dateFormat="MM/dd/yyyy hh:mm:ss aaa"/>
+
+				<echo>${first}, ${second}, ${third}, ${start_time}</echo>
+			</pigBagTuplesLoop>
+		</pigRelationTuplesLoop>
+
+	</target>
+
+	<target name="test3">
+		<hadoopConfig id="saturn" hadoopUser="pig">
+			<pathelement location="D:/TEMP/hadoop-new-1-client"/>
+		</hadoopConfig>
+
+		<property name="pigScript">
+			A = LOAD '/user/pig/sample2.txt' AS (map[chararray]);
+		</property>
+
+		<pigRelationTuplesLoop hadoopConfig="saturn" relation="A" script="${pigScript}">
+			<pigGetTupleFieldType fieldNumber="0" property="type"/>
+			<generalIf arg1="${type}" arg2="MAP" condition="=">
+				<echo></echo>
+				<echo>Printing MAP content</echo>
+				<pigMapLoop fieldNumber="0" keyProperty="key" valueProperty="value">
+					<echo>${key}->${value}</echo>
+				</pigMapLoop>
+			</generalIf>
+		</pigRelationTuplesLoop>
+
+	</target>
+
+</project>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="docbase-update" basedir="." default="end">
+
+    <!-- Profile resolution -->
+    <import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+    <!-- Validate current docbase-update.xml script, so that it has valid structure of dmBuild containers -->
+    <target name="validate">
+        <dmBuildFileValidator file="${ant.file.docbase-update}" xPath="/project/target[@name='update']/dmDocbaseBatch/dmBuild"/>
+    </target>
+
+    <!-- Log update start time -->
+    <target name="start" depends="validate">
+
+        <tstamp>
+            <format property="update.start" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+        </tstamp>
+
+        <echo>---- Start docbase update at ${update.start} ----</echo>
+    </target>
+
+    <!-- Log update finish time -->
+    <target name="end" depends="update">
+
+        <tstamp>
+            <format property="update.finish" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+        </tstamp>
+
+        <echo>---- Docbase update started at ${update.start} was finished at ${update.finish} ----</echo>
+
+    </target>
+	
+    <!-- Makes update -->
+    <target name="update" depends="start">
+
+		<!-- Specifying docbase connection options -->
+        <dmDocbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}">
+
+			<!-- Test -->
+			<dmBuild number="1.0" comment="Test">
+				<echo>Hello world</echo>
+			</dmBuild>
+
+		</dmDocbaseBatch>
+
+    </target>
+
+</project>

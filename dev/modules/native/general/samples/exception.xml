@@ -1,0 +1,22 @@
+<project name="Exception test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+
+		<trycatch property="error" reference="errorRef">
+			<try>
+				<fail message="HELLO WORLD"/>
+			</try>
+
+			<catch>
+				<generalPrintExceptionStackTrace refId="errorRef"/>
+			</catch>
+
+			<finally>
+			</finally>
+		</trycatch>
+
+	</target>
+
+</project>

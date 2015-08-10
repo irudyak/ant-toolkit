@@ -1,0 +1,46 @@
+<project name="Reflection test" default="test1" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test1">
+		<generalCreateObject class="com.anttoolkit.test.Test1" reference="test1">
+			<parameter value="TEST" class="java.lang.String"/>
+			<parameter value="123" class="int"/>
+		</generalCreateObject>
+
+		<generalCreateObject class="com.anttoolkit.test.Test1" reference="test2">
+			<nullParameter class="java.lang.String"/>
+			<parameter value="123" class="int"/>
+		</generalCreateObject>
+
+		<generalExecuteObjectMethod objectReference="test1" method="test4" resultProperty="result" />
+		<echo>${result}</echo>
+
+		<generalExecuteObjectMethod objectReference="test2" method="test4" resultProperty="result" />
+		<echo>${result}</echo>
+
+		<generalExecuteClassMethod class="com.anttoolkit.test.Test1" method="test5" resultProperty="result" />
+		<echo>${result}</echo>
+
+		<generalExecuteObjectMethod objectReference="test1" method="test6" resultProperty="result">
+			<parameter reference="test1"/>
+		</generalExecuteObjectMethod>
+		<echo>${result}</echo>
+
+		<generalCreateObjectArray class="int" reference="int_array">
+			<element value="123"/>
+			<element value="456"/>
+			<element value="789"/>
+		</generalCreateObjectArray>
+
+		<generalExecuteObjectMethod objectReference="test1" method="test7" resultReference="str_array">
+			<parameter reference="int_array"/>
+		</generalExecuteObjectMethod>
+
+		<generalObjectsArrayLoop arrayReference="str_array" property="value">
+			<echo>${value}</echo>
+		</generalObjectsArrayLoop>
+
+	</target>
+
+</project>

@@ -1,0 +1,57 @@
+<project name="Conditions test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+
+		<generalInitArray name="testArray" file="test_array.txt"
+						  separator="\n" trimValues="true"
+						  removeEmptyValues="true" sizeProperty="testArray.length"/>
+
+		<condition property="testArray.hasAnyValues"
+				   value="false"
+				   else="true">
+			<equals arg1="${testArray.length}" arg2="0"/>
+		</condition>
+
+		<condition property="AAA"
+				   value="true"
+				   else="false">
+			<less arg1="1" arg2="2"/>
+		</condition>
+
+		<echo>AAA=${AAA}</echo>
+
+		<generalCondition property="BBB" value="true" else="false">
+			<less arg1="7" arg2="2"/>
+		</generalCondition>
+
+		<echo>BBB=${BBB}</echo>
+
+		<generalCondition property="BBB" value="true" else="false">
+			<equals arg1="2" arg2="2"/>
+		</generalCondition>
+
+		<echo>BBB=${BBB}</echo>
+
+		<generalIf arg1="123" arg2="123.000" ignoreCase="true" condition="&lt;=">
+			<echo>Condition satisfied</echo>
+		</generalIf>
+
+		<generalIf arg1="123" arg2="123.000" condition="=">
+			<echo>Condition satisfied</echo>
+		</generalIf>
+
+		<generalIf arg1="123" arg2="123.000" ignoreCase="true" condition="&lt;=">
+			<echo>Condition satisfied</echo>
+		</generalIf>
+
+		<generalIf arg1="${testArray.hasAnyValues}" arg2="true" ignoreCase="true" condition="=">
+			<generalArrayLoop array="testArray" elementProperty="value" indexProperty="index">
+				<echo>index=${index}, value=${value}</echo>
+			</generalArrayLoop>
+		</generalIf>
+
+	</target>
+
+</project>

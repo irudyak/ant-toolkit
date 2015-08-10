@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>anttoolkit</groupId>
+	<artifactId>DEPENDENCIES</artifactId>
+	<version>FINAL</version>
+	<name>Third party dependencies</name>
+	<packaging>pom</packaging>
+
+	<!-- Dependencies versions -->
+	<properties>
+		<!-- Apache Ant -->
+		<ant.version>1.9.4</ant.version>
+
+		<!-- Apache commons -->
+		<commons-jxpath.version>1.2</commons-jxpath.version>
+		<commons-lang.version>2.6</commons-lang.version>
+		<commons-logging.version>1.1.3</commons-logging.version>
+		<commons-cli.version>1.2</commons-cli.version>
+		<commons-configuration.version>1.6</commons-configuration.version>
+		<commons-io.version>2.4</commons-io.version>
+		<commons-codec.version>1.4</commons-codec.version>
+		<commons-collections.version>3.2.1</commons-collections.version>
+		<commons-beanutils.version>1.8.2</commons-beanutils.version>
+		<commons-digester.version>2.1</commons-digester.version>
+
+		<!-- Apache HTTP components -->
+		<httpcomponents-httpclient.version>4.3.6</httpcomponents-httpclient.version>
+
+		<!-- Log4j -->
+		<log4j.version>1.2.17</log4j.version>
+
+		<!-- Java mail -->
+		<mail.version>1.4</mail.version>
+
+		<!-- Apache XML serializer -->
+		<serializer.version>2.7.1</serializer.version>
+
+		<!-- Apache Xalan -->
+		<xalan.version>2.7.0</xalan.version>
+
+		<!-- Apache activation -->
+		<activation.version>1.1.1</activation.version>
+
+		<!-- AspectjRt  -->
+		<aspectjrt.version>1.5.2a</aspectjrt.version>
+
+		<!-- Jaxb API -->
+		<jaxb-api.version>2.1</jaxb-api.version>
+
+		<!-- Slf4 -->
+		<slf4j.version>1.7.5</slf4j.version>
+
+		<!-- Apache Hadoop -->
+		<hadoop.version>2.7.1</hadoop.version>
+
+		<!-- Guava -->
+		<guava.version>11.0.2</guava.version>
+
+		<!-- Avro -->
+		<avro-tools.version>1.7.4</avro-tools.version>
+
+		<!-- Jackson for Hadoop -->
+		<jackson-core-asl.version>1.9.13</jackson-core-asl.version>
+		<jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
+
+		<!-- Jackson for JSON -->
+		<jackson-core.version>2.4.2</jackson-core.version>
+		<jackson-databind.version>2.4.1</jackson-databind.version>
+		<bson4jackson.version>2.4.0</bson4jackson.version>
+		<jackson-annotations.version>2.4.0</jackson-annotations.version>
+
+		<!-- Protocol buffers -->
+		<protobuf-java.version>2.5.0</protobuf-java.version>
+
+		<!-- Netty -->
+		<netty.version>3.6.2.Final</netty.version>
+
+		<!-- HTrace -->
+		<htrace-core.version>2.04</htrace-core.version>
+
+		<!-- HBase -->
+		<hbase.version>0.98.4-hadoop2</hbase.version>
+
+		<!-- MySQL JDBC driver -->
+		<mysql-jdbc.version>5.1.24</mysql-jdbc.version>
+
+		<!-- Oracle JDBC driver -->
+		<oracle-jdbc.version>10.2.0.2</oracle-jdbc.version>
+
+		<!-- Groovy -->
+		<groovy.version>2.0.1</groovy.version>
+
+		<!-- iText -->
+		<itext.version>2.1.7</itext.version>
+		<itext-asian.version>5.2.0</itext-asian.version>
+
+		<!-- JFree -->
+		<jcommon.version>1.0.15</jcommon.version>
+		<jfreechart.version>1.0.12</jfreechart.version>
+
+		<!-- Servlet -->
+		<servlet-api.version>2.4</servlet-api.version>
+
+		<!-- Mongo DB -->
+		<mongo-driver.version>2.12.3</mongo-driver.version>
+
+		<!-- JLine -->
+		<jline.version>1.0</jline.version>
+
+		<!-- Zookeeper -->
+		<zookeeper.version>3.4.6</zookeeper.version>
+
+		<!-- Joda Time -->
+		<joda-time.version>2.1</joda-time.version>
+
+		<!-- Amazon Web Services -->
+		<aws-java-sdk.version>1.10.9</aws-java-sdk.version>
+
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Apache Ant -->
+			<dependency>
+				<groupId>org.apache.ant</groupId>
+				<artifactId>ant</artifactId>
+				<version>${ant.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.ant</groupId>
+				<artifactId>ant-jsch</artifactId>
+				<version>${ant.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.ant</groupId>
+				<artifactId>ant-launcher</artifactId>
+				<version>${ant.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- Apache commons -->
+			<dependency>
+				<groupId>commons-jxpath</groupId>
+				<artifactId>commons-jxpath</artifactId>
+				<version>${commons-jxpath.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>${commons-lang.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>${commons-logging.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-cli</groupId>
+				<artifactId>commons-cli</artifactId>
+				<version>${commons-cli.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-configuration</groupId>
+				<artifactId>commons-configuration</artifactId>
+				<version>${commons-configuration.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons-codec.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>${commons-collections.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>${commons-beanutils.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-digester</groupId>
+				<artifactId>commons-digester</artifactId>
+				<version>${commons-digester.version}</version>
+			</dependency>
+
+			<!-- Apache HTTP components -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${httpcomponents-httpclient.version}</version>
+			</dependency>
+
+			<!-- Log4j -->
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+
+			<!-- Java mail -->
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>${mail.version}</version>
+			</dependency>
+
+			<!-- Apache XML serializer -->
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>serializer</artifactId>
+				<version>${serializer.version}</version>
+			</dependency>
+
+			<!-- Apache Xalan -->
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>xalan</artifactId>
+				<version>${xalan.version}</version>
+			</dependency>
+
+			<!-- Apache activation -->
+			<dependency>
+				<groupId>javax.activation</groupId>
+				<artifactId>activation</artifactId>
+				<version>${activation.version}</version>
+			</dependency>
+
+			<!-- AspectjRt  -->
+			<dependency>
+				<groupId>aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>${aspectjrt.version}</version>
+			</dependency>
+
+			<!-- Jaxb API -->
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>${jaxb-api.version}</version>
+			</dependency>
+
+			<!-- Slf4 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<!-- Hadoop core -->
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-auth</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-common</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<!-- Hadoop HDFS -->
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-hdfs</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<!-- Hadoop MapReduce -->
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapreduce-client-app</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapreduce-client-common</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapreduce-client-core</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapreduce-client-hs</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapreduce-client-hs-plugins</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapreduce-client-jobclient</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapreduce-client-shuffle</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-mapreduce-examples</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<!-- Hadoop YARN -->
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-yarn-api</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-yarn-applications-distributedshell</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-yarn-applications-unmanaged-am-launcher</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-yarn-client</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-yarn-common</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+			<!--
+						<dependency>
+							<groupId>org.apache.hadoop</groupId>
+							<artifactId>hadoop-yarn-site</artifactId>
+							<version>${hadoop.version}</version>
+						</dependency>
+			-->
+			<!-- Hadoop DistCp -->
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-distcp</artifactId>
+				<version>${hadoop.version}</version>
+			</dependency>
+
+			<!-- Guava -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<!-- Avro -->
+			<dependency>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro-tools</artifactId>
+				<version>${avro-tools.version}</version>
+			</dependency>
+
+			<!-- Jackson for Hadoop -->
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-core-asl</artifactId>
+				<version>${jackson-core-asl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson-mapper-asl.version}</version>
+			</dependency>
+
+			<!-- Jackson for JSON -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson-core.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson-databind.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.undercouch</groupId>
+				<artifactId>bson4jackson</artifactId>
+				<version>${bson4jackson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson-annotations.version}</version>
+			</dependency>
+
+			<!-- Protocol buffers -->
+			<dependency>
+				<groupId>com.google.protobuf</groupId>
+				<artifactId>protobuf-java</artifactId>
+				<version>${protobuf-java.version}</version>
+			</dependency>
+
+			<!-- Netty -->
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty</artifactId>
+				<version>${netty.version}</version>
+			</dependency>
+
+			<!-- HTrace -->
+			<dependency>
+				<groupId>org.cloudera.htrace</groupId>
+				<artifactId>htrace-core</artifactId>
+				<version>${htrace-core.version}</version>
+			</dependency>
+
+			<!-- HBase -->
+			<dependency>
+				<groupId>org.apache.hbase</groupId>
+				<artifactId>hbase-client</artifactId>
+				<version>${hbase.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hbase</groupId>
+				<artifactId>hbase-common</artifactId>
+				<version>${hbase.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hbase</groupId>
+				<artifactId>hbase-protocol</artifactId>
+				<version>${hbase.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.hbase</groupId>
+				<artifactId>hbase-server</artifactId>
+				<version>${hbase.version}</version>
+			</dependency>
+
+			<!-- MySQL JDBC driver -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql-jdbc.version}</version>
+			</dependency>
+
+			<!-- Oracle JDBC driver -->
+			<dependency>
+				<groupId>oracle</groupId>
+				<artifactId>ojdbc14</artifactId>
+				<version>${oracle-jdbc.version}</version>
+			</dependency>
+
+			<!-- Groovy -->
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-all</artifactId>
+				<version>${groovy.version}</version>
+			</dependency>
+
+			<!-- iText -->
+			<dependency>
+				<groupId>com.lowagie</groupId>
+				<artifactId>itext</artifactId>
+				<version>${itext.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.itextpdf</groupId>
+				<artifactId>itext-asian</artifactId>
+				<version>${itext-asian.version}</version>
+			</dependency>
+
+			<!-- JFree -->
+			<dependency>
+				<groupId>jfree</groupId>
+				<artifactId>jcommon</artifactId>
+				<version>${jcommon.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>jfree</groupId>
+				<artifactId>jfreechart</artifactId>
+				<version>${jfreechart.version}</version>
+			</dependency>
+
+			<!-- Servlet -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet-api.version}</version>
+			</dependency>
+
+			<!-- Mongo DB -->
+			<dependency>
+				<groupId>org.mongodb</groupId>
+				<artifactId>mongo-java-driver</artifactId>
+				<version>${mongo-driver.version}</version>
+			</dependency>
+
+			<!-- JLine -->
+			<dependency>
+				<groupId>jline</groupId>
+				<artifactId>jline</artifactId>
+				<version>${jline.version}</version>
+			</dependency>
+
+			<!-- Zookeeper -->
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>${zookeeper.version}</version>
+			</dependency>
+
+			<!-- Joda Time -->
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>${joda-time.version}</version>
+			</dependency>
+
+			<!-- Amazon Web Services -->
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-core</artifactId>
+				<version>${aws-java-sdk.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-ec2</artifactId>
+				<version>${aws-java-sdk.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-kms</artifactId>
+				<version>${aws-java-sdk.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-s3</artifactId>
+				<version>${aws-java-sdk.version}</version>
+			</dependency>
+			
+		</dependencies>
+	</dependencyManagement>
+
+</project>

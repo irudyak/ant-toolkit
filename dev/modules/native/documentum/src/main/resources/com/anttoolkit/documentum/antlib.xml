@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<antlib>
+	<taskdef name="dmDocbaseBatch" classname="com.anttoolkit.documentum.tasks.DocbaseTaskContainer" />
+	<taskdef name="dmDql" classname="com.anttoolkit.documentum.tasks.dql.DqlQueryTask" />
+	<taskdef name="dmDqlExist" classname="com.anttoolkit.documentum.tasks.dql.DqlExistTask" />
+	<taskdef name="dmApiExec" classname="com.anttoolkit.documentum.tasks.api.ApiExecTask" />
+	<taskdef name="dmStartTransaction" classname="com.anttoolkit.documentum.tasks.transaction.StartTransactionTask" />
+	<taskdef name="dmCommitTransaction" classname="com.anttoolkit.documentum.tasks.transaction.CommitTransactionTask" />
+	<taskdef name="dmAbortTransaction" classname="com.anttoolkit.documentum.tasks.transaction.AbortTransactionTask" />
+	<taskdef name="dmCreateDocAppArchive" classname="com.anttoolkit.documentum.tasks.docapp.DocAppArchiveTask" />
+	<taskdef name="dmInstallDocAppArchive" classname="com.anttoolkit.documentum.tasks.docapp.DocAppInstallTask" />
+	<taskdef name="dmDqlSetProperty" classname="com.anttoolkit.documentum.tasks.dql.DqlSetPropertyTask" />
+	<taskdef name="dmDocbaseObject" classname="com.anttoolkit.documentum.tasks.object.DocbaseObjectTask" />
+	<taskdef name="dmSetPermit" classname="com.anttoolkit.documentum.tasks.permissions.SetPermitTask" />
+	<taskdef name="dmSetAliasValue" classname="com.anttoolkit.documentum.tasks.alias.SetAliasValueTask" />
+    <taskdef name="dmGetAliasValue" classname="com.anttoolkit.documentum.tasks.alias.GetAliasValueTask" />
+	<taskdef name="dmFlushCaches" classname="com.anttoolkit.documentum.tasks.FlushCachesTask" />
+	<taskdef name="dmAudit" classname="com.anttoolkit.documentum.tasks.audit.AuditTask" />
+	<taskdef name="dmUnaudit" classname="com.anttoolkit.documentum.tasks.audit.UnauditTask" />
+	<taskdef name="dmSetLifecycleActionsModule" classname="com.anttoolkit.documentum.tasks.lifecycle.SetLifecycleActionsModuleTask" />
+	<taskdef name="dmSetOwner" classname="com.anttoolkit.documentum.tasks.permissions.SetOwnerTask" />
+	<taskdef name="dmAddToGroup" classname="com.anttoolkit.documentum.tasks.usergroup.AddToGroupTask" />
+	<taskdef name="dmRemoveFromGroup" classname="com.anttoolkit.documentum.tasks.usergroup.RemoveFromGroupTask" />
+	<taskdef name="dmCreateUser" classname="com.anttoolkit.documentum.tasks.usergroup.CreateUserTask" />
+	<taskdef name="dmBofDeployment" classname="com.anttoolkit.documentum.tasks.bof.BofDeploymentTask" />
+	<taskdef name="dmDqlLoop" classname="com.anttoolkit.documentum.tasks.dql.DqlLoopTask" />
+	<taskdef name="dmDqlLoopProperty" classname="com.anttoolkit.documentum.tasks.dql.DqlLoopPropertyTask" />
+	<taskdef name="dmBuildVersionProvider" classname="com.anttoolkit.documentum.tasks.build.DocbaseVersionProviderTask" />
+	<taskdef name="dmRerunWorkitem" classname="com.anttoolkit.documentum.tasks.workflow.RerunWorkitemTask" />
+	<taskdef name="dmAcl" classname="com.anttoolkit.documentum.tasks.permissions.AclTask" />
+	<taskdef name="dmSetFile" classname="com.anttoolkit.documentum.tasks.object.SetFileTask" />
+    <taskdef name="dmGetFile" classname="com.anttoolkit.documentum.tasks.object.GetFileTask" />
+	<taskdef name="dmMaclSecurity" classname="com.anttoolkit.documentum.tasks.permissions.SetMaclSecurityTask" />
+    <taskdef name="dmSetIRMProfile" classname="com.anttoolkit.documentum.tasks.irm.SetObjectIRMProfileTask" />
+    <taskdef name="dmRemoveIRMProfile" classname="com.anttoolkit.documentum.tasks.irm.RemoveObjectIRMProfileTask" />
+    <taskdef name="dmProtectObjectWithIRM" classname="com.anttoolkit.documentum.tasks.irm.ProtectObjectTask" />
+    <taskdef name="dmCheckout" classname="com.anttoolkit.documentum.tasks.version.CheckoutTask" />
+    <taskdef name="dmCancelCheckout" classname="com.anttoolkit.documentum.tasks.version.CancelCheckoutTask" />
+    <taskdef name="dmCheckin" classname="com.anttoolkit.documentum.tasks.version.CheckinTask" />
+    <taskdef name="dmMoveToFolder" classname="com.anttoolkit.documentum.tasks.folder.MoveToFolderTask" />
+    <taskdef name="dmLinkToFolder" classname="com.anttoolkit.documentum.tasks.folder.LinkToFolderTask" />
+    <taskdef name="dmUnlinkFromFolder" classname="com.anttoolkit.documentum.tasks.folder.UnlinkFromFolderTask" />
+    <taskdef name="dmAttachLifecycle" classname="com.anttoolkit.documentum.tasks.lifecycle.AttachTask" />
+    <taskdef name="dmDetachLifecycle" classname="com.anttoolkit.documentum.tasks.lifecycle.DetachTask" />
+    <taskdef name="dmPromote" classname="com.anttoolkit.documentum.tasks.lifecycle.PromoteTask" />
+    <taskdef name="dmDemote" classname="com.anttoolkit.documentum.tasks.lifecycle.DemoteTask" />
+    <taskdef name="dmResume" classname="com.anttoolkit.documentum.tasks.lifecycle.ResumeTask" />
+    <taskdef name="dmSuspend" classname="com.anttoolkit.documentum.tasks.lifecycle.SuspendTask" />
+	<taskdef name="dmStartWorkflow" classname="com.anttoolkit.documentum.tasks.workflow.StartWorkflowTask" />
+	<taskdef name="dmUpdateWorkflow" classname="com.anttoolkit.documentum.tasks.workflow.UpdateWorkflowTask" />
+    <taskdef name="dmKillWorkflow" classname="com.anttoolkit.documentum.tasks.workflow.KillWorkflowTask" />
+	<taskdef name="dmGetWorkflowInfo" classname="com.anttoolkit.documentum.tasks.workflow.GetWorkflowInfoTask" />
+	<taskdef name="dmCompleteWorkitem" classname="com.anttoolkit.documentum.tasks.workflow.CompleteWorkitemTask" />
+	<taskdef name="dmWaitForWorkitem" classname="com.anttoolkit.documentum.tasks.workflow.WaitForWorkitemTask" />
+	<taskdef name="dmDestroyObject" classname="com.anttoolkit.documentum.tasks.object.DestroyObjectTask" />
+	<taskdef name="dmGetDocbaseCredentials" classname="com.anttoolkit.documentum.tasks.DocbaseCredentialsTask"/>
+	<taskdef name="dmWaitForWorkflowCompletion" classname="com.anttoolkit.documentum.tasks.workflow.WaitForWorkflowCompletionTask"/>
+</antlib>

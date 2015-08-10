@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<relativePath>../../../pom.xml</relativePath>
+		<groupId>anttoolkit</groupId>
+		<artifactId>anttoolkit-root</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<name>svn</name>
+	<description>SVN module, providing Ant tasks to work with Subversion</description>
+	<url>https://subversion.apache.org/</url>
+	<artifactId>anttoolkit-svn</artifactId>
+	<version>${project.parent.version}</version>
+
+	<properties>
+		<module.taskdef>com/anttoolkit/svn/antlib.xml</module.taskdef>
+	</properties>
+
+	<dependencies>
+		<!-- General module -->
+		<dependency>
+			<groupId>anttoolkit</groupId>
+			<artifactId>anttoolkit-general</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+<!--
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<inherited>false</inherited>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>copy-properties</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<copy todir="${project.build.directory}/dependencies" overwrite="true">
+									<fileset dir="${project.basedir}/src/main/resources/com/anttoolkit/svn">
+										<exclude name="antlib.xml"/>
+									</fileset>
+								</copy>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-properties</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<copy todir="${project.build.directory}/dependencies" overwrite="true">
+									<fileset dir="${project.basedir}/src/main/resources/com/anttoolkit/svn">
+										<exclude name="antlib.xml"/>
+									</fileset>
+								</copy>
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>package-module</id>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

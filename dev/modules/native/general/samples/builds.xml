@@ -1,0 +1,36 @@
+<project name="Builds test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+		<echo>START</echo>
+
+		<generalCsvBuildVersionProvider>
+			<property name="file" value="builds.csv"/>
+			<property name="timeFormat" value="MM/dd/yyyy hh:mm:ss"/>
+		</generalCsvBuildVersionProvider>
+
+		<generalBuild number="1.0" comment="AAA">
+			<echo>BUILD: 1.0</echo>
+		</generalBuild>
+
+		<generalBuild number="1.1" comment="BBB">
+			<echo>BUILD: 1.1</echo>
+		</generalBuild>
+
+		<generalBuild number="1.1.1" comment="VVVV">
+			<echo>BUILD: 1.1</echo>
+		</generalBuild>
+
+		<generalBuild number="1.2" comment="CCC">
+			<echo>BUILD: 1.2</echo>
+		</generalBuild>
+
+		<generalBuild number="1.3" comment="XXX">
+			<echo>BUILD: 1.3</echo>
+		</generalBuild>
+
+		<echo>END</echo>
+	</target>
+
+</project>

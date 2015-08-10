@@ -1,0 +1,20 @@
+<project name="AWS test" default="test1" basedir="">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<property file="credential.properties"/>
+
+	<aws.config id="myAwsConfig"
+				accessKeyId="${accessKeyId}"
+				secretAccessKey="${secretAccessKey}"
+				region="us-west-1"
+				availabilityZone="us-west-1c">
+		<property name="maxConnections" value="5"/>
+		<property name="usegzip" value="true"/>
+	</aws.config>
+
+	<target name="test1">
+		<echo>Hello world</echo>
+	</target>
+
+</project>

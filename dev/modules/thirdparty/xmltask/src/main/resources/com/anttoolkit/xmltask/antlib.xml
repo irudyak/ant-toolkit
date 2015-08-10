@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<antlib>
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" />
+</antlib>

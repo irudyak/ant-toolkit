@@ -1,0 +1,41 @@
+<project default="update">
+
+	<taskdef resource="com/anttoolkit/general/antlib.xml"/>
+
+	<import>
+		<javaresource name="com/anttoolkit/system/tools/packaging/macrodefs.xml"/>
+	</import>
+
+	<target name="prerequisites">
+		<fail message="Framework lib dir wasn't specified">
+			<condition>
+				<not>
+					<isset property="libDir"/>
+				</not>
+			</condition>
+		</fail>
+
+		<fail message="Framework lib dir is not available: ${libDir}">
+			<condition>
+				<not>
+					<available file="${libDir}" type="dir"/>
+				</not>
+			</condition>
+		</fail>
+
+		<fail message="Classpath jar file is not specified">
+			<condition>
+				<not>
+					<isset property="classpathJarFile"/>
+				</not>
+			</condition>
+		</fail>
+	</target>
+
+	<target name="update" depends="prerequisites">
+		<echo>Generating new classpath into "${classpathJarFile}" from "${libDir}"</echo>
+		<generateClasspathJar libDir="${libDir}" classpathJarFile="${classpathJarFile}"/>
+		<echo>Classpath generated</echo>
+	</target>
+
+</project>

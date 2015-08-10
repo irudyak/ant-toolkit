@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="">
+
+	<macrodef name="emulateFailure">
+		<sequential>
+			<generalScope>
+				<generalGenerateRandomInteger min="0" max="1000" property="testVal"/>
+				<generalIf arg1="${testVal}" condition=">" arg2="700">
+					<fail message="!!! RANDOM ERROR !!!"/>
+				</generalIf>
+			</generalScope>
+		</sequential>
+	</macrodef>
+
+</project>
+

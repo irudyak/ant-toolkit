@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<antlib>
+	<taskdef name="scp" classname="org.apache.tools.ant.taskdefs.optional.ssh.Scp" />
+	<taskdef name="ssh" classname="org.apache.tools.ant.taskdefs.optional.ssh.SSHExec" />
+</antlib>

@@ -1,0 +1,6 @@
+<project xmlns:if="ant:if" xmlns:unless="ant:unless">
+	<taskdef resource="com/anttoolkit/general/antlib.xml"/>
+	<taskdef resource="com/anttoolkit/aws/antlib.xml"/>
+	<taskdef resource="com/anttoolkit/aws/ec2/antlib.xml"/>
+	<generalScopePropertyHandler/>
+</project>

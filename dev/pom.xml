@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <relativePath>dependencies.xml</relativePath>
+        <groupId>anttoolkit</groupId>
+        <artifactId>DEPENDENCIES</artifactId>
+        <version>FINAL</version>
+    </parent>
+
+    <artifactId>anttoolkit-root</artifactId>
+    <version>1.0</version>
+    <name>ANT-TOOLKIT</name>
+    <description>Ant based scripting framework for deployment</description>
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.compiler.version>1.6</java.compiler.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <!-- Native -->
+        <module>modules/native/general</module>
+        <module>modules/native/ldap</module>
+        <module>modules/native/svn</module>
+        <module>modules/native/documentum</module>
+        <module>modules/native/sql</module>
+        <module>modules/native/jasperreports</module>
+        <module>modules/native/hadoop</module>
+        <module>modules/native/hbase</module>
+        <module>modules/native/maestro</module>
+        <module>modules/native/mongodb</module>
+        <module>modules/native/pig</module>
+        <module>modules/native/zookeeper</module>
+        <module>modules/native/aws</module>
+        <module>modules/native/aws-ec2</module>
+        <module>modules/native/aws-s3</module>
+
+        <!-- Third party -->
+        <module>modules/thirdparty/ant-contrib</module>
+        <module>modules/thirdparty/expectit</module>
+        <module>modules/thirdparty/jsch</module>
+        <module>modules/thirdparty/missing-link</module>
+        <module>modules/thirdparty/xmltask</module>
+
+        <!-- Framework builder -->
+        <module>framework</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>anttoolkit</groupId>
+                <artifactId>anttoolkit-general</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Apache Ant dependencies -->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-jsch</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>anttoolkit</groupId>
+                            <artifactId>anttoolkit-general</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>package-module</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <tempfile property="buildFile" suffix=".xml" deleteonexit="true"/>
+                                    <loadresource property="script">
+                                        <javaresource name="com/anttoolkit/system/tools/packaging/package-module.xml"/>
+                                    </loadresource>
+                                    <echo file="${buildFile}" message="${script}"/>
+                                    <ant antfile="${buildFile}">
+                                        <property name="module.name" value="${project.name}"/>
+                                        <property name="module.version" value="${project.version}"/>
+                                        <property name="module.basedir" value="${basedir}"/>
+                                        <property name="module.description" value="${project.description}"/>
+                                        <property name="module.url" value="${project.url}"/>
+                                        <property name="module.taskdef" value="${module.taskdef}"/>
+                                    </ant>
+                                    <delete file="${buildFile}" quiet="true"/>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>${java.compiler.version}</source>
+                    <target>${java.compiler.version}</target>
+                    <compilerVersion>${java.compiler.version}</compilerVersion>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <fork>true</fork>
+                    <debug>false</debug>
+                    <debuglevel>lines,vars,source</debuglevel>
+                    <meminitial>256</meminitial>
+                    <maxmem>512</maxmem>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeTransitive>true</excludeTransitive>
+                            <excludeScope>provided</excludeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+</project>

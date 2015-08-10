@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Smoke tests" basedir="" default="runSmokeTests">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<!-- Test cases macrodefs -->
+	<import file="test-cases.xml"/>
+
+	<!-- Defining array of target names for all smoke tests -->
+	<generalInitArray name="TEST-CASES" sizeProperty="testsCount">
+		testApproveRoute,testCoordinateRoute,testRedesignRoute
+	</generalInitArray>
+
+	<!-- Defining array which will hold passed and failed tests list -->
+	<generalInitArray name="PASSED-TESTS"/>
+	<generalInitArray name="FAILED-TESTS"/>
+
+<!-- ***** TARGET TO EXECUTE THE WHOLE BUNCH OF SMOKE TESTS ******** -->
+
+    <target name="runSmokeTests">
+		<!-- Iterating through test cases targets array and executing them sequentially -->
+		<generalArrayLoop array="TEST-CASES" elementProperty="target">
+			<!-- Executing test case-->
+			<executeTestCase testCase="${target}"/>
+		</generalArrayLoop>
+
+		<!-- Printing summary results -->
+		<printSummaryResults/>
+    </target>
+
+<!-- ***** TARGETS TO EXECUTE PARTICULAR SMOKE TESTS ******** -->
+
+	<target name="testApproveRoute">
+		<runApproveRouteTest/>
+	</target>
+
+	<target name="testCoordinateRoute">
+		<runCoordinateRouteTest/>
+	</target>
+
+	<target name="testRedesignRoute">
+		<runRedesignRouteTest/>
+	</target>
+
+<!-- ***** SERVICE MACROS ******** -->
+
+	<macrodef name="executeTestCase">
+		<attribute name="testCase"/>
+		<attribute name="threadPrefix" default=""/>
+		<sequential>
+			<!-- Defining local scope to prevent modification of outer scope properties -->
+			<generalScope>
+				<echo></echo>
+				<echo>Start execution of test case: @{testCase}</echo>
+
+				<!-- Property which will hold the error -->
+				<generalProperty name="error" value=""/>
+
+				<!-- Getting test start time -->
+				<generalTimeStamp>
+					<format property="startTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+				</generalTimeStamp>
+
+				<!-- Executing test case target in try/catch block to be able handle exceptions -->
+				<trycatch reference="errorRef">
+					<try>
+						<generalCallTarget target="@{testCase}"/>
+					</try>
+
+					<catch>
+						<generalGetExceptionStackTrace refid="errorRef" property="error"/>
+						<echo>[ERROR] Error occured during @{testCase} test case execution</echo>
+						<echo>${error}</echo>
+					</catch>
+				</trycatch>
+
+				<!-- Getting test finish time -->
+				<generalTimeStamp>
+					<format property="finishTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
+				</generalTimeStamp>
+
+				<!-- Measuring test duration -->
+				<generalTimeDifference time1="${startTime}" time2="${finishTime}" timeFormat="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"
+									   differenceUnits="s" property="duration"/>
+
+				<!-- Add test case to passed tests -->
+				<generalIf arg1="${error}" condition="=" arg2="">
+					<generalAddArrayElement array="PASSED-TESTS" value="@{threadPrefix}@{testCase} [${duration} sec]"/>
+					<echo>Finished execution of test case: @{testCase} [PASSED, ${duration} sec]</echo>
+				</generalIf>
+
+				<!-- Add test case to failed tests -->
+				<generalIf arg1="${error}" condition="!=" arg2="">
+					<generalAddArrayElement array="FAILED-TESTS" value="@{threadPrefix}@{testCase} [${duration} sec]"/>
+					<echo>Finished execution of test case: @{testCase} [FAILED, ${duration} sec]</echo>
+				</generalIf>
+
+				<echo></echo>
+			</generalScope>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="printSummaryResults">
+		<sequential>
+			<!-- Calculating summary results -->
+			<generalGetArraySize array="PASSED-TESTS" property="passedCount"/>
+			<generalGetArraySize array="FAILED-TESTS" property="failedCount"/>
+
+
+			<echo></echo>
+			<echo>--------- SUMMARY -------------</echo>
+			<echo>Number of passed tests: ${passedCount}</echo>
+			<echo>Number of failed tests: ${failedCount}</echo>
+
+			<!-- Report name/time of passed tests if any of them exist -->
+			<generalIf arg1="${passedCount}" condition="!=" arg2="0">
+				<echo>--------- PASSED TESTS --------</echo>
+				<generalArrayLoop array="PASSED-TESTS" elementProperty="testName">
+					<echo>${testName}</echo>
+				</generalArrayLoop>
+			</generalIf>
+
+			<!-- Report name/time of failed tests if any of them exist -->
+			<generalIf arg1="${failedCount}" condition="!=" arg2="0">
+				<echo>--------- FAILED TESTS --------</echo>
+				<generalArrayLoop array="FAILED-TESTS" elementProperty="testName">
+					<echo>${testName}</echo>
+				</generalArrayLoop>
+			</generalIf>
+
+			<echo>-------------------------------</echo>
+			<echo></echo>
+		</sequential>
+	</macrodef>
+
+</project>

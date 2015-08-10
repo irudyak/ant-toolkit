@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DQL-batch" default="test3" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<!-- Testing Oracle -->
+	<target name="test">
+		<sqlBuildVersionProvider/>
+
+		<sqlDatabaseBatch user="archive"
+				  password="123456"
+				  url="jdbc:oracle:thin:@10.0.0.10:1521:orcl"
+				  driver="oracle.jdbc.driver.OracleDriver">
+
+			<generalBuild number="1.0" comment="AAA">
+				<echo>BUILD: 1.0</echo>
+			</generalBuild>
+
+			<generalBuild number="1.1" comment="BBB">
+				<echo>BUILD: 1.1</echo>
+			</generalBuild>
+
+			<generalBuild number="1.1.1" comment="VVVV">
+				<echo>BUILD: 1.1</echo>
+			</generalBuild>
+
+			<generalBuild number="1.2" comment="CCC">
+				<echo>BUILD: 1.2</echo>
+			</generalBuild>
+
+			<generalBuild number="1.3" comment="XXX">
+				<echo>BUILD: 1.3</echo>
+			</generalBuild>
+
+		</sqlDatabaseBatch>
+	</target>
+
+	<!-- Testing Oracle -->
+	<target name="test1">
+		<sqlBuildVersionProvider>
+			<property name="build.qualifier" value="CCC"/>
+			<property name="db.user" value="archive"/>
+			<property name="db.password" value="123456"/>
+			<property name="db.driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="db.connection.url" value="jdbc:oracle:thin:@10.0.0.10:1521:orcl"/>
+		</sqlBuildVersionProvider>
+
+		<generalBuild number="1.0" comment="AAA">
+			<echo>BUILD: 1.0</echo>
+		</generalBuild>
+
+		<generalBuild number="1.1" comment="BBB">
+			<echo>BUILD: 1.1</echo>
+		</generalBuild>
+
+		<generalBuild number="1.1.1" comment="VVVV">
+			<echo>BUILD: 1.1</echo>
+		</generalBuild>
+
+		<generalBuild number="1.2" comment="CCC">
+			<echo>BUILD: 1.2</echo>
+		</generalBuild>
+
+		<generalBuild number="1.3" comment="XXX">
+			<echo>BUILD: 1.3</echo>
+		</generalBuild>
+	</target>
+
+	<!-- Testing MySQL -->
+	<target name="test2">
+
+		<sqlBuildVersionProvider/>
+
+		<sqlDatabaseBatch user="test"
+				  password="ZSE$zse4"
+				  url="jdbc:mysql://10.0.0.6:3306/test"
+				  driver="com.mysql.jdbc.Driver">
+
+			<generalBuild number="1.0" comment="AAA">
+				<echo>BUILD: 1.0</echo>
+			</generalBuild>
+
+			<generalBuild number="1.1" comment="BBB">
+				<echo>BUILD: 1.1</echo>
+			</generalBuild>
+
+			<generalBuild number="1.1.1" comment="VVVV">
+				<echo>BUILD: 1.1</echo>
+			</generalBuild>
+
+			<generalBuild number="1.2" comment="CCC">
+				<echo>BUILD: 1.2</echo>
+			</generalBuild>
+
+			<generalBuild number="1.3" comment="XXX">
+				<echo>BUILD: 1.3</echo>
+			</generalBuild>
+
+		</sqlDatabaseBatch>
+	</target>
+
+	<target name="test3">
+		<generalValidateBuildFile file="${ant.file.DQL-batch}" xPath="/project/target[@name='test2']/sqlDatabaseBatch/generalBuild"/>
+	</target>
+
+</project>

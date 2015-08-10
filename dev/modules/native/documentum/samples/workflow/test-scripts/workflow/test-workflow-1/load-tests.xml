@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Load tests" basedir="" default="runLoadTests">
+
+	<!-- Importing smoke tests defenitions, so that they could be used for load testing -->
+	<import file="smoke-tests.xml"/>
+
+<!-- ***** Load test parameters ****** -->
+
+	<!-- Number of threads (the same like number concurrent user sessions) -->
+	<property name="threadsCount" value="10"/>
+
+	<!-- Number of iteration -->
+	<property name="iterationsCount" value="10"/>
+
+<!-- ***** TARGET TO EXECUTE LOAD TESTS ******** -->
+
+    <target name="runLoadTests">
+		<!-- Creating cyclic barrier synchronization primitive.
+			It will be used to start all created threads simultaneously to simulate explosive load -->
+		<generalCreateCyclicBarrier name="BARRIER" parties="${threadsCount}"/>
+
+		<echo>Creating worker ${threadsCount} threads...</echo>
+
+		<!-- Creating threads in a cycle -->
+		<generalForLoop from="1" to="${threadsCount}" iterationProperty="iteration">
+
+			<!-- Creating and starting new thread -->
+			<generalStartThread name="thread-${iteration}" group="WORKER-THREADS" logFile="${DEPLOYMENT_LOGS_DIR}\thread-${iteration}.log">
+
+				<!-- Getting thread name into thread local property "threadName" -->
+				<generalGetThreadInfo nameProperty="threadName" />
+
+				<!-- Waiting for cyclic barrier to start all test simultaneously to imitate explosive load -->
+				<generalWaitCyclicBarrier name="BARRIER"/>
+
+				<!-- Start cycle inside worker thread -->
+				<generalForLoop from="1" to="${iterationsCount}" iterationProperty="iteration">
+					<!-- Getting random test case target-->
+					<generalGetRandomArrayElement array="TEST-CASES" valueProperty="target"/>
+
+					<echo>[ITERATION-${iteration}]</echo>
+
+					<!-- Executing test case-->
+					<executeTestCase testCase="${target}" threadPrefix="[${threadName}:${iteration}] "/>
+				</generalForLoop>
+
+			</generalStartThread>
+
+		</generalForLoop>
+
+		<echo>All worker threads were created</echo>
+
+		<echo>Waiting for worker threads to complete...</echo>
+		<generalWaitThread group="WORKER-THREADS" failonany="true"/>
+
+		<echo>All worker threads completed</echo>
+
+		<!-- Printing summary results -->
+		<printSummaryResults/>
+
+    </target>
+
+</project>

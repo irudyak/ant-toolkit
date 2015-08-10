@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<antlib>
+<!-- Tasks -->
+	<taskdef name="zookeeperSession" classname="com.anttoolkit.zookeeper.tasks.ZookeeperSessionTask" />
+	<taskdef name="zookeeperCreate" classname="com.anttoolkit.zookeeper.tasks.CreateNodeTask" />
+	<taskdef name="zookeeperDelete" classname="com.anttoolkit.zookeeper.tasks.DeleteNodeTask" />
+	<taskdef name="zookeeperExists" classname="com.anttoolkit.zookeeper.tasks.CheckNodeExistsTask" />
+	<taskdef name="zookeeperGetData" classname="com.anttoolkit.zookeeper.tasks.GetNodeDataTask" />
+	<taskdef name="zookeeperSetData" classname="com.anttoolkit.zookeeper.tasks.SetNodeDataTask" />
+	<taskdef name="zookeeperGetChildren" classname="com.anttoolkit.zookeeper.tasks.GetChildrenTask" />
+	<taskdef name="zookeeperChildrenLoop" classname="com.anttoolkit.zookeeper.tasks.ChildrenLoopTask" />
+	<taskdef name="zookeeperSetACL" classname="com.anttoolkit.zookeeper.tasks.SetNodeACLTask" />
+	<taskdef name="zookeeperGetACL" classname="com.anttoolkit.zookeeper.tasks.GetNodeACLTask" />
+	<taskdef name="zookeeperCheck" classname="com.anttoolkit.zookeeper.tasks.CheckNodeTask" />
+	<taskdef name="zookeeperTransaction" classname="com.anttoolkit.zookeeper.tasks.TransactionTask" />
+	<taskdef name="zookeeperTransaction" classname="com.anttoolkit.zookeeper.tasks.TransactionTask" />
+	<taskdef name="zookeeperSynchronizationSection" classname="com.anttoolkit.zookeeper.tasks.SynchronizationSectionTask" />
+	<taskdef name="zookeeperCreateCyclicBarrier" classname="com.anttoolkit.zookeeper.tasks.CreateCyclicBarrierTask" />
+	<taskdef name="zookeeperDeleteCyclicBarrier" classname="com.anttoolkit.zookeeper.tasks.DeleteCyclicBarrierTask" />
+	<taskdef name="zookeeperWaitCyclicBarrier" classname="com.anttoolkit.zookeeper.tasks.WaitCyclicBarrierTask" />
+
+<!-- Types -->
+	<typedef name="zookeeperConfig" classname="com.anttoolkit.zookeeper.types.ZookeeperConfig"/>
+	<typedef name="zookeeperACL" classname="com.anttoolkit.zookeeper.types.ACLS"/>
+
+</antlib>

@@ -1,0 +1,94 @@
+<project default="package">
+
+	<taskdef resource="com/anttoolkit/general/antlib.xml"/>
+
+	<import>
+		<javaresource name="com/anttoolkit/system/tools/packaging/macrodefs.xml"/>
+	</import>
+
+	<target name="prerequisites">
+		<fail message="Module name should be specified">
+			<condition>
+				<or>
+					<not>
+						<isset property="module.name"/>
+					</not>
+					<matches string="${module.name}" pattern="^\$.*$"/>
+				</or>
+			</condition>
+		</fail>
+
+		<fail message="Specified module name ${module.name} is incorrect">
+			<condition>
+				<not>
+					<matches string="${module.name}" pattern="^[a-zA-Z]+[a-zA-Z0-9_-]*[a-zA-Z0-9]+$"/>
+				</not>
+			</condition>
+		</fail>
+
+		<fail message="Module basedir should be specified">
+			<condition>
+				<or>
+					<not>
+						<isset property="module.basedir"/>
+					</not>
+					<matches string="${module.basedir}" pattern="^\$.*$"/>
+				</or>
+			</condition>
+		</fail>
+
+		<fail message="Module taskdef resource should be specified">
+			<condition>
+				<or>
+					<not>
+						<isset property="module.taskdef"/>
+					</not>
+					<matches string="${module.taskdef}" pattern="^\$.*$"/>
+				</or>
+			</condition>
+		</fail>
+
+		<generalCondition property="mod.url" value="${module.url}" else="">
+			<and>
+				<isset property="module.url"/>
+				<not>
+					<matches string="${module.url}" pattern="^\$.*$"/>
+				</not>
+			</and>
+		</generalCondition>
+
+		<generalCondition property="mod.desc" value="${module.description}" else="">
+			<and>
+				<isset property="module.description"/>
+				<not>
+					<matches string="${module.description}" pattern="^\$.*$"/>
+				</not>
+			</and>
+		</generalCondition>
+
+		<generalToLowerCase value="${module.name}" property="mod.name"/>
+	</target>
+
+	<target name="package" depends="prerequisites">
+		<echo></echo>
+		<echo>------------------------------------------------------------------------------------------</echo>
+		<echo>Packaging module: ${module.name}</echo>
+		<echo>Version: ${module.version}</echo>
+		<echo>Basedir: ${module.basedir}</echo>
+		<echo>Description: ${mod.desc}</echo>
+		<echo>Url: ${mod.url}</echo>
+		<echo>Taskdef: ${module.taskdef}</echo>
+		<echo>------------------------------------------------------------------------------------------</echo>
+		<echo></echo>
+
+		<packageModule name="${mod.name}" version="${module.version}" basedir="${module.basedir}"
+					   description="${mod.desc}" url="${mod.url}" taskdef="${module.taskdef}"/>
+
+		<echo></echo>
+		<echo>------------------------------------------------------------------------------------------</echo>
+		<echo>Module ${module.name} ${module.version} was successfully packaged</echo>
+		<echo>------------------------------------------------------------------------------------------</echo>
+		<echo></echo>
+	</target>
+
+</project>

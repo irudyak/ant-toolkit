@@ -1,0 +1,239 @@
+<project name="Threads test" default="test-macrodefs" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<import file="macrodefs.xml"/>
+
+	<property name="threadsNumber" value="40"/>
+    <property name="threadLoopIterations" value="50"/>
+    <property name="threadMinSleep" value="0"/>
+    <property name="threadMaxSleep" value="5"/>
+	<property name="threadsLogDir" value="${basedir}\thread-test"/>
+
+	<property name="THREAD-AWARE-LOGGER.UNREGISTERED-THREADS-LOG-FOLDER" value="thread-test"/>
+
+	<target name="clean">
+        <echo>${threadsLogDir}</echo>
+
+		<delete dir="${basedir}/thread-test" includeemptydirs="true" />
+		<mkdir dir="${basedir}/thread-test"/>
+	</target>
+
+    <target name="test-threads" depends="clean">
+
+		<generalInitArray name="testArray" values="1"/>
+
+        <generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+
+		<generalCreateCyclicBarrier name="cyclicBarrier2" parties="${threadsNumber}"/>
+
+        <generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+
+            <generalStartThread name="thread-${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
+
+				<generalInitArray name="testArray" values="100"/>
+
+                <generalGetThreadInfo nameProperty="threadName" logFileProperty="logFile"/>
+
+                <generalForLoop from="1" to="${threadLoopIterations}" iterationProperty="iteration">
+
+					<generalGetArrayElement array="testArray" index="0" property="value"/>
+
+					<generalAdd arg1="${value}" arg2="1" property="result"/>
+
+					<generalInitArray name="testArray" values="${result}"/>
+
+                    <generalTimeStamp>
+                        <format property="timeStamp" pattern="dd.MM.yyyy hh:mm:ss:SS" locale="ru,RU"/>
+                    </generalTimeStamp>
+
+					<generalWaitCyclicBarrier name="cyclicBarrier2"/>
+
+                    <generalProperty name="message" value="[${timeStamp}] start iteration ${iteration}, array value=${result}"/>
+
+                    <echo>${message}</echo>
+
+                    <echo>Do some work...</echo>
+
+                    <generalGenerateRandomInteger min="${threadMinSleep}" max="${threadMaxSleep}" property="sleepTimeout"/>
+
+                    <echo>Sleeping for ${sleepTimeout}ms</echo>
+                    <echo></echo>
+
+                    <sleep milliseconds="${sleepTimeout}"/>
+
+                    <!-- imitate failure -->
+<!--
+                    <fail message="Hello world">
+                   		<condition>
+                            <or>
+                                <equals arg1="${threadName}" arg2="thread-1"/>
+                                <equals arg1="${threadName}" arg2="thread-12"/>
+                                <equals arg1="${threadName}" arg2="thread-45"/>
+                                <equals arg1="${threadName}" arg2="thread-123"/>
+                            </or>
+                   		</condition>
+                   	</fail>
+-->
+                </generalForLoop>
+
+            </generalStartThread>
+
+        </generalForLoop>
+
+        <echo>Waiting for threads to complete...</echo>
+        <generalWaitThread group="threadsGroup" failonany="true"/>
+
+    </target>
+
+	<target name="test-cyclic-barrier-wait" depends="clean">
+
+		 <generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+
+		 <generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+
+			 <generalStartThread name="thread-${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
+
+				 <generalGetThreadInfo nameProperty="threadName" logFileProperty="logFile"/>
+
+				 <generalForLoop from="1" to="${threadLoopIterations}" iterationProperty="iteration">
+
+					 <generalGenerateRandomInteger min="${threadMinSleep}" max="${threadMaxSleep}" property="sleepTimeout"/>
+
+					 <sleep milliseconds="${sleepTimeout}"/>
+
+					 <generalWaitCyclicBarrier name="cyclicBarrier"/>
+
+					 <generalTimeStamp>
+						 <format property="timeStamp" pattern="dd.MM.yyyy hh:mm:ss:SS" locale="ru,RU"/>
+					 </generalTimeStamp>
+
+					 <generalProperty name="message" value="[${threadName}] [${timeStamp}] start iteration ${iteration}"/>
+
+					 <echo>${message}</echo>
+					 <echo>Do some work...</echo>
+
+					 <!-- imitate failure -->
+	<!--
+					 <fail message="Hello world">
+							<condition>
+							 <or>
+								 <equals arg1="${threadName}" arg2="thread-1"/>
+								 <equals arg1="${threadName}" arg2="thread-12"/>
+								 <equals arg1="${threadName}" arg2="thread-45"/>
+								 <equals arg1="${threadName}" arg2="thread-123"/>
+							 </or>
+							</condition>
+						</fail>
+	-->
+
+				 </generalForLoop>
+
+			 </generalStartThread>
+
+		 </generalForLoop>
+
+		 <echo>Waiting for threads to complete...</echo>
+		 <generalWaitThread group="threadsGroup" failonany="true"/>
+
+ 	</target>
+
+	<target name="test-synchronization-section" depends="clean">
+
+     <generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+
+     <generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+
+         <generalStartThread name="thread-${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
+
+             <generalGetThreadInfo nameProperty="threadName" logFileProperty="logFile"/>
+
+             <generalForLoop from="1" to="${threadLoopIterations}" iterationProperty="iteration">
+
+				 <generalSynchronizationSection sectionName="synchSection">
+
+					<generalTimeStamp>
+						<format property="timeStamp" pattern="dd.MM.yyyy hh:mm:ss:SS" locale="ru,RU"/>
+					</generalTimeStamp>
+
+					<generalProperty name="message" value="[${threadName}] [${timeStamp}] start iteration ${iteration}"/>
+
+					<echo>${message}</echo>
+
+					<echo>[${threadName}]  Do some work...</echo>
+
+
+					<sleep milliseconds="${threadMaxSleep}"/>
+
+				 </generalSynchronizationSection>
+
+             </generalForLoop>
+
+         </generalStartThread>
+
+     </generalForLoop>
+
+     <echo>Waiting for threads to complete...</echo>
+     <generalWaitThread group="threadsGroup" failonany="true"/>
+
+ 	</target>
+
+	<target name="test-message-queue" depends="clean">
+		<initReportParams reportDateProperty="reportDate" daysRangeArray="daysRange" monthsRangeArray="monthsRange" instDaysRangeArray="instDaysRange" instMonthsRangeArray="instMonthsRange"/>
+		<initInstancesInfo map="instancesMap"/>
+		<generateMessageQueue queue="tasks"
+							  daysRangeArray="daysRange"
+							  monthsRangeArray="monthsRange"
+							  instDaysRangeArray="instDaysRange"
+							  instMonthsRangeArray="instMonthsRange"
+							  instancesMap="instancesMap"/>
+
+		<generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+
+		<generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+      		<generalStartThread name="thread-${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
+				<generalWaitCyclicBarrier name="cyclicBarrier"/>
+
+				<generalProcessQueue queue="tasks" property="message">
+					<runDataGatheringTask task="${message}" maestroConfig="maestro" project="${maestro.project}" region="${maestro.region}"/>
+				</generalProcessQueue>
+			</generalStartThread>
+  		</generalForLoop>
+
+		<echo>Waiting for threads to complete...</echo>
+		<generalWaitThread group="threadsGroup" failonany="true"/>
+	</target>
+
+	<target name="test-macrodefs" depends="clean">
+		<generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+
+        <generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+
+            <generalStartThread name="thread-${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
+
+                <generalForLoop from="1" to="${threadLoopIterations}" iterationProperty="iteration">
+
+                    <generalGenerateRandomInteger min="0" max="10" property="VAR1"/>
+					<generalGenerateRandomInteger min="0" max="10" property="VAR2"/>
+					<generalGenerateRandomInteger min="0" max="10" property="VAR3"/>
+					<generalGenerateRandomInteger min="0" max="10" property="VAR4"/>
+					<generalGenerateRandomInteger min="0" max="10" property="VAR5"/>
+
+					<generalWaitCyclicBarrier name="cyclicBarrier"/>
+
+					<echo>GENERATED VARIABLES:	${VAR1}/${VAR2}/${VAR3}/${VAR4}/${VAR5}</echo>
+
+					<testMacros attr1="${VAR1}" attr2="${VAR2}" attr3="${VAR3}" attr4="${VAR4}" attr5="${VAR5}" property="result"/>
+
+					<echo>RETURNED RESULT:		${result}</echo>
+					<echo>-------------------------------------------------------------</echo>
+                </generalForLoop>
+
+            </generalStartThread>
+
+        </generalForLoop>
+
+        <echo>Waiting for threads to complete...</echo>
+        <generalWaitThread group="threadsGroup" failonany="true"/>
+	</target>
+</project>

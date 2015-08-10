@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="LDAP-test" default="test3" basedir="">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<property name="searchDN" value="DC=my-company,DC=com"/>
+
+	<ldapConfig id="LDAP-CONF" url="ldap://my-host:389" user="john_silver@diamond.com" password="qwerty"/>
+
+	<target name="test1">
+		<ldapSearchConfig id="SEARCH-CONF" scope="SUBTREE_SCOPE" handleReferrals="true"/>
+
+		<ldapSetProperty ldapConfig="LDAP-CONF" searchConfig="SEARCH-CONF"
+						 searchDn="${searchDN}" filter="(&amp;(objectClass=User)(displayName=John Silver))"
+						 attribute="mail" index="0" property="mail"/>
+
+		<echo>E-MAIL=${mail}</echo>
+	</target>
+
+	<target name="test2">
+		<ldapSearchConfig id="SEARCH-CONF" scope="SUBTREE_SCOPE" handleReferrals="true">
+			<attribute>mail</attribute>
+		</ldapSearchConfig>
+
+		<ldapSetProperty ldapConfig="LDAP-CONF" searchConfig="SEARCH-CONF"
+						 searchDn="${searchDN}" filter="(&amp;(objectClass=User)(displayName=Bob Marley))"
+						 attribute="mail" property="mail" defaultValue=""/>
+
+		<echo>E-MAIL=${mail}</echo>
+	</target>
+
+	<target name="test3">
+		<ldapSearchConfig id="SEARCH-CONF" scope="SUBTREE_SCOPE" handleReferrals="true" countLimit="5">
+			<attribute>distinguishedName</attribute>
+			<attribute>memberOf</attribute>
+		</ldapSearchConfig>
+
+		<ldapSearch ldapConfig="LDAP-CONF" searchConfig="SEARCH-CONF"
+					searchDn="${searchDN}" filter="(objectClass=User)">
+			<ldapSearchAttributeValue name="distinguishedName" property="distinguishedName" defaultValue="N/A"/>
+			<echo>${distinguishedName}</echo>
+
+			<ldapSearchAttributeSize name="memberOf" property="count"/>
+			<generalSubstract arg1="${count}" arg2="1" property="count"/>
+
+			<generalForLoop from="0" to="${count}" iterationProperty="index">
+				<ldapSearchAttributeValue name="memberOf" index="${index}" property="memberOf"/>
+				<echo>--->${memberOf}</echo>
+			</generalForLoop>
+		</ldapSearch>
+	</target>
+</project>

@@ -1,0 +1,520 @@
+#!/bin/sh
+
+# Checks version of Java
+checkJavaVersion()
+{
+	java -version &> /dev/null
+
+	if [ $? -ne 0 ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Java is not configured to be launched from command line"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+		exit 1
+	fi
+
+	ANTTOOLKIT_JAVA_VERSION=`java -version 2>&1 | grep -i version | cut -d'"' -f2 | cut -d'.' -f1-2`
+}
+
+# Checks that Apache Ant properly configured
+checkApacheAnt()
+{
+	ant -h &> /dev/null
+
+	if [ $? -ne 0 ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Apache Ant is not configured to be launched from command line"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+		exit 1
+	fi
+
+	if [ "$ANT_HOME" == "" ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] ANT_HOME environment variable is not specified"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+		exit 1
+	fi
+
+	if [ ! -f "$ANT_HOME/lib/ant.jar" ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Apache Ant isn't properly configured, cause $ANT_HOME/lib/ant.jar doesn't exist"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+		exit 1
+	fi
+}
+
+# Setting AntToolkit jars classpath
+setClasspath()
+{
+	ANTTOOLKIT_CLASSPATH=$(readlink -m $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../anttoolkit-all.jar)
+
+	if [ ! -f "$ANTTOOLKIT_CLASSPATH" ]; then
+		ANTTOOLKIT_CLASSPATH=
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[WARNING] There are no AntToolkit main jar found: $ANTTOOLKIT_CLASSPATH"
+		echo "--------------------------------------------------------------------------------"
+		echo
+	fi
+}
+
+# Prints usage information
+printUsage()
+{
+	if [ "$ANTTOOLKIT_CLASSPATH" == "" ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] 'anttoolkit-all.jar' isn't available"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+    	exit 1
+	fi
+
+    java -cp "$ANTTOOLKIT_CLASSPATH" "com.anttoolkit.system.tools.info.FrameworkInfo"
+
+    if [ $? -ne 0 ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Failed to print help for AntToolkit"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+    	exit 1
+    fi
+
+    exit 0
+}
+
+# Prints error message
+printError()
+{
+	echo
+	echo "--------------------------------------------------------------------------------"
+	echo "[ERROR] $@"
+	echo "--------------------------------------------------------------------------------"
+	echo
+}
+
+# Process command line arguments
+processArguments()
+{
+	ANTTOOLKIT_PROFILE=
+	ANTTOOLKIT_PROFILES_DIR=
+	ANTTOOLKIT_LOG_FILE=
+	ANTTOOLKIT_LOGS_ROOT=
+	ANTTOOLKIT_SMART_LOGGING_FLAG=
+	ANTTOOLKIT_THREADS_LOGGING_FLAG=
+	ANTTOOLKIT_NORMALIZED_ARGS=
+	
+	while [ "$1" != "" ]
+	do
+		if [ "$1" == "-help" ] || [ "$1" == "-h" ]; then
+			printUsage
+		elif [ "$1" == "-profile" ] || [ "$1" == "-pr" ]; then
+			if [ "$2" == "" ]; then
+				printError "Incorrect '-profile' specified"
+				exit 1
+			fi
+
+			arg=$2
+
+			if [ "${arg:0:1}" == "-" ]; then
+				printError "Incorrect '-profile' specified"
+				exit 1
+			fi
+
+			ANTTOOLKIT_PROFILE=$2
+
+			shift
+		elif [ "$1" == "-profilesDir" ] || [ "$1" == "-pd" ]; then
+			if [ "$2" == "" ]; then
+				printError "Incorrect '-profilesDir' specified"
+				exit 1
+			fi
+
+			arg=$2
+
+			if [ "${arg:0:1}" == "-" ]; then
+				printError "Incorrect '-profilesDir' specified"
+				exit 1
+			fi
+
+			ANTTOOLKIT_PROFILES_DIR=$(readlink -m $2)
+
+			if [ ! -d "$ANTTOOLKIT_PROFILES_DIR" ]; then
+				printError "Specified '-profilesDir' directory doesn't exist $ANTTOOLKIT_PROFILES_DIR"
+				exit 1
+			fi
+
+			shift
+		elif [ "$1" == "-logFile" ] || [ "$1" == "-l" ]; then
+			if [ "$2" == "" ]; then
+				printError "Incorrect '-logFile' specified"
+				exit 1
+			fi
+
+			arg=$2
+
+			if [ "${arg:0:1}" == "-" ]; then
+				printError "Incorrect '-logFile' specified"
+				exit 1
+			fi
+
+			ANTTOOLKIT_LOG_FILE=$2
+
+			shift
+		elif [ "$1" == "-smartLogging" ] || [ "$1" == "-sl" ]; then
+			ANTTOOLKIT_SMART_LOGGING_FLAG="true"
+		elif [ "$1" == "-threadsLogging" ] || [ "$1" == "-tl" ]; then
+			ANTTOOLKIT_THREADS_LOGGING_FLAG="true"
+		elif [ "$1" == "-lib" ]; then
+			if [ "$2" == "" ]; then
+				printError "Incorrect '-lib' specified"
+				exit 1
+			fi
+
+			arg=$2
+
+			if [ "${arg:0:1}" == "-" ]; then
+				printError "Incorrect '-lib' specified"
+				exit 1
+			fi
+
+			ANTTOOLKIT_CLASSPATH="$ANTTOOLKIT_CLASSPATH: $2"
+
+			shift
+		elif [ "$1" == "-logsRoot" ] || [ "$1" == "-lr" ]; then
+			if [ "$2" == "" ]; then
+				printError "Incorrect '-logsRoot' specified"
+				exit 1
+			fi
+
+			arg=$2
+
+			if [ "${arg:0:1}" == "-" ]; then
+				printError "Incorrect '-logsRoot' specified"
+				exit 1
+			fi
+
+			ANTTOOLKIT_LOGS_ROOT=$(readlink -m $2)
+
+			if [ ! -d "$ANTTOOLKIT_LOGS_ROOT" ]; then
+				printError "Specified '-logsRoot' directory \"$ANTTOOLKIT_LOGS_ROOT\" doesn't exist"
+				exit 1
+			fi
+
+			shift
+		elif [ "$1" == "-update" ]; then
+			updateClasspath
+		else
+			ANTTOOLKIT_NORMALIZED_ARGS="$ANTTOOLKIT_NORMALIZED_ARGS $1"
+		fi
+		
+    	shift
+	done
+}
+
+# Updates jars classpath in anttoolkit-all.jar
+updateClasspath()
+{
+	if [ "$ANTTOOLKIT_CLASSPATH" == "" ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Can't update classpath in 'anttoolkit-all.jar' manifest cause such file isn't available"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+    	exit 1
+	fi
+
+	CLASSPATH_JAR_PATH=$(readlink -m $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..)
+	LIB_DIR=$(readlink -m $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../lib)
+
+	CLASSPATH_JAR_FILE="$CLASSPATH_JAR_PATH/anttoolkit-all-new.jar"
+	CLASSPATH_ANT_SCRIPT_FILE="$CLASSPATH_JAR_PATH/create-classpath-jar.xml"
+
+	if [ -f "$CLASSPATH_JAR_FILE" ]; then
+		rm -f "$CLASSPATH_JAR_FILE"
+	fi
+
+	if [ -f "CLASSPATH_ANT_SCRIPT_FILE" ]; then
+		rm -f "CLASSPATH_ANT_SCRIPT_FILE"
+	fi
+
+    java -cp "$ANTTOOLKIT_CLASSPATH" "com.anttoolkit.system.tools.packaging.ResourceHelper" "com/anttoolkit/system/tools/packaging/create-classpath-jar.xml" "$CLASSPATH_ANT_SCRIPT_FILE" &> /dev/null
+
+    if [ $? -ne 0 ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Failed to create classpath updating Ant script file $CLASSPATH_ANT_SCRIPT_FILE"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+    	exit 1
+    fi
+
+    ant -lib "$ANTTOOLKIT_CLASSPATH" -f "$CLASSPATH_ANT_SCRIPT_FILE" "-DlibDir=$LIB_DIR" "-DclasspathJarFile=$CLASSPATH_JAR_FILE" &> /dev/null
+
+    if [ $? -ne 0 ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Failed to create new 'anttoolkit-all.jar' file"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+		exit 1
+	fi
+
+	rm -f "$CLASSPATH_ANT_SCRIPT_FILE"
+	rm -f "$CLASSPATH_JAR_PATH/anttoolkit-all.jar"
+
+	mv "$CLASSPATH_JAR_FILE" "$CLASSPATH_JAR_PATH/anttoolkit-all.jar"
+
+	echo
+	echo "--------------------------------------------------------------------------------"
+	echo "[INFO] AntToolkit classpath inside 'anttoolkit-all.jar' manifest was successfully updated"
+	echo "--------------------------------------------------------------------------------"
+	echo
+
+	exit 0
+}
+
+# Validate processed arguments
+validateProcessedArgs()
+{
+	if [ "$ANTTOOLKIT_PROFILE" != "" ]; then
+		validateProfile
+	fi
+
+	if [ "$ANTTOOLKIT_PROFILES_DIR" != "" ]; then
+		validateProfilesDir
+	fi
+
+	if [ "$ANTTOOLKIT_LOG_FILE" != "" ]; then
+		validateLogFile
+	fi
+
+	if [ "$ANTTOOLKIT_LOGS_ROOT" != "" ]; then
+		validateLogsRoot
+	fi
+
+	if [ "$ANTTOOLKIT_SMART_LOGGING_FLAG" == "true" ]; then
+		validateSmartLogging
+	fi
+}
+
+# Validates profile
+validateProfile()
+{
+	if [ "$ANTTOOLKIT_PROFILES_DIR" == "" ]; then
+		printError "You need to specify '-profilesDir' directory where to look up for profiles"
+		exit 1
+	fi
+
+	if [ ! -d "$ANTTOOLKIT_PROFILES_DIR" ]; then
+		printError "Specified '-profilesDir' directory \"$ANTTOOLKIT_PROFILES_DIR\" doesn't exist"
+		exit 1
+	fi
+
+	if [ ! -d "$ANTTOOLKIT_PROFILES_DIR/$ANTTOOLKIT_PROFILE" ]; then
+		printError "Specified profile \"$ANTTOOLKIT_PROFILE\" doesn't exist inside \"$ANTTOOLKIT_PROFILES_DIR\""
+		exit 1
+	fi
+}
+
+# Validates profiles dir
+validateProfilesDir()
+{
+	if [ ! -d "$ANTTOOLKIT_PROFILES_DIR" ]; then
+		printError "Specified '-profilesDir' directory \"$ANTTOOLKIT_PROFILES_DIR\" doesn't exist"
+		exit 1
+	fi
+
+	if [ "$ANTTOOLKIT_PROFILE" == "" ]; then
+		printError "You specified '-profilesDir' but forgot to specify '-profile'"
+		exit 1
+	fi
+}
+
+# Validates log file
+validateLogFile()
+{
+	if [ "$ANTTOOLKIT_LOGS_ROOT" == "" ]; then
+		return 0
+	fi
+
+    if [[ $ANTTOOLKIT_LOG_FILE == *"/"* ]]; then
+		printError "With specified option '-logsRoot' you should only provide log file name. In this case it's not allowed to provide log file name using absolute/relative path specification."
+		exit 1
+	fi
+}
+
+validateLogsRoot()
+{
+	if [ "$ANTTOOLKIT_LOG_FILE" == "" ]; then
+		printError "It doesn't make sense to specify '-logsRoot' without specifying '-logFile'"
+		exit 1
+	fi
+}
+
+validateSmartLogging()
+{
+	if [ "$ANTTOOLKIT_LOG_FILE" == "" ]; then
+		printError "It doesn't make sense to specify '-smartLogging' without specifying '-logFile'"
+		exit 1
+	fi
+
+	if [ "$ANTTOOLKIT_LOGS_ROOT" == "" ]; then
+		printError "It doesn't make sense to specify '-smartLogging' without specifying '-logsRoot'"
+		exit 1
+	fi
+}
+
+enhanceClasspath()
+{
+	if [ "$ANTTOOLKIT_PROFILE" == "" ]; then
+		return 0
+	fi
+
+	if [ "$ANTTOOLKIT_PROFILES_DIR" == "" ]; then
+		return 0
+	fi
+
+	if [ "$ANTTOOLKIT_CLASSPATH" == "" ]; then
+		ANTTOOLKIT_CLASSPATH="$ANTTOOLKIT_PROFILES_DIR/$ANTTOOLKIT_PROFILE"
+	else
+		ANTTOOLKIT_CLASSPATH="$ANTTOOLKIT_CLASSPATH:$ANTTOOLKIT_PROFILES_DIR/$ANTTOOLKIT_PROFILE"
+	fi
+}
+
+setLogger()
+{
+	if [ "$ANTTOOLKIT_THREADS_LOGGING_FLAG" == "true" ]; then
+		ANTTOOLKIT_LOGGER="com.anttoolkit.general.loggers.ThreadAwareLogger"
+	else
+		ANTTOOLKIT_LOGGER="com.anttoolkit.general.loggers.GenericLogger"
+	fi
+}
+
+resolveLogFile()
+{
+	if [ "$ANTTOOLKIT_LOGS_ROOT" == "" ]; then
+		if [ "$ANTTOOLKIT_LOG_FILE" != "" ]; then
+			ANTTOOLKIT_LOG_FILE=$(readlink -m $ANTTOOLKIT_LOG_FILE)
+			if [ -f "$ANTTOOLKIT_LOG_FILE" ]; then
+				rm -f $ANTTOOLKIT_LOG_FILE
+			fi
+		fi
+
+		return 0
+	fi
+
+	if [ ! -d $ANTTOOLKIT_LOGS_ROOT ]; then
+		mkdir -p $ANTTOOLKIT_LOGS_ROOT
+
+		if [ $? -ne 0 ]; then
+			echo
+			echo "--------------------------------------------------------------------------------"
+			echo "[ERROR] Failed to create '-logsRoot' directory: $ANTTOOLKIT_LOGS_ROOT"
+			echo "--------------------------------------------------------------------------------"
+			echo
+
+			exit 1
+		fi
+	fi
+
+	if [ "$ANTTOOLKIT_SMART_LOGGING_FLAG" != "true" ]; then
+		ANTTOOLKIT_LOG_FILE="$ANTTOOLKIT_LOGS_ROOT/$ANTTOOLKIT_LOG_FILE"
+		ANTTOOLKIT_LOGS_DIR="$ANTTOOLKIT_LOGS_ROOT"
+
+		if [ -f "$ANTTOOLKIT_LOG_FILE" ]; then
+			rm -f $ANTTOOLKIT_LOG_FILE
+		fi
+
+		return 0
+	fi
+
+	timestamp=`date +"%Y/%m/%d/%H-%M-%S-%N"`
+
+	if [ "$ANTTOOLKIT_PROFILE" == "" ]; then
+		ANTTOOLKIT_LOGS_DIR="$ANTTOOLKIT_LOGS_ROOT/$timestamp"
+	else
+		ANTTOOLKIT_LOGS_DIR="$ANTTOOLKIT_LOGS_ROOT/$ANTTOOLKIT_PROFILE/$timestamp"
+	fi
+
+	ANTTOOLKIT_LOG_FILE="$ANTTOOLKIT_LOGS_DIR/$ANTTOOLKIT_LOG_FILE"
+
+	mkdir -p $ANTTOOLKIT_LOGS_DIR
+
+	if [ $? -ne 0 ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Failed to create directory to store logs: $ANTTOOLKIT_LOGS_DIR"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+		exit 1
+	fi
+}
+
+# Checks that Java accessible from command line
+checkJavaVersion
+
+# Checks that Apache Ant accessible from command line
+checkApacheAnt
+
+# Setting AntToolkit jars classpath
+setClasspath
+
+# Parse command line arguments
+processArguments $@
+
+# Perform validation
+validateProcessedArgs
+
+# Enhance AntToolkit classpath by adding profile dir
+enhanceClasspath
+
+# Setting logger to use
+setLogger
+
+# Creating logs directory if '-logsRoot' and '-logFile' specified
+resolveLogFile
+
+# Set additional environment options
+SETENV_SCRIPT=$(readlink -m $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/setenv)
+if [ -f "$SETENV_SCRIPT" ]; then
+	. $SETENV_SCRIPT
+
+	if [ $? -ne 0 ]; then
+		echo
+		echo "--------------------------------------------------------------------------------"
+		echo "[ERROR] Failed to set additional environment options"
+		echo "--------------------------------------------------------------------------------"
+		echo
+
+		exit 1
+	fi
+fi
+
+# If JDK 1.7 is used we need to specify "-UseSplitVerifier" flag to overcome problem with StackMapTable
+if [ "$ANTTOOLKIT_JAVA_VERSION" == "1.7" ]; then
+	ANT_OPTS="-noverify -XX:-UseSplitVerifier $ANT_OPTS"
+fi
+
+# If JDK 1.8 is used we need to specify "-noverify" flag to overcome problem with StackMapTable
+if [ "$ANTTOOLKIT_JAVA_VERSION" == "1.8" ]; then
+	ANT_OPTS="-noverify $ANT_OPTS"
+fi

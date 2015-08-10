@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<antlib>
+<!-- Table administration -->
+	<taskdef name="hbaseCreateTable" classname="com.anttoolkit.hbase.tasks.table.CreateTableTask" />
+	<taskdef name="hbaseCheckTableExists" classname="com.anttoolkit.hbase.tasks.table.CheckTableExistsTask" />
+	<taskdef name="hbaseCheckTableAvailable" classname="com.anttoolkit.hbase.tasks.table.CheckTableAvailableTask" />
+	<taskdef name="hbaseCheckTableEnabled" classname="com.anttoolkit.hbase.tasks.table.CheckTableEnabledTask" />
+	<taskdef name="hbaseDescribeTable" classname="com.anttoolkit.hbase.tasks.table.DescribeTableTask" />
+	<taskdef name="hbaseEnableTable" classname="com.anttoolkit.hbase.tasks.table.EnableTableTask" />
+	<taskdef name="hbaseDisableTable" classname="com.anttoolkit.hbase.tasks.table.DisableTableTask" />
+	<taskdef name="hbaseListTables" classname="com.anttoolkit.hbase.tasks.table.ListTablesTask" />
+	<taskdef name="hbaseDropTable" classname="com.anttoolkit.hbase.tasks.table.DropTableTask" />
+	<taskdef name="hbaseGetTableRegions" classname="com.anttoolkit.hbase.tasks.table.GetTableRegionsTask" />
+	<taskdef name="hbaseTruncateTable" classname="com.anttoolkit.hbase.tasks.table.TruncateTableTask" />
+	<taskdef name="hbaseCompactTable" classname="com.anttoolkit.hbase.tasks.table.CompactTableTask" />
+	<taskdef name="hbaseFlushTable" classname="com.anttoolkit.hbase.tasks.table.FlushTableTask" />
+	<taskdef name="hbaseGetTableCompactionState" classname="com.anttoolkit.hbase.tasks.table.GetTableCompactionStateTask" />
+	<taskdef name="hbaseSplitTable" classname="com.anttoolkit.hbase.tasks.table.SplitTableTask" />
+	<taskdef name="hbaseMajorCompactTable" classname="com.anttoolkit.hbase.tasks.table.MajorCompactTableTask" />
+	<taskdef name="hbaseAlterTable" classname="com.anttoolkit.hbase.tasks.table.AlterTableTask" />
+	<taskdef name="hbaseGetTableAlterationStatus" classname="com.anttoolkit.hbase.tasks.table.GetTableAlterationStatusTask" />
+	<taskdef name="hbaseWaitTableAlterationCompleted" classname="com.anttoolkit.hbase.tasks.table.WaitTableAlterationCompletedTask" />
+
+<!-- Servers administration -->
+	<taskdef name="hbaseGetServerInfo" classname="com.anttoolkit.hbase.tasks.server.GetServerInfoTask" />
+	<taskdef name="hbaseGetServerLoad" classname="com.anttoolkit.hbase.tasks.server.GetServerLoadTask" />
+	<taskdef name="hbaseGetServerRegions" classname="com.anttoolkit.hbase.tasks.server.GetServerRegionsTask" />
+	<taskdef name="hbaseCheckServerExists" classname="com.anttoolkit.hbase.tasks.server.CheckServerExistsTask" />
+	<taskdef name="hbaseStopServer" classname="com.anttoolkit.hbase.tasks.server.StopServerTask" />
+	<taskdef name="hbaseRollServerLog" classname="com.anttoolkit.hbase.tasks.server.RollServerLogTask" />
+
+<!-- Regions administration -->
+	<taskdef name="hbaseGetRegionLoad" classname="com.anttoolkit.hbase.tasks.region.GetRegionLoadTask" />
+	<taskdef name="hbaseCheckRegionExists" classname="com.anttoolkit.hbase.tasks.region.CheckRegionExistsTask" />
+	<taskdef name="hbaseGetServerForRegion" classname="com.anttoolkit.hbase.tasks.region.GetServerForRegionTask" />
+	<taskdef name="hbaseCloseRegion" classname="com.anttoolkit.hbase.tasks.region.CloseRegionTask" />
+	<taskdef name="hbaseCompactRegion" classname="com.anttoolkit.hbase.tasks.region.CompactRegionTask" />
+	<taskdef name="hbaseFlushRegion" classname="com.anttoolkit.hbase.tasks.region.FlushRegionTask" />
+	<taskdef name="hbaseGetRegionCompactionState" classname="com.anttoolkit.hbase.tasks.region.GetRegionCompactionStateTask" />
+	<taskdef name="hbaseSplitRegion" classname="com.anttoolkit.hbase.tasks.region.SplitRegionTask" />
+	<taskdef name="hbaseOfflineRegion" classname="com.anttoolkit.hbase.tasks.region.OfflineRegionTask" />
+	<taskdef name="hbaseMoveRegion" classname="com.anttoolkit.hbase.tasks.region.MoveRegionTask" />
+	<taskdef name="hbaseMergeRegions" classname="com.anttoolkit.hbase.tasks.region.MergeRegionsTask" />
+	<taskdef name="hbaseUnassignRegion" classname="com.anttoolkit.hbase.tasks.region.UnassignRegionTask" />
+	<taskdef name="hbaseMajorCompactRegion" classname="com.anttoolkit.hbase.tasks.region.MajorCompactRegionTask" />
+
+<!-- Snapshots administration -->
+	<taskdef name="hbaseCreateSnapshot" classname="com.anttoolkit.hbase.tasks.snapshot.CreateSnapshotTask" />
+	<taskdef name="hbaseCloneSnapshot" classname="com.anttoolkit.hbase.tasks.snapshot.CloneSnapshotTask" />
+	<taskdef name="hbaseDeleteSnapshot" classname="com.anttoolkit.hbase.tasks.snapshot.DeleteSnapshotTask" />
+	<taskdef name="hbaseRestoreSnapshot" classname="com.anttoolkit.hbase.tasks.snapshot.RestoreSnapshotTask" />
+	<taskdef name="hbaseGetSnapshots" classname="com.anttoolkit.hbase.tasks.snapshot.GetSnapshotsTask" />
+	<taskdef name="hbaseSnapshotInfo" classname="com.anttoolkit.hbase.tasks.snapshot.GetSnapshotInfoTask" />
+	<taskdef name="hbaseCheckSnapshotExists" classname="com.anttoolkit.hbase.tasks.snapshot.CheckSnapshotExistsTask" />
+	<taskdef name="hbaseGetTableSnapshots" classname="com.anttoolkit.hbase.tasks.snapshot.GetTableSnapshotsTask" />
+
+<!-- Namespace administration -->
+	<taskdef name="hbaseCreateNamespace" classname="com.anttoolkit.hbase.tasks.namespace.CreateNamespaceTask" />
+	<taskdef name="hbaseGetNamespaces" classname="com.anttoolkit.hbase.tasks.namespace.GetNamespacesTask" />
+	<taskdef name="hbaseCheckNamespaceExists" classname="com.anttoolkit.hbase.tasks.namespace.CheckNamespaceExistsTask" />
+	<taskdef name="hbaseGetNamespaceTables" classname="com.anttoolkit.hbase.tasks.namespace.GetNamespaceTablesTask" />
+	<taskdef name="hbaseDeleteNamespace" classname="com.anttoolkit.hbase.tasks.namespace.DeleteNamespaceTask" />
+
+<!-- Catalog janitor administration -->
+	<taskdef name="hbaseCheckCatalogJanitorEnabled" classname="com.anttoolkit.hbase.tasks.janitor.CheckCatalogJanitorEnabledTask" />
+	<taskdef name="hbaseDisableCatalogJanitor" classname="com.anttoolkit.hbase.tasks.janitor.DisableCatalogJanitorTask" />
+	<taskdef name="hbaseEnableCatalogJanitor" classname="com.anttoolkit.hbase.tasks.janitor.EnableCatalogJanitorTask" />
+
+<!-- Cluster administration -->
+	<taskdef name="hbaseGetClusterInfo" classname="com.anttoolkit.hbase.tasks.GetClusterInfoTask" />
+	<taskdef name="hbaseShutdown" classname="com.anttoolkit.hbase.tasks.ShutdownTask" />
+	<taskdef name="hbaseRunBalancer" classname="com.anttoolkit.hbase.tasks.RunBalancerTask" />
+	<taskdef name="hbaseCheckHBaseAvailable" classname="com.anttoolkit.hbase.tasks.CheckHBaseAvailableTask" />
+	<taskdef name="hbaseStopMaster" classname="com.anttoolkit.hbase.tasks.StopMasterTask" />
+	<taskdef name="hbaseCheckMasterRunning" classname="com.anttoolkit.hbase.tasks.CheckMasterRunningTask" />
+	<taskdef name="hbaseRunCatalogScan" classname="com.anttoolkit.hbase.tasks.RunCatalogScanTask" />
+
+<!-- Resource pool container -->
+	<taskdef name="hbaseResourcePoolContainer" classname="com.anttoolkit.hbase.tasks.ResourcePoolContainerTask" />
+
+<!-- Data manipulation operations -->
+	<taskdef name="hbasePut" classname="com.anttoolkit.hbase.tasks.data.PutTask" />
+	<taskdef name="hbaseDelete" classname="com.anttoolkit.hbase.tasks.data.DeleteTask" />
+	<taskdef name="hbaseAppend" classname="com.anttoolkit.hbase.tasks.data.AppendTask" />
+	<taskdef name="hbaseIncrement" classname="com.anttoolkit.hbase.tasks.data.IncrementTask" />
+	<taskdef name="hbaseMutateRow" classname="com.anttoolkit.hbase.tasks.data.MutateRowTask" />
+	<taskdef name="hbaseCheckAndPut" classname="com.anttoolkit.hbase.tasks.data.CheckAndPutTask" />
+	<taskdef name="hbaseCheckAndDelete" classname="com.anttoolkit.hbase.tasks.data.CheckAndDeleteTask" />
+	<taskdef name="hbaseCheckColumnExists" classname="com.anttoolkit.hbase.tasks.data.CheckColumnExistsTask" />
+	<taskdef name="hbaseGet" classname="com.anttoolkit.hbase.tasks.data.GetTask" />
+	<taskdef name="hbaseGetResultFamilies" classname="com.anttoolkit.hbase.tasks.data.GetResultFamiliesTask" />
+	<taskdef name="hbaseGetResultColumns" classname="com.anttoolkit.hbase.tasks.data.GetResultColumnsTask" />
+	<taskdef name="hbaseGetResultTimestamps" classname="com.anttoolkit.hbase.tasks.data.GetResultTimestampsTask" />
+	<taskdef name="hbaseGetResultValues" classname="com.anttoolkit.hbase.tasks.data.GetResultValuesTask" />
+	<taskdef name="hbaseGetResultRowkey" classname="com.anttoolkit.hbase.tasks.data.GetResultRowkeyTask" />
+	<taskdef name="hbaseBatch" classname="com.anttoolkit.hbase.tasks.data.BatchTask" />
+	<taskdef name="hbaseAddToBatch" classname="com.anttoolkit.hbase.tasks.data.AddToBatchTask" />
+	<taskdef name="hbaseDestroyBatch" classname="com.anttoolkit.hbase.tasks.data.DestroyBatchTask" />
+	<taskdef name="hbaseExecuteBatch" classname="com.anttoolkit.hbase.tasks.data.ExecuteBatchTask" />
+	<taskdef name="hbaseScanLoop" classname="com.anttoolkit.hbase.tasks.data.ScanLoopTask" />
+
+<!-- Builds/updates tracking -->
+	<taskdef name="hbaseBuildVersionProvider" classname="com.anttoolkit.hbase.tasks.build.HbaseBuildVersionProviderTask" />
+
+<!-- Types -->
+	<typedef name="hbaseScan" classname="com.anttoolkit.hbase.tasks.data.util.scan.ScanAction"/>
+
+</antlib>

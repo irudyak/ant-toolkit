@@ -1,0 +1,32 @@
+<project name="macrodefs" basedir="../settings/scripts/samples" xmlns:unless="ant:unless" xmlns:if="ant:if">
+	<macrodef name="echoMacro">
+		<attribute name="msg"/>
+		<sequential>
+			<echo>@{msg}</echo>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="runDataGatheringTask">
+		<attribute name="task"/>
+		<attribute name="project"/>
+		<attribute name="region"/>
+		<attribute name="maestroConfig"/>
+		<sequential>
+			<echo>HELLO</echo>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="testMacros">
+		<attribute name="attr1"/>
+		<attribute name="attr2"/>
+		<attribute name="attr3"/>
+		<attribute name="attr4"/>
+		<attribute name="attr5"/>
+		<attribute name="property"/>
+		<sequential>
+			<echo>MACROS VARIABLES:		${VAR1}/${VAR2}/${VAR3}/${VAR4}/${VAR5}</echo>
+			<echo>MACROS ATTRIBUTES:		@{attr1}/@{attr2}/@{attr3}/@{attr4}/@{attr5}</echo>
+			<generalProperty name="@{property}" value="@{attr1}/@{attr2}/@{attr3}/@{attr4}/@{attr5}"/>
+		</sequential>
+	</macrodef>
+</project>

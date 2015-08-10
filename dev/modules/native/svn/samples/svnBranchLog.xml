@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+<logentry
+   revision="2">
+<author>dmadmin</author>
+<date>2009-05-12T13:46:05.074283Z</date>
+<paths>
+<path
+   action="A"
+   kind="file">/Test/BBB/bbb.txt</path>
+<path
+   action="A"
+   kind="dir">/Test/AAA</path>
+<path
+   action="A"
+   kind="file">/Test/AAA/aaa.txt</path>
+<path
+   action="A"
+   kind="dir">/Test/BBB</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="5">
+<author>dmadmin</author>
+<date>2009-05-12T13:51:05.742264Z</date>
+<paths>
+<path
+   action="A"
+   kind="dir">/Test/AAA/ccc</path>
+<path
+   action="A"
+   kind="file">/Test/AAA/ccc/ccc.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="67">
+<author>dmadmin</author>
+<date>2009-05-15T15:32:21.038242Z</date>
+<paths>
+<path
+   action="A"
+   kind="file">/Test/AAA/ddd.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1062">
+<author>docu</author>
+<date>2012-11-18T14:11:36.812500Z</date>
+<paths>
+<path
+   action="A"
+   prop-mods="false"
+   text-mods="false"
+   kind="dir"
+   copyfrom-path="/Test/AAA"
+   copyfrom-rev="1061">/Test/branch/AAA-1</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1063">
+<author>docu</author>
+<date>2012-11-18T14:31:23.328125Z</date>
+<paths>
+<path
+   action="M"
+   kind="file">/Test/branch/AAA-1/ccc/ccc.txt</path>
+<path
+   action="A"
+   kind="file">/Test/branch/AAA-1/ccc/sss.txt</path>
+<path
+   action="A"
+   kind="file">/Test/branch/AAA-1/abc.txt</path>
+<path
+   action="D"
+   kind="file">/Test/branch/AAA-1/ddd.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1064">
+<author>docu</author>
+<date>2012-11-18T14:32:31.031250Z</date>
+<paths>
+<path
+   action="A"
+   kind="file">/Test/branch/AAA-1/dddd.txt</path>
+<path
+   action="D"
+   kind="file">/Test/branch/AAA-1/ccc/ccc.txt</path>
+<path
+   action="M"
+   kind="file">/Test/branch/AAA-1/aaa.txt</path>
+<path
+   action="A"
+   kind="file">/Test/branch/AAA-1/ccc/zzz.txt</path>
+</paths>
+<msg>TEST COMMIT</msg>
+</logentry>
+<logentry
+   revision="1065">
+<author>docu</author>
+<date>2012-11-18T20:32:08.375000Z</date>
+<paths>
+<path
+   action="A"
+   kind="file">/Test/branch/AAA-1/cfv.txt</path>
+</paths>
+<msg>C:\Java\jdk1.5.0_12\bin\java -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:1898,suspend=y,server=n -Dfile.encoding=UTF-8 -classpath "C:\Java\jdk1.5.0_12\jre\lib\charsets.jar;C:\Java\jdk1.5.0_12\jre\lib\deploy.jar;C:\Java\jdk1.5.0_12\jre\lib\javaws.jar;C:\Java\jdk1.5.0_12\jre\lib\jce.jar;C:\Java\jdk1.5.0_12\jre\lib\jsse.jar;C:\Java\jdk1.5.0_12\jre\lib\plugin.jar;C:\Java\jdk1.5.0_12\jre\lib\rt.jar;C:\Java\jdk1.5.0_12\jre\lib\ext\dnsns.jar;C:\Java\jdk1.5.0_12\jre\lib\ext\localedata.jar;C:\Java\jdk1.5.0_12\jre\lib\ext\sunjce_provider.jar;C:\Java\jdk1.5.0_12\jre\lib\ext\sunpkcs11.jar;D:\Projects\AntToolkit\development\AntTasks\classes;D:\Projects\AntToolkit\development\supplementary\ant-launcher.jar;D:\Projects\AntToolkit\development\supplementary\ant.jar;D:\Projects\AntToolkit\development\supplementary\DDS.jar;D:\Projects\AntToolkit\development\supplementary\dfc.jar;D:\Projects\AntToolkit\development\supplementary\jsafeFIPS.jar;D:\Projects\AntToolkit\development\supplementary\certjFIPS.jar;D:\Projects\AntToolkit\development\supplementary\aspectjrt.jar;D:\Projects\AntToolkit\development\supplementary\jaxb-api.jar;D:\Projects\AntToolkit\development\supplementary\serializer.jar;D:\Projects\AntToolkit\development\supplementary\bpmutil.jar;D:\Projects\AntToolkit\development\supplementary\bpm_infra.jar;D:\Projects\AntToolkit\development\supplementary\xalan.jar;D:\Projects\AntToolkit\development\supplementary\workflow.jar;D:\Projects\AntToolkit\development\supplementary\configservice-impl.jar;D:\Projects\AntToolkit\development\supplementary\configservice-api.jar;D:\Projects\AntToolkit\development\supplementary\bofirm.jar;C:\dfc_runtime_user\config;D:\Java\IntelliJ IDEA 11.1.4\lib\idea_rt.jar" Test -buildfile D:\Projects\AntToolkit\development\AntTasks\tests\samples\svn\svn-test.xml
+Connected to the target VM, address: '127.0.0.1:1898', transport: 'socket'
+Buildfile: D:\Projects\AntToolkit\development\AntTasks\tests\samples\svn\svn-test.xml
+
+create-report:
+[XSLTProcess] Processing D:\Projects\AntToolkit\development\AntTasks\tests\samples\svn\svnBranchLog.html__ to D:\Projects\AntToolkit\development\AntTasks\tests\samples\svn\svnBranchLog.html
+[XSLTProcess] Loading stylesheet D:\Projects\AntToolkit\development\AntTasks\defenitions\svnReport.xsl
+
+BUILD SUCCESSFUL
+Total time: 1 second
+Disconnected from the target VM, address: '127.0.0.1:1898', transport: 'socket'
+
+Process finished with exit code 0
+</msg>
+</logentry>
+<logentry
+   revision="1066">
+<author>docu</author>
+<date>2012-11-18T21:05:39.187500Z</date>
+<paths>
+<path
+   action="A"
+   kind="file">/Test/branch/AAA-1/vvv.txt</path>
+<path
+   action="A"
+   kind="file">/Test/branch/AAA-1/mmm.txt</path>
+</paths>
+<msg>asdt</msg>
+</logentry>
+<logentry
+   revision="1077">
+<author>docu</author>
+<date>2012-11-24T14:21:09.968750Z</date>
+<paths>
+<path
+   action="D"
+   kind="file">/Test/branch/AAA-1/vvv.txt</path>
+<path
+   action="M"
+   kind="file">/Test/branch/AAA-1/ccc/zzz.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1080">
+<author>docu</author>
+<date>2012-11-24T14:35:08.843750Z</date>
+<paths>
+<path
+   action="M"
+   kind="file">/Test/branch/AAA-1/aaa.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1082">
+<author>docu</author>
+<date>2012-11-24T16:52:53.437500Z</date>
+<paths>
+<path
+   action="M"
+   kind="file">/Test/branch/AAA-1/abc.txt</path>
+</paths>
+<msg>xwxwxweew</msg>
+</logentry>
+</log>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="test-users-creation" basedir="" default="create-test-users">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<!-- Include macros defenitions -->
+	<import file="macrodefs.xml"/>
+
+    <target name="create-test-users">
+		<dmDocbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}">
+			<processUsersFile file="../test-users.txt" />
+		</dmDocbaseBatch>
+    </target>
+
+</project>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<relativePath>../../../pom.xml</relativePath>
+		<groupId>anttoolkit</groupId>
+		<artifactId>anttoolkit-root</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<name>documentum</name>
+	<description>Documentum module, providing Ant tasks to work with EMC Documentum</description>
+	<url>http://www.emc.com/enterprise-content-management/documentum/index.htm</url>
+	<artifactId>anttoolkit-documentum</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<properties>
+		<module.taskdef>com/anttoolkit/documentum/antlib.xml</module.taskdef>
+	</properties>
+
+	<dependencies>
+		<!-- General module -->
+		<dependency>
+			<groupId>anttoolkit</groupId>
+			<artifactId>anttoolkit-general</artifactId>
+		</dependency>
+
+		<!-- Java mail-->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+
+		<!-- Apache commons -->
+		<dependency>
+			<groupId>commons-jxpath</groupId>
+			<artifactId>commons-jxpath</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+		</dependency>
+
+		<!-- Log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<!-- Apache XML serializer -->
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>serializer</artifactId>
+		</dependency>
+
+		<!-- Apache Xalan -->
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+		</dependency>
+
+		<!-- Apache activation -->
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+		</dependency>
+
+		<!-- Jaxb API -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+		</dependency>
+
+		<!-- Castor  -->
+		<dependency>
+			<groupId>org.codehaus.castor</groupId>
+			<artifactId>castor</artifactId>
+			<version>1.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/castor/castor-1.1-xml.jar</systemPath>
+		</dependency>
+
+		<!-- RSA -->
+		<dependency>
+			<groupId>com.rsa</groupId>
+			<artifactId>certjfips</artifactId>
+			<version>2.2.0.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/rsa/certjFIPS.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.rsa</groupId>
+			<artifactId>jsafefips</artifactId>
+			<version>3.6</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/rsa/jsafeFIPS.jar</systemPath>
+		</dependency>
+
+		<!-- Documentum -->
+		<dependency>
+			<groupId>com.documentum</groupId>
+			<artifactId>bofirm</artifactId>
+			<version>6.5.3000.244</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/documentum/bofirm.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.documentum</groupId>
+			<artifactId>bpm_infra</artifactId>
+			<version>6.7.1000.0029</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/documentum/bpm_infra.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.documentum</groupId>
+			<artifactId>bpmutil</artifactId>
+			<version>6.7.1000.0027</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/documentum/bpmutil.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.documentum</groupId>
+			<artifactId>configservice-api</artifactId>
+			<version>6.7.1000.0031</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/documentum/configservice-api.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.documentum</groupId>
+			<artifactId>configservice-impl</artifactId>
+			<version>6.7.1000.0031</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/documentum/configservice-impl.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.documentum</groupId>
+			<artifactId>dds</artifactId>
+			<version>5.3.0.605</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/documentum/DDS.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.documentum</groupId>
+			<artifactId>dfc</artifactId>
+			<version>6.7.1000.0027</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/documentum/dfc.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.documentum</groupId>
+			<artifactId>workflow</artifactId>
+			<version>6.7.1000.0031</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/documentum/workflow.jar</systemPath>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>package-module</id>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

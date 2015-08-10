@@ -1,0 +1,1 @@
+svn log -r 2:HEAD -v --xml --username test --password test file:///D:/SVN_REPOSITORY/Test/branch/AAA-1 > svnBranchLog.xml

@@ -1,0 +1,19 @@
+<project default="getSvnLog" basedir=".">
+
+	<target name="getSvnLog">
+		<exec executable="svn" output="svn-log.xml">
+			<arg value="log"/>
+			<arg value="-r"/>
+			<arg value="11930:11977"/>
+			<arg value="-v"/>
+			<arg value="--xml"/>
+			<arg value="--username"/>
+			<arg value="user1"/>
+			<arg value="--password"/>
+			<arg value="qwerty"/>
+			<arg value="https://mysite/repos/myproject"/>
+			<arg value="trunk/dev/web/myapp"/>
+		</exec>
+	</target>
+
+</project>

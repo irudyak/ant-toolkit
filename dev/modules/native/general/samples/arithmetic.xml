@@ -1,0 +1,22 @@
+<project name="Arithmetic test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+		<generalTimeStamp>
+			<format property="aaa" pattern="dd.MM.yyyy HH:mm:ss" locale="ru,RU"/>
+		</generalTimeStamp>
+
+		<echo>${aaa}</echo>
+
+		<generalAdd arg1="123" arg2="200.0" property="result"/>
+		<echo>${result}</echo>
+		<generalSubstract arg1="123" arg2="200.0" property="result"/>
+		<echo>${result}</echo>
+		<generalMultiply arg1="123" arg2="200.0" property="result"/>
+		<echo>${result}</echo>
+		<generalDivide arg1="123" arg2="200.0" property="result"/>
+		<echo>${result}</echo>
+	</target>
+
+</project>

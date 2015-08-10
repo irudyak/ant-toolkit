@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<antlib>
+	<!-- Generic tasks -->
+	<taskdef name="aws.session" classname="com.anttoolkit.aws.tasks.AwsSessionTask" />
+
+	<!-- Types -->
+	<typedef name="aws.config" classname="com.anttoolkit.aws.types.AwsConfig"/>
+
+</antlib>

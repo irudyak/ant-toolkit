@@ -1,0 +1,13 @@
+<project name="Message format test" default="test" basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<target name="test">
+
+		<generalInitArray name="testArray" values="Vasia,Pupkin"/>
+		<generalMessageFormat pattern="hello {0} {1}" property="testFormat" array="testArray"/>
+		<echo>${testFormat}</echo>
+
+	</target>
+
+</project>

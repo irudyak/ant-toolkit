@@ -1,0 +1,584 @@
+<project name="Test" default="Test" basedir=".">
+
+	<!-- Profile resolution -->
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<property name="aaa" value="3"/>
+
+	<target name="Test">
+
+		<dmDocbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}">
+
+<!--
+			<dmStartTransaction/>
+			<dmDql>update dm_document object set object_name='hello world 1' where object_name='hello world'</dmDql>
+			<dmAbortTransaction/>
+-->
+<!--
+			<dmDql file="dmDql_batch.xml"/>
+-->
+
+<!--
+			<dmDql query="update dm_document object set object_name='hello world 1' where object_name='hello world'"/>
+-->
+
+<!--
+			<dmDqlExist property="isExist">select r_object_id from dm_sysobject where r_object_id='xxx'</dmDqlExist>
+-->
+
+<!--
+			<dmApiExec>destroy,c,0900006f800022f5</dmApiExec>
+-->
+			
+<!--
+			<dmApiExec command="uninstall,c,4600006f8000190d,FALSE"/>
+-->
+
+<!--
+			<dmCreateDocAppArchive docAppName="TEST" zipFile="TEST.zip"/>
+-->
+
+<!--
+			<dmCreateDocAppArchive docAppName="TEST" folder="D:\Temp"/>
+-->			
+
+<!--
+			<dmInstallDocAppArchive docAppName="My_Test" zipFile="D:\Temp\My_Test.zip" />
+-->			
+
+<!--
+			<dmInstallDocAppArchive docAppName="My_Test" folder="D:\Temp\My_Test" />
+-->
+
+<!--
+			<dmInstallDocAppArchive docAppName="My_Test" zipFile="D:\Temp\My_Test.zip" logFile="D:\Temp\aaa.html"/>
+-->
+
+<!--
+			<dmInstallDocAppArchive docAppName="My_Test" folder="D:\Temp\My_Test" logFile="D:\Temp\aaa.html"/>
+-->
+
+<!--
+			<dmDqlSetProperty property="TestMy">
+				select super_name
+				from dm_type
+				where name='dm_document'
+			</dmDqlSetProperty>
+
+			<echo>${TestMy}</echo>
+-->
+			
+<!--
+			<dmDocbaseObject type="my_type" folder="/User Cabinets/home/test" contentFile="d:\temp\report.jasper" contentType="jasper">
+				<property name="object_name" value="test"/>
+				<property name="title" value="test report"/>
+			</dmDocbaseObject>
+
+
+			<dmDocbaseObject type="my_type" folder="/User Cabinets/home/test" contentFile="d:\temp\readme.txt">
+				<property name="object_name" value="commander mail test"/>
+				<property name="title" value="Hello world"/>
+				<property name="description" value="Hello"/>
+				<property name="text1" query="select distinct shipping_order
+															from my_type2
+															where flag = true"/>
+				<property name="shipping_date" value="TODAY"/>
+				<property name="delivery_date" value="12.02.2003" format="dd.mm.yyyy"/>
+				<property name="flight" query="select r_object_id
+													from my_flight
+													where value = '932'"/>
+			</dmDocbaseObject>
+
+-->
+
+<!--
+			<dmDocbaseObject type="dm_document" newObjectIdProperty="dfc.test.ObjectId">
+				<property name="object_name" value="AAA"/>
+			</dmDocbaseObject>
+-->
+
+
+<!--
+			<dmDocbaseObject file="../objects_batch.xml"/>
+-->
+
+<!--
+			<dmSetPermit objectId="select r_object_id from dm_sysobject where r_object_id='0900039f80007d5b'">
+				<user name="user1" permit="READ" xpermit="EXECUTE_PROC,CHANGE_LOCATION"/>
+				<user name="user2" permit="DELETE"/>
+			</dmSetPermit>
+-->
+
+<!--
+			<dmSetPermit objectId="0900039f80007d5b" resetACL="true">
+				<user name="user1" permit="READ" xpermit="EXECUTE_PROC,CHANGE_LOCATION"/>
+				<user name="user2"/>
+			</dmSetPermit>
+
+			<dmSetPermit objectId="0900039f80007d5b" owner="dmadmin" resetACL="true">
+				<user name="user1" permit="READ" xpermit="EXECUTE_PROC,CHANGE_LOCATION"/>
+				<user name="user2"/>
+			</dmSetPermit>
+
+-->
+
+<!--
+			<dmSetAliasValue aliasSet="test_test">
+				<alias name="aaa" value="/Incoming"/>
+				<alias name="bbb" value="user1"/>
+				<alias name="ccc" value="Hello world"/>
+			</dmSetAliasValue>
+-->
+
+<!--
+			<dmGetAliasValue aliasSet="test">
+				<alias name="aaa" property="prop1"/>
+				<alias name="bbb" property="prop2"/>
+				<alias name="ccc" property="prop3"/>
+			</dmGetAliasValue>
+-->
+
+<!--
+			<dmFlushCaches/>
+-->
+			
+<!--
+			*** full syntax ***
+
+			<dmAudit typeName="my_type, dm_document"  eventName="dm_save, dm_checkin"
+					includeSubtypes="true" application="ddd" policy="test"
+					stateName="s1" signAudit="false" authentication="0" eventDescription="hello world">
+				<attribute name="aaa" />
+				<attribute name="bbb" />
+				<attribute name="ccc" />
+			</dmAudit>
+-->
+
+<!--
+			<dmAudit type="my_type" event="dm_save,dm_bp_demote" />
+-->
+
+<!--
+			<dmAudit type="my_type" event="dm_save,dm_bp_demote">
+				<attribute name="iss_dict_value"/>
+				<attribute name="isb_isactive"/>
+			</dmAudit>
+-->
+
+<!--
+			<dmUnaudit type="my_type" event="dm_save,dm_bp_demote" />
+-->
+
+<!--
+			<dmSetLifecycleActionsModule lifecycle="My_LC" module="lc_My_LC"/>
+-->
+
+<!--
+			<dmSetOwner owner="aurora" objectId="0900006f80003ca3"/>
+-->			
+
+<!--
+			<dmSetOwner owner="dmadmin" objectId="select r_object_id from dm_document where object_name = 'TTT'"/>
+-->
+
+<!--
+			<dmAddToGroup rootGroup="aaa" user="dmadmin"/>
+			<dmAddToGroup rootGroup="aaa" group="bbb"/>
+			<dmAddToGroup rootGroup="aaa" user="dmadmin,xxx,yyy" group="bbb,ccc,ddd"/>
+-->
+
+<!--
+			<dmRemoveFromGroup rootGroup="aaa" user="dmadmin"/>
+			<dmRemoveFromGroup rootGroup="aaa" group="bbb"/>
+			<dmRemoveFromGroup rootGroup="aaa" user="dmadmin,user1,user2" group="bbb,ccc,ddd"/>
+-->
+
+<!--
+			*** FULL SYNTAX ***
+			<dmCreateUser type="myUserType"
+						userName="John Silver"
+						loginName="jsilver"
+						userOSName="..."
+						userDBName="..."
+						userSource="inline password"
+						userDescription="John Silver"
+						email="jsilver@google.com"
+						password="123"
+						loginDomain="..."
+						windowsDomain="..."
+						defaultFolder="/User cabinets/jsilver"
+						clientCapability="2"
+						privileges="4"
+						extendedPrivileges="32"
+						newObjectIdProperty="dfc.test.ObjectId">
+
+				<property name="customProperty_1" value="hello world"/>
+				<property name="customProperty_2" query="select r_object_id
+													from idt_vt_flight
+													where iss_dict_value = 'S7 932'"/>
+			</dmCreateUser>
+-->
+
+<!--
+			<dmCreateUser userName="BBB"
+						loginName="BBB"
+						userDescription="BBB"
+						email="BBB@mail.ru"
+						password="123"
+						defaultFolder="/User Cabinets/BBB"
+						clientCapability="2"
+						privileges="4"
+						extendedPrivileges="32"/>
+-->
+
+<!--
+			<dmCreateUser type="test_user"
+						userName="CCC"
+						loginName="CCC"
+						userDescription="CCC"
+						email="CCC@mail.ru"
+						password="123"
+						defaultFolder="/User Cabinets/CCC"
+						clientCapability="2"
+						privileges="4"
+						extendedPrivileges="32">
+
+				<property name="attribute1" value="hello world"/>
+				<property name="attribute2" value="128"/>
+				<property name="attribute3" value="true"/>
+
+			</dmCreateUser>
+-->			
+
+<!--
+			<dmBofDeployment docApp="My_Test" removePreviousVersions="true">
+				<file>../bof_implementation.jar</file>
+				<file>../bof_interfaces.jar</file>
+				<file>../lifecycle.jar</file>
+				<file>../shared_lib.jar</file>
+			</dmBofDeployment>
+-->
+
+<!--
+			<dmDqlLoop query="select r_object_id, object_name
+				from dm_document ENABLE (RETURN_TOP 3)" columnNamesArray="columnsArray">
+
+				<dmDqlLoopProperty property="r_object_id" column="r_object_id"/>
+				<dmDqlLoopProperty property="object_name" column="object_name"/>
+				<echo message="r_object_id=${r_object_id} object_name=${object_name}"/>
+
+				<dmDqlLoop query="select r_creation_date
+					from dm_document where r_object_id='${r_object_id}'">
+
+					<dmDqlLoopProperty property="r_creation_date" column="r_creation_date" format="dd/mm/yyyy"/>
+					<echo message="r_creation_date=${r_creation_date}"/>
+				</dmDqlLoop>
+
+			</dmDqlLoop>
+-->
+
+<!--
+			<dmDqlLoop query="select r_object_id, object_name
+				from dm_document ENABLE (RETURN_TOP 3)">
+
+				<dmDqlLoopProperty property="r_object_id" column="r_object_id"/>
+				<dmDqlLoopProperty property="object_name" column="object_name"/>
+
+				<echo message="r_object_id=${r_object_id} object_name=${object_name}"/>
+
+				<dmDocbaseObject type="i_position">
+					<property name="iss_dict_value" value="${object_name}${r_object_id}"/>
+				</dmDocbaseObject>
+			</dmDqlLoop>
+-->
+
+<!--
+			<dmBuild number="undefined">
+				<echo>version - undefined</echo>
+			</dmBuild>
+
+			<dmBuild number="1.0">
+				<echo>version - 1.0</echo>
+			</dmBuild>
+
+			<dmBuild number="1.1">
+				<echo>version - 1.1</echo>
+			</dmBuild>
+
+			<dmBuild number="1.2">
+				<echo>version - 1.2</echo>
+			</dmBuild>
+-->
+
+<!--
+			<dmRerunWorkitem id="4a00006f80003100"/>
+-->
+
+<!--
+			<dmRerunWorkitem>select r_object_id from dmi_workitem where r_runtime_state=5</dmRerunWorkitem>
+-->
+
+<!--
+			<dmDestroyObject objectId="4a00006f80003100" allVersions="true"/>
+			<dmDestroyObject objectId="select r_object_id from dm_sysobject where object_name='test'" allVersions="true"/>
+-->
+
+<!--			
+			<dmAcl aclName="EEE" description="test acl">
+				<grant accessor="dm_world" permit="none" />
+				<grant accessor="dm_owner" permit="write" />
+				<grant accessor="grp_document_admins" permit="delete" xpermit="all"/>
+				<grant accessor="grp_document_writers" permit="write"/>
+				<grant accessor="grp_document_readers" permit="read"/>
+
+				<revoke accessor="dm_world" xpermit="all"/>
+				<revoke accessor="dm_owner" xpermit="all"/>
+				<revoke accessor="grp_document_writers" xpermit="all"/>
+				<revoke accessor="grp_document_readers" xpermit="all"/>
+			</dmAcl>
+-->
+
+<!--
+			<dmDqlSetProperty property="docsCount">
+				select count(*)
+				from dt_archive_document
+			</dmDqlSetProperty>
+
+			<echo>Count: ${docsCount}</echo>
+
+			<generalInitArray array="docsArray" initialSize="${docsCount}"/>
+
+			<dmDqlLoop query="select r_object_id, object_name, r_object_type from dt_archive_document order by r_object_id desc">
+				<dmDqlLoopProperty property="r_object_id" column="r_object_id"/>
+				<generalAddArrayElement array="docsArray" value="${r_object_id}"/>
+			</dmDqlLoop>
+
+			<generalArrayLoop array="docsArray" elementproperty="r_object_id" indexproperty="index">
+				<echo>index=${index}, value=${r_object_id}</echo>
+				<dmSetFile objectId="${r_object_id}" failonerror="false" file="D:/JAF-1.1.pdf"/>
+			</generalArrayLoop>
+
+			<dmSetFile objectId="${r_object_id}" file="D:/report.jasper" contentType="jasper"/>
+
+            <dmSetIRMProfile objectId="0900303980008b7c" irmProfile="AAA"/>
+
+            <dmRemoveIRMProfile objectId="0900303980008b7c" />
+
+            <dmCheckout objectId="select r_object_id from dt_archive_document where ss_code like '0-А%'" />
+
+            <dmCancelCheckout objectId="select r_object_id from dt_archive_document where ss_code like '0-А%'" />
+
+            <dmCheckin objectId="select r_object_id from dt_archive_document where ss_code like '0-А%'" contentFile="d:\temp\test.pdf">
+                <property name="ss_name" value="hello"/>
+            </dmCheckin>
+
+            <dmCheckout failonerror="false"
+                        batchIterationsProperty="iterations"
+                        batchSuccessIterationsProperty="successIterations"
+                        batchFailedIterationsProperty="failedIterations"
+                        showObjectInfoBeforeIteration="true"
+                        showObjectInfoAfterIteration="true"
+                    objectId="select r_object_id from dt_archive_document where ss_code like '0-А%'" />
+
+            <echo>iterations: ${iterations}</echo>
+            <echo>success iterations: ${successIterations}</echo>
+            <echo>failed iterations: ${failedIterations}</echo>
+
+            <dmMoveToFolder objectId="090030398001790e" folder="/evolution/documents"/>
+            <dmLinkToFolder objectId="090030398001790e" folder="/evolution/documents"/>
+            <dmUnlinkFromFolder objectId="090030398001790e" folder="/evolution/documents"/>
+
+            <dmGetFile objectId="090030398000d365" failonerror="false" folder="D:\Temp" useObjectPropertyAsFileName="object_name" />
+
+			<dmAttachLifecycle objectId="0900303980020fce" lifecycle="My_LC"/>
+
+			<dmPromote objectId="0900303980020fce" />
+
+			<dmDemote objectId="0900303980020fce" />
+
+			<dmSuspend objectId="0900303980020fce" />
+
+			<dmResume objectId="0900303980020fce" />
+
+			<dmDetachLifecycle objectId="0900303980020fce" />
+
+-->
+
+<!--
+            <dmStartWorkflow template="Workflow-1" workflowName="Workflow-1: Test" newWorkflowIdProperty="workflowId">
+                <package name="Package0" objectId="090030398000b97c"/>
+				<package name="Package1" objectId="090030398000f5b0"/>
+				<package name="Package2" objectId="090030398000f546"/>
+
+                <variable name="Var0" value="hello world"/>
+                <variable name="Var1" value="123"/>
+				<variable name="Var2" value="12.35"/>
+				<variable name="Var3" value="22.11.2012 12:45" format="dd.MM.yyyy hh:mm"/>
+				<variable name="Var4" value="true"/>
+
+				<activity name="Activity-1" performer="esidorov" />
+            </dmStartWorkflow>
+
+-->
+<!--
+			<dmUpdateWorkflow workflowId="xxx">
+				<alias name="aaa" value="yyy"/>
+				<alias name="bbb" value="yyy"/>
+
+				<variable name="aaa" value="yyy"/>
+				<variable name="bbb" value="22.11.2012 12:45" timeFormat="dd.MM.yyyy hh:mm"/>
+
+				<attachment type="xxx" objectId="yyy"/>
+				<attachment objectId="yyy" remove="true"/>
+
+				<activity name="" performer="vpetrov, ivanov" />
+				<activity name="" performersArray="perfArray" />
+			</dmUpdateWorkflow>
+
+			<dmUpdateWorkflow workflowId="4d00303980000100">
+				<variable name="Var0" value="AAA"/>
+				<variable name="Var1" value="321"/>
+
+				<attachment type="dm_sysobject" objectId="090030398000dc5f"/>
+			</dmUpdateWorkflow>
+
+            <dmUpdateWorkflow workflowId="4d00303980000100">
+                <activity name="Activity-3" performer="grp_document_admins" />
+                <completeWorkitem activity="Activity-1" nextActivity="Activity-3"/>
+            </dmUpdateWorkflow>
+
+            <dmUpdateWorkflow workflowId="4d00303980000100">
+                <completeWorkitem activity="Activity-3"/>
+            </dmUpdateWorkflow>
+
+            <dmKillWorkflow workflowId="4d0030398000010a" killChildren="true"/>
+
+            <dmUpdateWorkflow workflowId="4d00303980000100">
+                <supervisor name="esidorov"/>
+            </dmUpdateWorkflow>
+
+            <dmUpdateWorkflow workflowId="4d00303980000100">
+                <postEvent event="event-1" message="hello" sendMail="true"/>
+            </dmUpdateWorkflow>
+
+			<dmGetWorkflowInfo workflowId="4d00303980000100">
+				<variable name="xxx" property="AAA"/>
+				<variable name="yyy" property="BBB" format="dd.MM.yyyy hh:mm:ss"/>
+
+				<alias name="xxx" property="yyy"/>
+
+				<package name="Package0" objectIdProperty="aaa"/>
+			</dmGetWorkflowInfo>
+
+			<dmUpdateWorkflow workflowId="4d00303980000132">
+				<completeWorkitem activity="Activity-2"/>
+			</dmUpdateWorkflow>
+
+-->
+
+<!--
+TEST
+
+			<dmStartWorkflow template="Workflow-2" workflowName="Workflow-2: Test-2" newWorkflowIdProperty="workflowId">
+				<package name="Package0" objectId="090030398000b97c"/>
+				<activity name="Activity-1" performer="dmadmin" />
+			</dmStartWorkflow>
+
+            <dmUpdateWorkflow workflowId="4d0030398000013c">
+                <activity name="Activity-2" performer="bbb" />
+                <completeWorkitem activity="Activity-1" nextActivity="Activity-2"/>
+            </dmUpdateWorkflow>
+
+			<dmUpdateWorkflow workflowId="4d00303980000100">
+				<postEvent event="START-Activity-2"/>
+			</dmUpdateWorkflow>
+
+			<dmUpdateWorkflow workflowId="4d0030398000013c">
+				<completeWorkitem activity="Activity-2"/>
+			</dmUpdateWorkflow>
+
+-->
+
+<!--
+
+			<dmCompleteWorkitem workitemId="select r_object_id from dmi_workitem" failonerror="false"/>
+
+			<dmWaitForWorkitem workflowId="" activity="" performer="" performersArray="" sleepTimeout="" waitTime=""
+							   workitemIdProperty="" workitemPerformerProperty=""
+							   workitemIdArrayProperty="" workitemPerformerArray=""/>
+
+-->
+<!--
+			<dmWaitForWorkitem workflowId="4d00303980000514" activity="Activity-1"
+							   workitemIdProperty="workitemId" workitemPerformerProperty="workitemPerformer"
+							   workitemIdArray="workitemArray" workitemPerformerArray="workitemPerformerArray"
+					waitTime="60s"/>
+
+			<echo>Workitem ${workitemId} for activity Activity-1 was started, performer=${workitemPerformer}</echo>
+
+			<generalArrayLoop array="workitemArray" elementproperty="workitemId" indexproperty="index">
+				<generalGetArrayElement array="workitemPerformerArray" index="${index}" property="performer"/>
+				<echo>workitemId=${workitemId}, performer=${performer}</echo>
+			</generalArrayLoop>
+-->
+
+<!--   WORKFLOW TEST EXECUTION
+
+			<tstamp>
+				<format property="startTime" pattern="dd-MM-yyyy hh:mm:ss" locale="en,UK"/>
+			</tstamp>
+
+			<echo>Start execution: ${startTime}</echo>
+
+			<dmDocbaseObject type="dm_document" folder="/test-cabinet/AAA"
+							 contentFile="d:/temp/test.pdf" newObjectIdProperty="objectId">
+				<property name="object_name" value="Test object ${startTime}"/>
+				<property name="title" value="Test object ${startTime}"/>
+			</dmDocbaseObject>
+
+			<echo>Object ${objectId} created</echo>
+
+			<dmStartWorkflow template="Workflow-3" workflowName="Workflow-3 ${startTime}" newWorkflowIdProperty="workflowId">
+				<package name="Package0" objectId="${objectId}"/>
+				<activity name="Activity-1" performer="dmadmin" />
+			</dmStartWorkflow>
+
+			<echo>Workflow ${workflowId} started</echo>
+
+			<dmWaitForWorkitem workflowId="${workflowId}" activity="Activity-1"
+							   workitemIdProperty="workitemId"/>
+
+			<echo>Workitem ${workitemId} for Activity-1 appeared</echo>
+
+			<dmUpdateWorkflow workflowId="${workflowId}">
+				<activity name="Activity-2" performer="bbb" />
+				<completeWorkitem activity="Activity-1" nextActivity="Activity-2"/>
+			</dmUpdateWorkflow>
+
+			<echo>Workitem ${workitemId} for Activity-1 completed</echo>
+
+			<dmWaitForWorkitem workflowId="${workflowId}" activity="Activity-2"
+							   workitemIdArray="workitemArray" workitemPerformerArray="workitemPerformerArray"/>
+
+			<generalArrayLoop array="workitemArray" elementproperty="workitemId" indexproperty="index">
+				<generalGetArrayElement array="workitemPerformerArray" index="${index}" property="performer"/>
+				<echo>Activity-2 workitem=${workitemId} for performer=${performer} appeared</echo>
+
+				<dmCompleteWorkitem workitemId="${workitemId}" />
+				<echo>Activity-2 workitem=${workitemId} for performer=${performer} completed</echo>
+			</generalArrayLoop>
+
+			<echo>Workflow ${workflowId} completed</echo>
+
+			<tstamp>
+				<format property="finishTime" pattern="dd-MM-yyyy hh:mm:ss" locale="en,UK"/>
+			</tstamp>
+
+			<echo>Execution completed: ${finishTime}</echo>
+-->
+
+		</dmDocbaseBatch>
+
+	</target>
+
+</project>

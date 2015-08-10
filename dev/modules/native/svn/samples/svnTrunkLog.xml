@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+<logentry
+   revision="2">
+<author>dmadmin</author>
+<date>2009-05-12T13:46:05.074283Z</date>
+<paths>
+<path
+   kind="dir"
+   action="A">/Test/AAA</path>
+<path
+   kind="file"
+   action="A">/Test/AAA/aaa.txt</path>
+<path
+   kind="dir"
+   action="A">/Test/BBB</path>
+<path
+   kind="file"
+   action="A">/Test/BBB/bbb.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="5">
+<author>dmadmin</author>
+<date>2009-05-12T13:51:05.742264Z</date>
+<paths>
+<path
+   kind="file"
+   action="A">/Test/AAA/ccc/ccc.txt</path>
+<path
+   kind="dir"
+   action="A">/Test/AAA/ccc</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="67">
+<author>dmadmin</author>
+<date>2009-05-15T15:32:21.038242Z</date>
+<paths>
+<path
+   kind="file"
+   action="A">/Test/AAA/ddd.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1070">
+<author>docu</author>
+<date>2012-11-20T20:06:05.453125Z</date>
+<paths>
+<path
+   kind="file"
+   action="M">/Test/AAA/ccc/ccc.txt</path>
+<path
+   text-mods="false"
+   kind="file"
+   copyfrom-path="/Test/branch/AAA-1/ccc/sss.txt"
+   copyfrom-rev="1063"
+   action="A"
+   prop-mods="false">/Test/AAA/ccc/sss.txt</path>
+<path
+   kind="dir"
+   action="M">/Test/AAA</path>
+<path
+   text-mods="false"
+   kind="file"
+   copyfrom-path="/Test/branch/AAA-1/abc.txt"
+   copyfrom-rev="1063"
+   action="A"
+   prop-mods="false">/Test/AAA/abc.txt</path>
+<path
+   kind="file"
+   action="D">/Test/AAA/ddd.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1075">
+<author>docu</author>
+<date>2012-11-24T14:19:08.171875Z</date>
+<paths>
+<path
+   action="M"
+   kind="file">/Test/AAA/abc.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1076">
+<author>docu</author>
+<date>2012-11-24T14:19:50.234375Z</date>
+<paths>
+<path
+   action="M"
+   kind="file">/Test/AAA/abc.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+<logentry
+   revision="1081">
+<author>docu</author>
+<date>2012-11-24T15:45:07.640625Z</date>
+<paths>
+<path
+   action="A"
+   prop-mods="false"
+   text-mods="false"
+   kind="file"
+   copyfrom-path="/Test/branch/AAA-1/mmm.txt"
+   copyfrom-rev="1080">/Test/AAA/mmm.txt</path>
+<path
+   action="A"
+   prop-mods="false"
+   text-mods="false"
+   kind="file"
+   copyfrom-path="/Test/branch/AAA-1/cfv.txt"
+   copyfrom-rev="1080">/Test/AAA/cfv.txt</path>
+<path
+   action="A"
+   prop-mods="false"
+   text-mods="false"
+   kind="file"
+   copyfrom-path="/Test/branch/AAA-1/dddd.txt"
+   copyfrom-rev="1080">/Test/AAA/dddd.txt</path>
+<path
+   action="D"
+   kind="file">/Test/AAA/ccc/ccc.txt</path>
+<path
+   action="M"
+   kind="dir">/Test/AAA</path>
+<path
+   action="M"
+   kind="file">/Test/AAA/aaa.txt</path>
+<path
+   action="M"
+   kind="file">/Test/AAA/abc.txt</path>
+<path
+   action="A"
+   prop-mods="false"
+   text-mods="false"
+   kind="file"
+   copyfrom-path="/Test/branch/AAA-1/ccc/zzz.txt"
+   copyfrom-rev="1080">/Test/AAA/ccc/zzz.txt</path>
+</paths>
+<msg></msg>
+</logentry>
+</log>

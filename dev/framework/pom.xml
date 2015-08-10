@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<relativePath>../pom.xml</relativePath>
+		<groupId>anttoolkit</groupId>
+		<artifactId>anttoolkit-root</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<name>anttoolkit-framework</name>
+	<description>Service module to package all module in one framework</description>
+	<artifactId>anttoolkit-framework</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>package-framework</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<tempfile property="buildFile" suffix=".xml" deleteonexit="true"/>
+								<loadresource property="script">
+									<javaresource name="com/anttoolkit/system/tools/packaging/package-framework.xml"/>
+								</loadresource>
+								<echo file="${buildFile}" message="${script}"/>
+								<ant antfile="${buildFile}">
+									<property name="frameworkVersion" value="${project.parent.version}"/>
+									<property name="frameworkBasedir" value="${project.basedir}"/>
+									<property name="modulesRootDirs" value="${project.basedir}/../modules/native,${project.basedir}/../modules/thirdparty"/>
+								</ant>
+								<delete file="${buildFile}" quiet="true"/>
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>package-module</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

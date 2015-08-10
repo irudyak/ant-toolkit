@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<antlib>
+	<!-- Tasks -->
+	<taskdef name="mongoSession" classname="com.anttoolkit.mongodb.tasks.MongoSessionTask" />
+	<taskdef name="mongoCheckCollection" classname="com.anttoolkit.mongodb.tasks.CheckCollectionExistsTask"/>
+	<taskdef name="mongoCreateCollection" classname="com.anttoolkit.mongodb.tasks.CreateCollectionTask"/>
+	<taskdef name="mongoDropCollection" classname="com.anttoolkit.mongodb.tasks.DropCollectionTask"/>
+	<taskdef name="mongoRenameCollection" classname="com.anttoolkit.mongodb.tasks.RenameCollectionTask"/>
+	<taskdef name="mongoCopyCollection" classname="com.anttoolkit.mongodb.tasks.CopyCollectionTask"/>
+	<taskdef name="mongoInsert" classname="com.anttoolkit.mongodb.tasks.InsertTask"/>
+	<taskdef name="mongoUpdate" classname="com.anttoolkit.mongodb.tasks.UpdateTask"/>
+	<taskdef name="mongoRemove" classname="com.anttoolkit.mongodb.tasks.RemoveTask"/>
+	<taskdef name="mongoCount" classname="com.anttoolkit.mongodb.tasks.CountTask"/>
+	<taskdef name="mongoFindLoop" classname="com.anttoolkit.mongodb.tasks.FindLoopTask"/>
+	<taskdef name="mongoCreateIndex" classname="com.anttoolkit.mongodb.tasks.CreateIndexTask"/>
+	<taskdef name="mongoCheckIndexExists" classname="com.anttoolkit.mongodb.tasks.CheckIndexExistsTask"/>
+	<taskdef name="mongoDropIndex" classname="com.anttoolkit.mongodb.tasks.DropIndexTask"/>
+	<taskdef name="mongoPutToGridFs" classname="com.anttoolkit.mongodb.tasks.PutToGridFsTask"/>
+	<taskdef name="mongoGetFromGridFs" classname="com.anttoolkit.mongodb.tasks.GetFromGridFsTask"/>
+	<taskdef name="mongoDeleteFromGridFs" classname="com.anttoolkit.mongodb.tasks.DeleteFromGridFsTask"/>
+
+	<!-- Types -->
+	<typedef name="mongoConfig" classname="com.anttoolkit.mongodb.types.MongoConfig"/>
+
+</antlib>

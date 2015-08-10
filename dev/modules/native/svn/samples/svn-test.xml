@@ -1,0 +1,38 @@
+<project name="SVN test" default="test" basedir="">
+
+	<import file="../../system/profile-resolution.xml"/>
+
+	<target name="test">
+
+		<svnGetLatestMessageRevision logFile="C:/Temp/log.xml"
+			   messagePattern="Version [0-9]+\.[0-9]+\.[0-9]+"
+			   property="versionRevision"/>
+
+		<echo>${versionRevision}</echo>
+
+
+		<svnGetRevision infoFile="C:\Temp\svnInfo.xml"
+		              property="myProp"/>
+
+		<echo>Revision: ${myProp}</echo>
+
+		<generalAdd arg1="${myProp}" arg2="10" property="myProp"/>
+		<echo>Revision: ${myProp}</echo>
+
+		<generalAdd arg1="${myProp}" arg2="-20" property="myProp"/>
+		<echo>Revision: ${myProp}</echo>
+
+		<svnLogReport logFile="C:\Temp\svnLog.xml"
+		              reportFile="C:\Temp\svnReport.html"
+		              xsltStyle="C:\Projects\AntToolkit\development\AntTasks\svnReport.xsl"/>
+
+		<svnGetDateFromToday property="myProp1" />
+		<svnGetDateFromToday property="myProp2" daysToAdd="1"/>
+		<svnGetDateFromToday property="myProp3" daysToAdd="-2"/>
+		<echo>myProp1: ${myProp1}</echo>
+		<echo>myProp2: ${myProp2}</echo>
+		<echo>myProp3: ${myProp3}</echo>
+
+	</target>
+
+</project>

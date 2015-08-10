@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<antlib>
+	<taskdef name="pigScript" classname="com.anttoolkit.pig.tasks.PigScriptTask" />
+	<taskdef name="pigRelationTuplesLoop" classname="com.anttoolkit.pig.tasks.RelationTuplesLoopTask" />
+	<taskdef name="pigBagTuplesLoop" classname="com.anttoolkit.pig.tasks.BagTuplesLoopTask" />
+	<taskdef name="pigMapLoop" classname="com.anttoolkit.pig.tasks.MapLoopTask" />
+	<taskdef name="pigGetTupleFieldType" classname="com.anttoolkit.pig.tasks.GetTupleFieldTypeTask" />
+	<taskdef name="pigGetTupleFieldValue" classname="com.anttoolkit.pig.tasks.GetTupleFieldValueTask" />
+	<taskdef name="pigSetTupleContext" classname="com.anttoolkit.pig.tasks.SetTupleContextTask" />
+	<taskdef name="pigGetTupleFieldsCount" classname="com.anttoolkit.pig.tasks.GetTupleFieldsCountTask" />
+	<taskdef name="pigGetMapElement" classname="com.anttoolkit.pig.tasks.GetMapElementTask" />
+</antlib>

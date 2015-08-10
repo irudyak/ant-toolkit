@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<antlib>
+	<!-- Generic tasks -->
+	<taskdef name="maestroSession" classname="com.anttoolkit.maestro.tasks.MaestroSessionTask" />
+	<taskdef name="maestroXmlItemAttribute" classname="com.anttoolkit.maestro.tasks.utils.GetXmlItemAttributeTask" />
+
+	<!-- Report tasks -->
+	<taskdef name="maestroInstanceReport" classname="com.anttoolkit.maestro.tasks.report.InstanceReportTask" />
+	<taskdef name="maestroSubtotalReport" classname="com.anttoolkit.maestro.tasks.report.SubtotalReportTask" />
+
+	<!-- Instance management -->
+	<taskdef name="maestroInstancesLoop" classname="com.anttoolkit.maestro.tasks.instance.InstancesLoopTask" />
+	<taskdef name="maestroInstanceInfo" classname="com.anttoolkit.maestro.tasks.instance.InstanceInfoTask" />
+	<taskdef name="maestroStartInstance" classname="com.anttoolkit.maestro.tasks.instance.StartInstanceTask" />
+	<taskdef name="maestroStopInstance" classname="com.anttoolkit.maestro.tasks.instance.StopInstanceTask" />
+	<taskdef name="maestroSuspendInstance" classname="com.anttoolkit.maestro.tasks.instance.SuspendInstanceTask" />
+	<taskdef name="maestroRebootInstance" classname="com.anttoolkit.maestro.tasks.instance.RebootInstanceTask" />
+	<taskdef name="maestroTerminateInstance" classname="com.anttoolkit.maestro.tasks.instance.TerminateInstanceTask" />
+	<taskdef name="maestroRunInstance" classname="com.anttoolkit.maestro.tasks.instance.RunInstanceTask" />
+	<taskdef name="maestroWaitInstanceState" classname="com.anttoolkit.maestro.tasks.instance.WaitInstanceStateTask" />
+
+	<!-- Volume management -->
+	<taskdef name="maestroVolumesLoop" classname="com.anttoolkit.maestro.tasks.volume.VolumesLoopTask" />
+	<taskdef name="maestroVolumeInfo" classname="com.anttoolkit.maestro.tasks.volume.VolumeInfoTask" />
+	<taskdef name="maestroCreateVolume" classname="com.anttoolkit.maestro.tasks.volume.CreateVolumeTask" />
+	<taskdef name="maestroDetachVolume" classname="com.anttoolkit.maestro.tasks.volume.DetachVolumeTask" />
+	<taskdef name="maestroAttachVolume" classname="com.anttoolkit.maestro.tasks.volume.AttachVolumeTask" />
+	<taskdef name="maestroReattachVolume" classname="com.anttoolkit.maestro.tasks.volume.ReattachVolumeTask" />
+	<taskdef name="maestroResizeVolume" classname="com.anttoolkit.maestro.tasks.volume.ResizeVolumeTask" />
+	<taskdef name="maestroDeleteVolume" classname="com.anttoolkit.maestro.tasks.volume.DeleteVolumeTask" />
+	<taskdef name="maestroWaitVolumeState" classname="com.anttoolkit.maestro.tasks.volume.WaitVolumeStateTask" />
+
+	<!-- Schedule management -->
+	<taskdef name="maestroSchedulesLoop" classname="com.anttoolkit.maestro.tasks.schedule.SchedulesLoopTask" />
+
+	<!-- Checkpoint management -->
+	<taskdef name="maestroCheckpointLoop" classname="com.anttoolkit.maestro.tasks.checkpoint.CheckpointLoopTask" />
+
+	<!-- Properties management -->
+	<taskdef name="maestroGetProperties" classname="com.anttoolkit.maestro.tasks.properties.GetPropertiesTask" />
+	<taskdef name="maestroSetProperties" classname="com.anttoolkit.maestro.tasks.properties.SetPropertiesTask" />
+	<taskdef name="maestroDeleteProperties" classname="com.anttoolkit.maestro.tasks.properties.DeletePropertiesTask" />
+
+	<!-- Types -->
+	<typedef name="maestroConfig" classname="com.anttoolkit.maestro.types.MaestroConfig"/>
+
+</antlib>

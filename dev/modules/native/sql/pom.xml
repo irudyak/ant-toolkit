@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<relativePath>../../../pom.xml</relativePath>
+		<groupId>anttoolkit</groupId>
+		<artifactId>anttoolkit-root</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<name>sql</name>
+	<description>SQL module, providing Ant tasks to work with SQL queries via JDBC</description>
+	<artifactId>anttoolkit-sql</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<properties>
+		<module.taskdef>com/anttoolkit/sql/antlib.xml</module.taskdef>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>ibiblio.mirrors</id>
+			<name>ibiblio.mirrors</name>
+			<url>http://mirrors.ibiblio.org/maven/mule/dependencies/maven2/</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<!-- General module -->
+		<dependency>
+			<groupId>anttoolkit</groupId>
+			<artifactId>anttoolkit-general</artifactId>
+		</dependency>
+
+		<!-- MySQL JDBC driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Oracle JDBC driver -->
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>package-module</id>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

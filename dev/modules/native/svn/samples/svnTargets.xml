@@ -1,0 +1,200 @@
+<project basedir=".">
+
+	<property file="svnTargets.properties"/>
+
+	<path id="svnAnt.classpath">
+	  <pathelement location="${svnjavahl.jar}" />
+	  <pathelement location="${svnant.jar}" />
+	  <pathelement location="${svnClientAdapter.jar}" />
+	</path>
+
+	<path id="svnTasks.classpath">
+	  <pathelement location="${svn.anttoolkit.jar}" />
+	</path>
+
+	<path id="generalTasks.classpath">
+	  <pathelement location="${general.anttoolkit.jar}" />
+	</path>
+
+	<taskdef file="${svn.anttoolkit.taskdef}" classpathref="svnTasks.classpath"/>
+	<taskdef file="${general.anttoolkit.taskdef}" classpathref="generalTasks.classpath"/>
+	<taskdef file="${svn.antsubversion.taskdef}" classpathref="svnAnt.classpath"/>
+
+	<target name="createReport" depends="getSvnLog">
+		<svnLogReport logFile="${svn.report.logFile}"
+		              reportFile="${svn.report.reportFile}"
+		              xsltStyle="${svn.report.stylesheet}"/>
+
+		<delete file="${svn.report.logFile}"/>
+	</target>
+
+	<target name="getRepositoryHeadRevision">
+		<exec executable="svn" output="${svn.report.infoFile}">
+			<arg value="info"/>
+			<arg value="-r"/>
+			<arg value="HEAD"/>
+			<arg value="--xml"/>
+			<arg value="--username"/>
+			<arg value="${svn.username}"/>
+			<arg value="--password"/>
+			<arg value="${svn.password}"/>
+			<arg value="${svn.repository}"/>
+		</exec>
+
+		<svnGetRevision infoFile="${svn.report.infoFile}"
+		              property="svn.repository.headRevision"/>
+	</target>
+
+	<target name="getCurrentBuildRevision">
+		<exec executable="svn" output="${svn.report.logFile}">
+			<arg value="log"/>
+			<arg value="--xml"/>
+			<arg value="-r"/>
+			<arg value="1:HEAD"/>
+			<arg value="--username"/>
+			<arg value="${svn.username}"/>
+			<arg value="--password"/>
+			<arg value="${svn.password}"/>
+			<arg value="${svn.repository}/${svn.report.MainModule}"/>
+		</exec>
+
+		<svnGetLatestMessageRevision logFile="${svn.report.logFile}"
+				messagePattern="${svn.report.version.pattern}"
+				property="svn.report.version.revision"/>
+
+		<condition property="svn.report.version.revision"
+		           value="${svn.report.version.revision}"
+		           else="0">
+			<isset property="svn.report.version.revision"/>
+		</condition>
+
+		<delete file="${svn.report.logFile}"/>
+	</target>
+
+	<target name="getSvnLog" depends="getRepositoryHeadRevision, getCurrentBuildRevision">
+		<generalAdd arg1="${svn.report.version.revision}" arg2="1" property="svn.report.version.revision"/>
+
+		<exec executable="svn" output="${svn.report.logFile}">
+			<arg value="log"/>
+			<arg value="-r"/>
+			<arg value="${svn.report.version.revision}:${svn.repository.headRevision}"/>
+			<arg value="-v"/>
+			<arg value="--xml"/>
+			<arg value="--username"/>
+			<arg value="${svn.username}"/>
+			<arg value="--password"/>
+			<arg value="${svn.password}"/>
+			<arg value="${svn.repository}"/>
+			<arg value="${svn.report.MainModule}"/>
+			<arg value="${svn.report.ExternalModules}"/>
+		</exec>
+	</target>
+
+	<target name="setExternalsToCurrentRevision">
+
+		<svnGetRevision infoFile="${svn.report.infoFile}"
+		              property="svn.repository.headRevision"/>
+
+		<delete file="${svn.report.infoFile}"/>
+		
+		<generalInitArray name="externalPaths"
+		                  file="${svn.externals.paths.File}"
+		                  separator="${svn.externals.paths.separator}"
+		                  trimValues="true"
+		                  arrayLengthProperty="svn.externals.count"
+		                  removeEmptyValues="true"/>
+
+		<generalInitArray name="externalValues"
+		                  file="${svn.externals.values.File}"
+		                  separator="${svn.externals.values.separator}"
+		                  trimValues="true"
+		                  removeEmptyValues="true"/>
+
+		<condition property="svn.externals.hasAnyExternals"
+		           value="false"
+		           else="true">
+			<equals arg1="${svn.externals.count}" arg2="0"/>
+		</condition>
+
+		<svn username="${svn.username}" password="${svn.password}">
+			<update dir="${svn.checkout.rootDirectory}/${svn.checkout.MainModule}" recurse="true"/>
+		</svn>
+
+		<generalPropertyCondition property="svn.externals.hasAnyExternals" equals="true">
+			<generalArrayLoop array="externalPaths" elementProperty="path" indexProperty="index">
+
+				<generalGetArrayElement array="externalValues" index="${index}" property="externalPattern"/>
+				<generalMessageFormat pattern="${externalPattern}" property="externalValue" array="-r${svn.repository.headRevision}"/>
+
+				<svn>
+					<propdel path="${path}" name="svn:externals" />
+					<propset path="${path}" name="svn:externals" value="${externalValue}" />
+				</svn>
+
+			</generalArrayLoop>
+		</generalPropertyCondition>
+
+	</target>
+
+	<target name="setExternalsToHeadRevision">
+
+		<generalInitArray name="externalPaths"
+		                  file="${svn.externals.paths.File}"
+		                  separator="${svn.externals.paths.separator}"
+		                  trimValues="true"
+		                  arrayLengthProperty="svn.externals.count"
+		                  removeEmptyValues="true"/>
+
+		<generalInitArray name="externalValues"
+		                  file="${svn.externals.values.File}"
+		                  separator="${svn.externals.values.separator}"
+		                  trimValues="true"
+		                  removeEmptyValues="true"/>
+
+		<condition property="svn.externals.hasAnyExternals"
+		           value="false"
+		           else="true">
+			<equals arg1="${svn.externals.count}" arg2="0"/>
+		</condition>
+
+		<svn username="${svn.username}" password="${svn.password}">
+			<update dir="${svn.checkout.rootDirectory}/${svn.checkout.MainModule}" recurse="true"/>
+		</svn>
+
+		<generalPropertyCondition property="svn.externals.hasAnyExternals" equals="true">
+			<generalArrayLoop array="externalPaths" elementProperty="path" indexProperty="index">
+
+				<generalGetArrayElement array="externalValues" index="${index}" property="externalPattern"/>
+				<generalMessageFormat pattern="${externalPattern}" property="externalValue" array=""/>
+
+				<svn>
+					<propdel path="${path}" name="svn:externals" />
+					<propset path="${path}" name="svn:externals" value="${externalValue}" />
+				</svn>
+
+			</generalArrayLoop>
+		</generalPropertyCondition>
+		
+	</target>
+
+	<target name="commitProject">
+
+		<svn username="${svn.username}" password="${svn.password}">
+			<commit dir="${svn.checkout.rootDirectory}/${svn.checkout.MainModule}" recurse="true" message="${svn.commitComment}"/>
+		</svn>
+		
+	</target>
+
+	<target name="setNewVersionLabel">
+		<antcall target="setExternalsToCurrentRevision"/>
+		<antcall target="commitProject">
+			<param name="svn.commitComment" value="${svn.newVersionLabel}"/>
+		</antcall>
+
+		<antcall target="setExternalsToHeadRevision"/>
+		<antcall target="commitProject">
+			<param name="svn.commitComment" value="${svn.externals.HeadVersionLabel}"/>
+		</antcall>
+	</target>
+
+</project>

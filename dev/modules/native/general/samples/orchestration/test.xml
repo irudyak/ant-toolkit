@@ -1,0 +1,40 @@
+<project basedir=".">
+
+	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
+
+	<import file="macrodefs.xml"/>
+
+	<target name="test1">
+		<echo>TEST-1</echo>
+		<sleep seconds="2"/>
+		<emulateFailure />
+	</target>
+
+	<target name="test2">
+		<echo>TEST-2</echo>
+		<sleep seconds="2"/>
+		<emulateFailure />
+	</target>
+
+	<target name="test3">
+		<echo>TEST-3-START</echo>
+
+		<generalWorkStep name="test-31" threadGroup="test-31">
+			<echo>test-31</echo>
+			<sleep seconds="2"/>
+			<emulateFailure />
+		</generalWorkStep>
+
+		<generalWorkStep name="test-32" threadGroup="test-32">
+			<echo>test-32</echo>
+			<sleep seconds="2"/>
+			<emulateFailure />
+		</generalWorkStep>
+
+		<generalWaitThread group="test-31" failonany="true"/>
+		<generalWaitThread group="test-32" failonany="true"/>
+
+		<echo>TEST-3-FINISH</echo>
+	</target>
+
+</project>

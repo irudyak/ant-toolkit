@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<antlib>
+	<taskdef name="svnLogReport" classname="com.anttoolkit.svn.tasks.LogReportTask" />
+	<taskdef name="svnUnmergedChangesReport" classname="com.anttoolkit.svn.tasks.UnmergedChangesReportTask" />
+	<taskdef name="svnIssueReport" classname="com.anttoolkit.svn.tasks.IssueReportTask" />
+	<taskdef name="svnGetRevision" classname="com.anttoolkit.svn.tasks.GetRevisionTask" />
+	<taskdef name="svnGetDateFromToday" classname="com.anttoolkit.svn.tasks.GetDateFromTodayTask" />
+	<taskdef name="svnGetLatestMessageRevision" classname="com.anttoolkit.svn.tasks.GetLatestMessageRevisionTask" />
+</antlib>
