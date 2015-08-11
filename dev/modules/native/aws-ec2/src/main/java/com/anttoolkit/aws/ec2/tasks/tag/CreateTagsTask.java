@@ -11,7 +11,7 @@ import com.anttoolkit.aws.ec2.tasks.*;
 
 public class CreateTagsTask extends GenericEc2Task
 {
-	private List<String> resources = new LinkedList<String>();
+	private String resources;
 	private List<Tag> tags = new LinkedList<Tag>();
 
 	public void setResources(String resources)
@@ -21,16 +21,7 @@ public class CreateTagsTask extends GenericEc2Task
 			throw new IllegalArgumentException("Can't specify empty resources list");
 		}
 
-		this.resources.clear();
-
-		for (String res : resources.split(","))
-		{
-			res = res.trim();
-			if (!res.isEmpty() && !this.resources.contains(res))
-			{
-				this.resources.add(res);
-			}
-		}
+		this.resources = resources;
 	}
 
 	public void addConfiguredTag(KeyValueHolder holder)
@@ -41,17 +32,13 @@ public class CreateTagsTask extends GenericEc2Task
 	@Override
 	public void doWork() throws BuildException
 	{
-		CreateTagsRequest request = new CreateTagsRequest();
-		request.setResources(resources);
-		request.setTags(tags);
-
-		getEc2Client().createTags(request);
+		createTags(resources, tags);
 	}
 
 	@Override
 	protected void validate()
 	{
-		if (resources.isEmpty())
+		if (resources == null || resources.trim().isEmpty())
 		{
 			throw new BuildException("Resource should be specified");
 		}

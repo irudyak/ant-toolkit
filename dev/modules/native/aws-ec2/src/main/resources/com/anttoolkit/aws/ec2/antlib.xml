@@ -23,4 +23,7 @@
 	<taskdef name="aws.ec2.describeSecurityGroup" classname="com.anttoolkit.aws.ec2.tasks.securitygroup.DescribeSecurityGroupTask" />
 	<taskdef name="aws.ec2.securityGroupsLoop" classname="com.anttoolkit.aws.ec2.tasks.securitygroup.SecurityGroupsLoopTask" />
 
+	<!-- VPC tasks -->
+	<taskdef name="aws.ec2.createVpc" classname="com.anttoolkit.aws.ec2.tasks.vpc.CreateVpcTask" />
+
 </antlib>

@@ -45,6 +45,7 @@ Building framework distribution:
 To build and package the framework distribution just simply:
 1) Change current directory to "dev"
 2) Execute maven script "mvn clean package"
+3) Find ant-toolkit framework zip archive in dev/framework/target/ant-toolkit-<version number>.zip
 
 Before packaging your framework distribution, you can also specify what modules to include in it by editing dev/framework/modules file. 
 
