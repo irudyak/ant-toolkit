@@ -25,5 +25,6 @@
 
 	<!-- VPC tasks -->
 	<taskdef name="aws.ec2.createVpc" classname="com.anttoolkit.aws.ec2.tasks.vpc.CreateVpcTask" />
+	<taskdef name="aws.ec2.deleteVpc" classname="com.anttoolkit.aws.ec2.tasks.vpc.DeleteVpcTask" />
 
 </antlib>
