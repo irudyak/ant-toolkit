@@ -10,6 +10,10 @@ public class CreateVpcTask extends GenericEc2Task
 {
 	private String name;
 	private String vpcIdProperty;
+	private Boolean dnsSupport;
+	private Boolean dnsHostnames;
+	private String dhcpOptionsSetId;
+
 	private CreateVpcRequest request = new CreateVpcRequest();
 
 	public void setName(String name)
@@ -32,6 +36,21 @@ public class CreateVpcTask extends GenericEc2Task
 		this.vpcIdProperty = vpcIdProperty;
 	}
 
+	public void setDnsSupport(boolean enable)
+	{
+		dnsSupport = enable;
+	}
+
+	public void setDnsHostnames(boolean enable)
+	{
+		dnsHostnames = enable;
+	}
+
+	public void setDhcpOptionsSetId(String id)
+	{
+		dhcpOptionsSetId = id;
+	}
+
 	@Override
 	public void doWork() throws BuildException
 	{
@@ -45,6 +64,33 @@ public class CreateVpcTask extends GenericEc2Task
 		if (name != null)
 		{
 			createTags(result.getVpc().getVpcId(), new Tag("name", name));
+		}
+
+		if (dnsSupport != null || dnsHostnames != null)
+		{
+			ModifyVpcAttributeRequest modifyAttrRequest = new ModifyVpcAttributeRequest();
+			modifyAttrRequest.setVpcId(result.getVpc().getVpcId());
+
+			if (dnsSupport != null)
+			{
+				modifyAttrRequest.setEnableDnsSupport(dnsSupport);
+			}
+
+			if (dnsHostnames != null)
+			{
+				modifyAttrRequest.setEnableDnsHostnames(dnsHostnames);
+			}
+
+			getEc2Client().modifyVpcAttribute(modifyAttrRequest);
+		}
+
+		if (dhcpOptionsSetId != null)
+		{
+			AssociateDhcpOptionsRequest associateRequest = new AssociateDhcpOptionsRequest();
+			associateRequest.setVpcId(result.getVpc().getVpcId());
+			associateRequest.setDhcpOptionsId(dhcpOptionsSetId);
+
+			getEc2Client().associateDhcpOptions(associateRequest);
 		}
 	}
 }
