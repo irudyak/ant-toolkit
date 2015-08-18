@@ -8,6 +8,7 @@
 	<taskdef name="aws.ec2.terminateInstances" classname="com.anttoolkit.aws.ec2.tasks.instance.TerminateInstancesTask" />
 	<taskdef name="aws.ec2.waitInstances" classname="com.anttoolkit.aws.ec2.tasks.instance.WaitInstancesStateTask" />
 	<taskdef name="aws.ec2.describeInstance" classname="com.anttoolkit.aws.ec2.tasks.instance.DescribeInstanceTask" />
+	<taskdef name="aws.ec2.modifyInstance" classname="com.anttoolkit.aws.ec2.tasks.instance.ModifyInstanceTask" />
 	<taskdef name="aws.ec2.instancesLoop" classname="com.anttoolkit.aws.ec2.tasks.instance.InstancesLoopTask" />
 
 	<!-- Tag tasks -->
