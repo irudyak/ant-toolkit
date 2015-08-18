@@ -36,6 +36,22 @@ public abstract class GenericEc2Task extends AwsClientTask
 		return AmazonEC2Client.class;
 	}
 
+	protected final void createTags(Collection<String> resources, Tag... tags)
+	{
+		CreateTagsRequest request = new CreateTagsRequest();
+		request.setResources(resources);
+		request.setTags(Arrays.asList(tags));
+		getEc2Client().createTags(request);
+	}
+
+	protected final void createTags(Collection<String> resources, Collection<Tag> tags)
+	{
+		CreateTagsRequest request = new CreateTagsRequest();
+		request.setResources(resources);
+		request.setTags(tags);
+		getEc2Client().createTags(request);
+	}
+
 	protected final void createTags(String resources, Tag... tags)
 	{
 		CreateTagsRequest request = new CreateTagsRequest();

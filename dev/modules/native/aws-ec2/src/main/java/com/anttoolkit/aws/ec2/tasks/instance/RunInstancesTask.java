@@ -12,6 +12,8 @@ import com.anttoolkit.aws.ec2.common.*;
 
 public class RunInstancesTask extends InstanceTask
 {
+	private String instanceName;
+
 	private String instanceIdProperty;
 	private String publicIpProperty;
 	private String privateIpProperty;
@@ -29,6 +31,11 @@ public class RunInstancesTask extends InstanceTask
 	private List<String> securityGroupIds;
 	private List<BlockDeviceMapping> blockDeviceMappings;
 	private List<InstanceNetworkInterfaceSpecification> networkInterfaces;
+
+	public void setName(String name)
+	{
+		instanceName = name;
+	}
 
 	public void setInstanceIdProperty(String property)
 	{
@@ -315,6 +322,17 @@ public class RunInstancesTask extends InstanceTask
 		Collection<String> instanceIds = this.getInstanceIds(result.getReservation());
 
 		log("Instances created: " + CollectionsHelper.toString(instanceIds));
+
+		if (instanceName != null)
+		{
+			try
+			{
+				createTags(instanceIds, new Tag("name", instanceName));
+			}
+			catch (Throwable e)
+			{
+			}
+		}
 
 		if (isAsync())
 		{
