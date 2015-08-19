@@ -31,4 +31,6 @@
 	<taskdef name="aws.ec2.describeVpc" classname="com.anttoolkit.aws.ec2.tasks.vpc.DescribeVpcTask" />
 	<taskdef name="aws.ec2.vpcsLoop" classname="com.anttoolkit.aws.ec2.tasks.vpc.VpcsLoopTask" />
 
+	<!-- DHCP options tasks -->
+	<taskdef name="aws.ec2.createDhcpOpts" classname="com.anttoolkit.aws.ec2.tasks.dhcp.CreateDhcpOptionsTask" />
 </antlib>
