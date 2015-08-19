@@ -33,4 +33,5 @@
 
 	<!-- DHCP options tasks -->
 	<taskdef name="aws.ec2.createDhcpOpts" classname="com.anttoolkit.aws.ec2.tasks.dhcp.CreateDhcpOptionsTask" />
+	<taskdef name="aws.ec2.deleteDhcpOpts" classname="com.anttoolkit.aws.ec2.tasks.dhcp.DeleteDhcpOptionsTask" />
 </antlib>
