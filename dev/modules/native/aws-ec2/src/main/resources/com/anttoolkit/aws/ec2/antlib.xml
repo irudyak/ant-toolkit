@@ -36,6 +36,6 @@
 	<taskdef name="aws.ec2.deleteDhcpOpts" classname="com.anttoolkit.aws.ec2.tasks.dhcp.DeleteDhcpOptionsTask" />
 	<taskdef name="aws.ec2.describeDhcpOpts" classname="com.anttoolkit.aws.ec2.tasks.dhcp.DescribeDhcpOptionsTask" />
 	<taskdef name="aws.ec2.dhcpOptsLoop" classname="com.anttoolkit.aws.ec2.tasks.dhcp.DhcpOptionsLoopTask" />
-
+	<taskdef name="aws.ec2.associateDhcpOpts" classname="com.anttoolkit.aws.ec2.tasks.dhcp.AssociateDhcpOptionsTask" />
 
 </antlib>
