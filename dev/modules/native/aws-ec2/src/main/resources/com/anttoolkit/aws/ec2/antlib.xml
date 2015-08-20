@@ -38,4 +38,11 @@
 	<taskdef name="aws.ec2.dhcpOptsLoop" classname="com.anttoolkit.aws.ec2.tasks.dhcp.DhcpOptionsLoopTask" />
 	<taskdef name="aws.ec2.associateDhcpOpts" classname="com.anttoolkit.aws.ec2.tasks.dhcp.AssociateDhcpOptionsTask" />
 
+	<!-- Internet gateway tasks -->
+	<taskdef name="aws.ec2.createInternetGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.internet.CreateGatewayTask" />
+	<taskdef name="aws.ec2.deleteInternetGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.internet.DeleteGatewayTask" />
+	<taskdef name="aws.ec2.attachInternetGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.internet.AttachGatewayTask" />
+	<taskdef name="aws.ec2.detachInternetGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.internet.DetachGatewayTask" />
+	<taskdef name="aws.ec2.internetGatewaysLoop" classname="com.anttoolkit.aws.ec2.tasks.gateway.internet.GatewaysLoopTask" />
+
 </antlib>
