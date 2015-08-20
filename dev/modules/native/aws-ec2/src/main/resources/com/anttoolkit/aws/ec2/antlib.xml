@@ -45,4 +45,11 @@
 	<taskdef name="aws.ec2.detachInternetGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.internet.DetachGatewayTask" />
 	<taskdef name="aws.ec2.internetGatewaysLoop" classname="com.anttoolkit.aws.ec2.tasks.gateway.internet.GatewaysLoopTask" />
 
+	<!-- VPN gateway tasks -->
+	<taskdef name="aws.ec2.createVpnGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.vpn.CreateGatewayTask" />
+	<taskdef name="aws.ec2.deleteVpnGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.vpn.DeleteGatewayTask" />
+	<taskdef name="aws.ec2.attachVpnGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.vpn.AttachGatewayTask" />
+	<taskdef name="aws.ec2.detachVpnGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.vpn.DetachGatewayTask" />
+	<taskdef name="aws.ec2.vpnGatewaysLoop" classname="com.anttoolkit.aws.ec2.tasks.gateway.vpn.GatewaysLoopTask" />
+
 </antlib>
