@@ -63,7 +63,7 @@ public class CreateVpcTask extends GenericEc2Task
 
 		if (name != null)
 		{
-			createTags(result.getVpc().getVpcId(), new Tag("name", name));
+			this.setResourceName(result.getVpc().getVpcId(), name);
 		}
 
 		if (dnsSupport != null || dnsHostnames != null)

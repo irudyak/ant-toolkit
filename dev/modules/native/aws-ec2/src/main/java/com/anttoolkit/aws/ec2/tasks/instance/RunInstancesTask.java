@@ -327,7 +327,7 @@ public class RunInstancesTask extends InstanceTask
 		{
 			try
 			{
-				createTags(instanceIds, new Tag("name", instanceName));
+				this.setResourceName(instanceIds, instanceName);
 			}
 			catch (Throwable e)
 			{

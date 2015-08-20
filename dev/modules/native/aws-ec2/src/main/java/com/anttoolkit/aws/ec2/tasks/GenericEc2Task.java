@@ -67,4 +67,15 @@ public abstract class GenericEc2Task extends AwsClientTask
 		request.setTags(tags);
 		getEc2Client().createTags(request);
 	}
+
+	protected final void setResourceName(String resources, String name)
+	{
+		createTags(resources, new Tag("name", name));
+	}
+
+	protected final void setResourceName(Collection<String> resources, String name)
+	{
+		createTags(resources, new Tag("name", name));
+	}
+
 }

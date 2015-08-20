@@ -50,7 +50,7 @@ public class CreateDhcpOptionsTask extends GenericEc2Task
 
 		if (name != null)
 		{
-			createTags(opts.getDhcpOptionsId(), new Tag("name", name));
+			setResourceName(opts.getDhcpOptionsId(), name);
 		}
 	}
 
