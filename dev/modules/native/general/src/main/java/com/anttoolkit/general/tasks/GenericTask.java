@@ -1,13 +1,15 @@
 package com.anttoolkit.general.tasks;
 
+import java.lang.reflect.*;
 import java.nio.charset.*;
 import java.util.*;
 import java.io.*;
 
-import com.anttoolkit.general.refs.ReferenceManager;
 import org.apache.tools.ant.*;
 
+import com.anttoolkit.general.common.annotations.Required;
 import com.anttoolkit.general.common.*;
+import com.anttoolkit.general.refs.*;
 
 public abstract class GenericTask
 		extends Task
@@ -103,6 +105,7 @@ public abstract class GenericTask
 	public void execute()
 			throws BuildException
 	{
+		preValidate();
 		validate();
 
 		try
@@ -370,5 +373,35 @@ public abstract class GenericTask
 		delegateTask.setLocation(this.getLocation());
 		delegateTask.setRuntimeConfigurableWrapper(this.getRuntimeConfigurableWrapper());
 		delegateTask.setTaskName(taskName);
+	}
+
+	private void preValidate()
+	{
+		Field[] fields = ReflectionHelper.getDeclaredFields(this.getClass(), null);
+
+		for (Field field: fields)
+		{
+			if (!field.isAnnotationPresent(Required.class))
+			{
+				continue;
+			}
+
+			Required required = field.getAnnotation(Required.class);
+			Object value;
+
+			try
+			{
+				value = field.get(this);
+			}
+			catch (IllegalAccessException e)
+			{
+				throw new BuildException("Failed to get value of the field '" + field.getName() + "'", e);
+			}
+
+			if (value == null || value.toString() == null || value.toString().trim().isEmpty())
+			{
+				throw new BuildException(required.value());
+			}
+		}
 	}
 }
