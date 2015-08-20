@@ -52,4 +52,9 @@
 	<taskdef name="aws.ec2.detachVpnGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.vpn.DetachGatewayTask" />
 	<taskdef name="aws.ec2.vpnGatewaysLoop" classname="com.anttoolkit.aws.ec2.tasks.gateway.vpn.GatewaysLoopTask" />
 
+	<!-- Customer gateway tasks -->
+	<taskdef name="aws.ec2.createCustomerGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.customer.CreateGatewayTask" />
+	<taskdef name="aws.ec2.deleteCustomerGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.customer.DeleteGatewayTask" />
+	<taskdef name="aws.ec2.customerGatewaysLoop" classname="com.anttoolkit.aws.ec2.tasks.gateway.customer.GatewaysLoopTask" />
+
 </antlib>
