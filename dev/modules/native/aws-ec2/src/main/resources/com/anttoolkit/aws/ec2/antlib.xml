@@ -57,4 +57,7 @@
 	<taskdef name="aws.ec2.deleteCustomerGateway" classname="com.anttoolkit.aws.ec2.tasks.gateway.customer.DeleteGatewayTask" />
 	<taskdef name="aws.ec2.customerGatewaysLoop" classname="com.anttoolkit.aws.ec2.tasks.gateway.customer.GatewaysLoopTask" />
 
+	<!-- Network ACL tasks -->
+	<taskdef name="aws.ec2.createNetworkACL" classname="com.anttoolkit.aws.ec2.tasks.networkacl.CreateNetworkAclTask" />
+
 </antlib>
