@@ -65,5 +65,6 @@
 
 	<!-- Route tasks -->
 	<taskdef name="aws.ec2.createRouteTable" classname="com.anttoolkit.aws.ec2.tasks.routetable.CreateRouteTableTask" />
+	<taskdef name="aws.ec2.deleteRouteTable" classname="com.anttoolkit.aws.ec2.tasks.routetable.DeleteRouteTableTask" />
 
 </antlib>
