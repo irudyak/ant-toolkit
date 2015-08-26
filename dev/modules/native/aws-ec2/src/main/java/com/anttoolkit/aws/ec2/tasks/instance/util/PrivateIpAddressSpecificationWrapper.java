@@ -1,4 +1,4 @@
-package com.anttoolkit.aws.ec2.common;
+package com.anttoolkit.aws.ec2.tasks.instance.util;
 
 import com.amazonaws.services.ec2.model.*;
 

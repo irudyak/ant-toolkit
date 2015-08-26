@@ -9,6 +9,7 @@ import org.apache.tools.ant.*;
 import com.anttoolkit.general.common.*;
 import com.anttoolkit.general.tasks.collections.array.util.*;
 import com.anttoolkit.aws.ec2.common.*;
+import com.anttoolkit.aws.ec2.tasks.instance.util.*;
 
 public class RunInstancesTask extends InstanceTask
 {
