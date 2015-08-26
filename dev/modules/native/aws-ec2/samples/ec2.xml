@@ -1,4 +1,4 @@
-<project name="AWS test" default="test12" basedir=".">
+<project name="AWS test" default="test13" basedir=".">
 
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
@@ -147,5 +147,7 @@
 		<echo>Group Id: ${id}</echo>
 	</target>
 
-
+	<target name="test13">
+		<aws.ec2.deleteNetworkACL awsConfig="myAwsConfig" aclId="acl-13972276"/>
+	</target>
 </project>
