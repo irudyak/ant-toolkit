@@ -387,6 +387,8 @@ public abstract class GenericTask
 			}
 
 			Required required = field.getAnnotation(Required.class);
+			field.setAccessible(true);
+
 			Object value;
 
 			try
