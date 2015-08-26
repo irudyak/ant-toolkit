@@ -63,4 +63,7 @@
 	<taskdef name="aws.ec2.describeNetworkACL" classname="com.anttoolkit.aws.ec2.tasks.networkacl.DescribeNetworkAclTask" />
 	<taskdef name="aws.ec2.networkACLsLoop" classname="com.anttoolkit.aws.ec2.tasks.networkacl.NetworkAclsLoopTask" />
 
+	<!-- Route tasks -->
+	<taskdef name="aws.ec2.createRouteTable" classname="com.anttoolkit.aws.ec2.tasks.routetable.CreateRouteTableTask" />
+
 </antlib>
