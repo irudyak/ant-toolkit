@@ -18,6 +18,21 @@ public class CreateRouteTableTask extends GenericEc2Task
 	private String tableIdProperty;
 	private List<RouteWrapper> routes = new LinkedList<RouteWrapper>();
 
+	public void setVpcId(String id)
+	{
+		vpcId = id;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public void setTableIdProperty(String property)
+	{
+		tableIdProperty = property;
+	}
+
 	public void addConfiguredRoute(RouteWrapper route)
 	{
 		routes.add(route);

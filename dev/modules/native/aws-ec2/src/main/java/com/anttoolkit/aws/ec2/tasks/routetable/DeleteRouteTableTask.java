@@ -12,6 +12,11 @@ public class DeleteRouteTableTask extends GenericEc2Task
 	@Required("Route table id should be specified")
 	private String tableId;
 
+	public void setTableId(String id)
+	{
+		tableId = id;
+	}
+
 	@Override
 	public void doWork() throws BuildException
 	{
