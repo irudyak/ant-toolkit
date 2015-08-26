@@ -60,5 +60,7 @@
 	<!-- Network ACL tasks -->
 	<taskdef name="aws.ec2.createNetworkACL" classname="com.anttoolkit.aws.ec2.tasks.networkacl.CreateNetworkAclTask" />
 	<taskdef name="aws.ec2.deleteNetworkACL" classname="com.anttoolkit.aws.ec2.tasks.networkacl.DeleteNetworkAclTask" />
+	<taskdef name="aws.ec2.describeNetworkACL" classname="com.anttoolkit.aws.ec2.tasks.networkacl.DescribeNetworkAclTask" />
+	<taskdef name="aws.ec2.networkACLsLoop" classname="com.anttoolkit.aws.ec2.tasks.networkacl.NetworkAclsLoopTask" />
 
 </antlib>
