@@ -1,6 +1,7 @@
 package com.anttoolkit.aws.ec2.tasks.routetable;
 
-import com.amazonaws.services.ec2.model.AssociateRouteTableRequest;
+import com.amazonaws.services.ec2.model.*;
+
 import org.apache.tools.ant.*;
 
 import com.anttoolkit.general.common.annotations.*;
@@ -14,6 +15,8 @@ public class AssociateRouteTableTask extends GenericEc2Task
 	@Required("Route table id should be specified")
 	private String tableId;
 
+	private String associationIdProperty;
+
 	public void setSubnetId(String id)
 	{
 		subnetId = id;
@@ -24,6 +27,11 @@ public class AssociateRouteTableTask extends GenericEc2Task
 		tableId = id;
 	}
 
+	public void setAssociationIdProperty(String property)
+	{
+		associationIdProperty = property;
+	}
+
 	@Override
 	public void doWork() throws BuildException
 	{
@@ -31,6 +39,11 @@ public class AssociateRouteTableTask extends GenericEc2Task
 		request.setSubnetId(subnetId);
 		request.setRouteTableId(tableId);
 
-		getEc2Client().associateRouteTable(request);
+		AssociateRouteTableResult result = getEc2Client().associateRouteTable(request);
+
+		if (associationIdProperty != null)
+		{
+			this.setPropertyThreadSafe(associationIdProperty, result.getAssociationId());
+		}
 	}
 }
