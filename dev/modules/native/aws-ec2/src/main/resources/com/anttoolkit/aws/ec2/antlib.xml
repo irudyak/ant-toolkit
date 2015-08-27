@@ -68,5 +68,6 @@
 	<taskdef name="aws.ec2.deleteRouteTable" classname="com.anttoolkit.aws.ec2.tasks.routetable.DeleteRouteTableTask" />
 	<taskdef name="aws.ec2.associateRouteTable" classname="com.anttoolkit.aws.ec2.tasks.routetable.AssociateRouteTableTask" />
 	<taskdef name="aws.ec2.disassociateRouteTable" classname="com.anttoolkit.aws.ec2.tasks.routetable.DisassociateRouteTableTask" />
+	<taskdef name="aws.ec2.replaceRouteTableAssociation" classname="com.anttoolkit.aws.ec2.tasks.routetable.ReplaceRouteTableAssociationTask" />
 
 </antlib>
