@@ -46,5 +46,10 @@ public class DisassociateRouteTableTask extends GenericEc2Task
 		{
 			throw new BuildException("Either association id or subnet and route table id should be specified");
 		}
+
+		if (associationId != null && (subnetId != null || tableId != null))
+		{
+			throw new BuildException("Either association id or subnet and route table id should be specified");
+		}
 	}
 }
