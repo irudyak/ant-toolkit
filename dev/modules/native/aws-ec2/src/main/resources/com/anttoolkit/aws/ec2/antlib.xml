@@ -75,5 +75,6 @@
 	<!-- Subnet tasks -->
 	<taskdef name="aws.ec2.createSubnet" classname="com.anttoolkit.aws.ec2.tasks.subnet.CreateSubnetTask" />
 	<taskdef name="aws.ec2.deleteSubnet" classname="com.anttoolkit.aws.ec2.tasks.subnet.DeleteSubnetTask" />
+	<taskdef name="aws.ec2.describeSubnet" classname="com.anttoolkit.aws.ec2.tasks.subnet.DescribeSubnetTask" />
 
 </antlib>
