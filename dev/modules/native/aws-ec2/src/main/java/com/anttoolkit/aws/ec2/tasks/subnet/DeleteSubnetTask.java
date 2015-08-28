@@ -12,6 +12,11 @@ public class DeleteSubnetTask extends GenericEc2Task
 	@Required("Subnet id should be specified")
 	private String subnetId;
 
+	public void setSubnetId(String id)
+	{
+		this.subnetId = id;
+	}
+
 	@Override
 	public void doWork() throws BuildException
 	{
