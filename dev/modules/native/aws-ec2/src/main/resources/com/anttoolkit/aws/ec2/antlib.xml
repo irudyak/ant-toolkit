@@ -72,4 +72,7 @@
 	<taskdef name="aws.ec2.describeRouteTable" classname="com.anttoolkit.aws.ec2.tasks.routetable.DescribeRouteTableTask" />
 	<taskdef name="aws.ec2.routeTablesLoop" classname="com.anttoolkit.aws.ec2.tasks.routetable.RouteTablesLoopTask" />
 
+	<!-- Subnet tasks -->
+	<taskdef name="aws.ec2.createSubnet" classname="com.anttoolkit.aws.ec2.tasks.subnet.CreateSubnetTask" />
+
 </antlib>
