@@ -17,7 +17,7 @@
 
 		<generalInitArray name="pigJobs"/>
 
-		<pigScript hadoopConfig="saturn" params="PIG-PARAMS" hadoopJobsArray="pigJobs">
+		<pig.script hadoopConfig="saturn" params="PIG-PARAMS" hadoopJobsArray="pigJobs">
 			A = LOAD '/user/pig/passwords.txt' USING PigStorage(':')
 				AS (login:chararray, password:chararray, userid:int,
 					groupid:int, display_name:chararray,
@@ -28,7 +28,7 @@
 
 			STORE B INTO '/user/pig/result-B' USING PigStorage(':');
 			STORE C INTO '/user/pig/result-C' USING PigStorage(':');
-		</pigScript>
+		</pig.script>
 
 		<echo>Pig script related Hadoop jobs:</echo>
 
@@ -48,21 +48,21 @@
 			B = GROUP A BY first;
 		</property>
 
-		<pigRelationTuplesLoop hadoopConfig="saturn" relation="B" script="${pigScript}">
-			<pigGetTupleFieldValue fieldNumber="0" property="group"/>
+		<pig.relationTuplesLoop hadoopConfig="saturn" relation="B" script="${pigScript}">
+			<pig.getTupleFieldValue fieldNumber="0" property="group"/>
 
 			<echo></echo>
 			<echo>GROUP ${group} tuples:</echo>
 
-			<pigBagTuplesLoop fieldNumber="1">
-				<pigGetTupleFieldValue fieldNumber="0" property="first"/>
-				<pigGetTupleFieldValue fieldNumber="1" property="second"/>
-				<pigGetTupleFieldValue fieldNumber="2" property="third"/>
-				<pigGetTupleFieldValue fieldNumber="3" property="start_time" dateFormat="MM/dd/yyyy hh:mm:ss aaa"/>
+			<pig.bagTuplesLoop fieldNumber="1">
+				<pig.getTupleFieldValue fieldNumber="0" property="first"/>
+				<pig.getTupleFieldValue fieldNumber="1" property="second"/>
+				<pig.getTupleFieldValue fieldNumber="2" property="third"/>
+				<pig.getTupleFieldValue fieldNumber="3" property="start_time" dateFormat="MM/dd/yyyy hh:mm:ss aaa"/>
 
 				<echo>${first}, ${second}, ${third}, ${start_time}</echo>
-			</pigBagTuplesLoop>
-		</pigRelationTuplesLoop>
+			</pig.bagTuplesLoop>
+		</pig.relationTuplesLoop>
 
 	</target>
 
@@ -75,16 +75,16 @@
 			A = LOAD '/user/pig/sample2.txt' AS (map[chararray]);
 		</property>
 
-		<pigRelationTuplesLoop hadoopConfig="saturn" relation="A" script="${pigScript}">
-			<pigGetTupleFieldType fieldNumber="0" property="type"/>
+		<pig.relationTuplesLoop hadoopConfig="saturn" relation="A" script="${pigScript}">
+			<pig.getTupleFieldType fieldNumber="0" property="type"/>
 			<generalIf arg1="${type}" arg2="MAP" condition="=">
 				<echo></echo>
 				<echo>Printing MAP content</echo>
-				<pigMapLoop fieldNumber="0" keyProperty="key" valueProperty="value">
+				<pig.mapLoop fieldNumber="0" keyProperty="key" valueProperty="value">
 					<echo>${key}->${value}</echo>
-				</pigMapLoop>
+				</pig.mapLoop>
 			</generalIf>
-		</pigRelationTuplesLoop>
+		</pig.relationTuplesLoop>
 
 	</target>
 
