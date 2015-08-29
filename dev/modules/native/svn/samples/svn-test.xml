@@ -16,10 +16,10 @@
 
 		<echo>Revision: ${myProp}</echo>
 
-		<generalAdd arg1="${myProp}" arg2="10" property="myProp"/>
+		<general.add arg1="${myProp}" arg2="10" property="myProp"/>
 		<echo>Revision: ${myProp}</echo>
 
-		<generalAdd arg1="${myProp}" arg2="-20" property="myProp"/>
+		<general.add arg1="${myProp}" arg2="-20" property="myProp"/>
 		<echo>Revision: ${myProp}</echo>
 
 		<svnLogReport logFile="C:\Temp\svnLog.xml"

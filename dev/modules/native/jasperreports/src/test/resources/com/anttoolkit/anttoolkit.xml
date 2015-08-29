@@ -2,5 +2,5 @@
 	<taskdef resource="com/anttoolkit/general/antlib.xml"/>
 	<taskdef resource="com/anttoolkit/sql/antlib.xml"/>
 	<taskdef resource="com/anttoolkit/jasperreports/antlib.xml"/>
-	<generalScopePropertyHandler/>
+	<general.scopePropertyHandler/>
 </project>

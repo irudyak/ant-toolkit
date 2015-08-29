@@ -15,7 +15,7 @@
 			<pathelement location="D:/TEMP/hadoop-new-1-client"/>
 		</hadoop.config>
 
-		<generalInitArray name="pigJobs"/>
+		<general.initArray name="pigJobs"/>
 
 		<pig.script hadoopConfig="saturn" params="PIG-PARAMS" hadoopJobsArray="pigJobs">
 			A = LOAD '/user/pig/passwords.txt' USING PigStorage(':')
@@ -32,9 +32,9 @@
 
 		<echo>Pig script related Hadoop jobs:</echo>
 
-		<generalArrayLoop array="pigJobs" elementProperty="jobName">
+		<general.arrayLoop array="pigJobs" elementProperty="jobName">
 			<echo>${jobName}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 
 	</target>
 
@@ -77,13 +77,13 @@
 
 		<pig.relationTuplesLoop hadoopConfig="saturn" relation="A" script="${pigScript}">
 			<pig.getTupleFieldType fieldNumber="0" property="type"/>
-			<generalIf arg1="${type}" arg2="MAP" condition="=">
+			<general.if arg1="${type}" arg2="MAP" condition="=">
 				<echo></echo>
 				<echo>Printing MAP content</echo>
 				<pig.mapLoop fieldNumber="0" keyProperty="key" valueProperty="value">
 					<echo>${key}->${value}</echo>
 				</pig.mapLoop>
-			</generalIf>
+			</general.if>
 		</pig.relationTuplesLoop>
 
 	</target>

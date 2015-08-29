@@ -5,19 +5,19 @@
 	<target name="test">
 
 		<echo>--- FOR LOOP ---</echo>
-		<generalForLoop from="0" to="20" iterationProperty="iter">
+		<general.for from="0" to="20" iterationProperty="iter">
 			<echo>Iteration - ${iter}</echo>
-		</generalForLoop>
+		</general.for>
 
 		<echo></echo>
 
 		<echo>--- WHILE LOOP ---</echo>
 		<property name="i" value="0"/>
 
-		<generalWhileLoop arg1="${i}" arg2="10" condition="&lt;" iterationProperty="iter">
+		<general.while arg1="${i}" arg2="10" condition="&lt;" iterationProperty="iter">
 			<echo>Iteration - ${iter}</echo>
-			<generalAdd arg1="${i}" arg2="1" property="i"/>
-		</generalWhileLoop>
+			<general.add arg1="${i}" arg2="1" property="i"/>
+		</general.while>
 
 	</target>
 

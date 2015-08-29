@@ -48,25 +48,25 @@
 			</condition>
 		</fail>
 
-		<generalCondition property="mod.url" value="${module.url}" else="">
+		<general.condition property="mod.url" value="${module.url}" else="">
 			<and>
 				<isset property="module.url"/>
 				<not>
 					<matches string="${module.url}" pattern="^\$.*$"/>
 				</not>
 			</and>
-		</generalCondition>
+		</general.condition>
 
-		<generalCondition property="mod.desc" value="${module.description}" else="">
+		<general.condition property="mod.desc" value="${module.description}" else="">
 			<and>
 				<isset property="module.description"/>
 				<not>
 					<matches string="${module.description}" pattern="^\$.*$"/>
 				</not>
 			</and>
-		</generalCondition>
+		</general.condition>
 
-		<generalToLowerCase value="${module.name}" property="mod.name"/>
+		<general.toLowerCase value="${module.name}" property="mod.name"/>
 	</target>
 
 	<target name="package" depends="prerequisites">

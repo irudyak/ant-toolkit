@@ -3,18 +3,18 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<target name="test1">
-		<generalAttachProfile>
+		<general.attachProfile>
 			<resource name="my.properties"/>
-		</generalAttachProfile>
+		</general.attachProfile>
 
 		<echo>aaa=${aaa}</echo>
 		<echo>bbb=${bbb}</echo>
 	</target>
 
 	<target name="test2">
-		<generalAttachProfile>
+		<general.attachProfile>
 			<resource name="com/aaa/my-new.properties"/>
-		</generalAttachProfile>
+		</general.attachProfile>
 
 		<echo>aaa1=${aaa1}</echo>
 		<echo>bbb1=${bbb1}</echo>

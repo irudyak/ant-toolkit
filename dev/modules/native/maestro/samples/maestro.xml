@@ -133,7 +133,7 @@
 	</target>
 
 	<target name="test7">
-		<generalInitMap name="ips"/>
+		<general.initMap name="ips"/>
 
 		<maestro.startInstance maestroConfig="maestro"
 							  project="MY-PROJECT"
@@ -142,9 +142,9 @@
 							  ipsMap="ips"
 							  wait="600000"/>
 
-		<generalMapLoop map="ips" keyProperty="key" valueProperty="value">
+		<general.mapLoop map="ips" keyProperty="key" valueProperty="value">
 			<echo>${key} / ${value}</echo>
-		</generalMapLoop>
+		</general.mapLoop>
 
 	</target>
 
@@ -177,7 +177,7 @@
 	</target>
 
 	<target name="test12">
-		<generalInitMap name="ips"/>
+		<general.initMap name="ips"/>
 
 		<maestro.runInstance maestroConfig="maestro"
 							  project="MY-PROJECT"
@@ -187,22 +187,22 @@
 							  count="2"
 							  ipsMap="ips"/>
 
-		<generalMapLoop map="ips" keyProperty="key" valueProperty="value">
+		<general.mapLoop map="ips" keyProperty="key" valueProperty="value">
 			<echo>${key} / ${value}</echo>
-		</generalMapLoop>
+		</general.mapLoop>
 
 	</target>
 
 	<target name="test13">
-		<generalInitMap name="props"/>
+		<general.initMap name="props"/>
 
 		<maestro.getProperties maestroConfig="maestro" project="MY-PROJECT" region="MY-REGION">
 			<instance id="EVHUBUDSD21B7" propertiesMap="props"/>
 		</maestro.getProperties>
 
-		<generalMapLoop map="props" keyProperty="key" valueProperty="value">
+		<general.mapLoop map="props" keyProperty="key" valueProperty="value">
 			<echo>${key}=${value}</echo>
-		</generalMapLoop>
+		</general.mapLoop>
 	</target>
 
 	<target name="test14">

@@ -293,21 +293,21 @@
 -->
 
 <!--
-			<generalBuild number="undefined">
+			<general.build number="undefined">
 				<echo>version - undefined</echo>
-			</generalBuild>
+			</general.build>
 
-			<generalBuild number="1.0">
+			<general.build number="1.0">
 				<echo>version - 1.0</echo>
-			</generalBuild>
+			</general.build>
 
-			<generalBuild number="1.1">
+			<general.build number="1.1">
 				<echo>version - 1.1</echo>
-			</generalBuild>
+			</general.build>
 
-			<generalBuild number="1.2">
+			<general.build number="1.2">
 				<echo>version - 1.2</echo>
-			</generalBuild>
+			</general.build>
 -->
 
 <!--
@@ -346,17 +346,17 @@
 
 			<echo>Count: ${docsCount}</echo>
 
-			<generalInitArray array="docsArray" initialSize="${docsCount}"/>
+			<general.initArray array="docsArray" initialSize="${docsCount}"/>
 
 			<dm.dqlLoop query="select r_object_id, object_name, r_object_type from dt_archive_document order by r_object_id desc">
 				<dm.dqlLoopProperty property="r_object_id" column="r_object_id"/>
-				<generalAddArrayElement array="docsArray" value="${r_object_id}"/>
+				<general.addArrayElement array="docsArray" value="${r_object_id}"/>
 			</dm.dqlLoop>
 
-			<generalArrayLoop array="docsArray" elementproperty="r_object_id" indexproperty="index">
+			<general.arrayLoop array="docsArray" elementproperty="r_object_id" indexproperty="index">
 				<echo>index=${index}, value=${r_object_id}</echo>
 				<dm.setFile objectId="${r_object_id}" failonerror="false" file="D:/JAF-1.1.pdf"/>
-			</generalArrayLoop>
+			</general.arrayLoop>
 
 			<dm.setFile objectId="${r_object_id}" file="D:/report.jasper" contentType="jasper"/>
 
@@ -516,10 +516,10 @@ TEST
 
 			<echo>Workitem ${workitemId} for activity Activity-1 was started, performer=${workitemPerformer}</echo>
 
-			<generalArrayLoop array="workitemArray" elementproperty="workitemId" indexproperty="index">
-				<generalGetArrayElement array="workitemPerformerArray" index="${index}" property="performer"/>
+			<general.arrayLoop array="workitemArray" elementproperty="workitemId" indexproperty="index">
+				<general.getArrayElement array="workitemPerformerArray" index="${index}" property="performer"/>
 				<echo>workitemId=${workitemId}, performer=${performer}</echo>
-			</generalArrayLoop>
+			</general.arrayLoop>
 -->
 
 <!--   WORKFLOW TEST EXECUTION
@@ -560,13 +560,13 @@ TEST
 			<dm.waitForWorkitem workflowId="${workflowId}" activity="Activity-2"
 							   workitemIdArray="workitemArray" workitemPerformerArray="workitemPerformerArray"/>
 
-			<generalArrayLoop array="workitemArray" elementproperty="workitemId" indexproperty="index">
-				<generalGetArrayElement array="workitemPerformerArray" index="${index}" property="performer"/>
+			<general.arrayLoop array="workitemArray" elementproperty="workitemId" indexproperty="index">
+				<general.getArrayElement array="workitemPerformerArray" index="${index}" property="performer"/>
 				<echo>Activity-2 workitem=${workitemId} for performer=${performer} appeared</echo>
 
 				<dm.completeWorkitem workitemId="${workitemId}" />
 				<echo>Activity-2 workitem=${workitemId} for performer=${performer} completed</echo>
-			</generalArrayLoop>
+			</general.arrayLoop>
 
 			<echo>Workflow ${workflowId} completed</echo>
 

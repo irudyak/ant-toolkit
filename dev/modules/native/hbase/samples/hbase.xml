@@ -34,12 +34,12 @@
 	</target>
 
 	<target name="test3">
-		<generalInitArray name="tables"/>
+		<general.initArray name="tables"/>
 		<hbase.listTables hadoopConfig="saturn" array="tables"/>
 
-		<generalArrayLoop array="tables" elementProperty="value">
+		<general.arrayLoop array="tables" elementProperty="value">
 			<echo>${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 	</target>
 
 	<target name="test4">
@@ -52,39 +52,39 @@
 	</target>
 
 	<target name="test6">
-		<generalInitArray name="regions"/>
+		<general.initArray name="regions"/>
 		<hbase.getServerRegions hadoopConfig="saturn" server="saturn,60020,1395954584906" array="regions"/>
 
-		<generalArrayLoop array="regions" elementProperty="value">
+		<general.arrayLoop array="regions" elementProperty="value">
 			<echo>${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 	</target>
 
 	<target name="test7">
-		<generalInitArray name="regions"/>
+		<general.initArray name="regions"/>
 		<hbase.getClusterInfo hadoopConfig="saturn" regionsArray="regions"/>
 
-		<generalArrayLoop array="regions" elementProperty="value">
+		<general.arrayLoop array="regions" elementProperty="value">
 			<echo>${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 	</target>
 
 	<target name="test8">
 		<hbase.getRegionLoad hadoopConfig="saturn" reference="aaa"
 							region="hbase:meta,,1"/>
 
-		<generalProperty name="readRequests" refid="aaa" refMethod="getReadRequestsCount"/>
+		<general.property name="readRequests" refid="aaa" refMethod="getReadRequestsCount"/>
 
 		<echo>${readRequests}</echo>
 	</target>
 
 	<target name="test9">
-		<generalInitArray name="regions"/>
+		<general.initArray name="regions"/>
 		<hbase.getTableRegions hadoopConfig="saturn" table="AAA" array="regions"/>
 
-		<generalArrayLoop array="regions" elementProperty="value">
+		<general.arrayLoop array="regions" elementProperty="value">
 			<echo>${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 	</target>
 
 	<target name="test10">
@@ -99,21 +99,21 @@
 	</target>
 
 	<target name="test12">
-		<generalInitArray name="namespaces"/>
+		<general.initArray name="namespaces"/>
 		<hbase.getNamespaces hadoopConfig="saturn" array="namespaces"/>
 
-		<generalArrayLoop array="namespaces" elementProperty="value">
+		<general.arrayLoop array="namespaces" elementProperty="value">
 			<echo>${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 	</target>
 
 	<target name="test13">
-		<generalInitArray name="tables"/>
+		<general.initArray name="tables"/>
 		<hbase.getNamespaceTables hadoopConfig="saturn" namespace="hbase" array="tables"/>
 
-		<generalArrayLoop array="tables" elementProperty="value">
+		<general.arrayLoop array="tables" elementProperty="value">
 			<echo>${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 	</target>
 
 	<target name="test14">
@@ -298,7 +298,7 @@
 	<target name="test27">
 
 		<!-- Putting first version of values -->
-		<generalTimeStamp property="timestamp1"/>
+		<general.timestamp property="timestamp1"/>
 
 		<hbase.put hadoopConfig="saturn" table="BBB" rowkey="111">
 			<cell columnFamily="BBB" column="first" timestamp="${timestamp1}">111</cell>
@@ -308,7 +308,7 @@
 		<sleep seconds="2"/>
 
 		<!-- Putting second version of values -->
-		<generalTimeStamp property="timestamp2"/>
+		<general.timestamp property="timestamp2"/>
 
 		<hbase.put hadoopConfig="saturn" table="BBB" rowkey="111">
 			<cell columnFamily="BBB" column="first" timestamp="${timestamp2}">111-111</cell>
@@ -358,26 +358,26 @@
 
 		<echo>--- VALUES EXTRACTED ITERATING THROUGH RESULT STRUCTURE  ---</echo>
 
-		<generalInitArray name="families"/>
+		<general.initArray name="families"/>
 		<hbase.getResultFamilies refid="result" array="families"/>
 
-		<generalArrayLoop array="families" elementProperty="family">
-			<generalInitArray name="columns"/>
+		<general.arrayLoop array="families" elementProperty="family">
+			<general.initArray name="columns"/>
 			<hbase.getResultColumns refid="result" columnFamily="${family}" array="columns"/>
 
-			<generalArrayLoop array="columns" elementProperty="column">
-				<generalInitArray name="timestamps"/>
+			<general.arrayLoop array="columns" elementProperty="column">
+				<general.initArray name="timestamps"/>
 				<hbase.getResultTimestamps refid="result" columnFamily="${family}" column="${column}" array="timestamps"/>
 
-				<generalArrayLoop array="timestamps" elementProperty="timestamp">
+				<general.arrayLoop array="timestamps" elementProperty="timestamp">
 					<hbase.getResultValues resultRef="result">
 						<cell columnFamily="${family}" column="${column}" timestamp="${timestamp}" property="value"/>
 					</hbase.getResultValues>
 
 					<echo>${family}:${column}:${timestamp}=${value}</echo>
-				</generalArrayLoop>
-			</generalArrayLoop>
-		</generalArrayLoop>
+				</general.arrayLoop>
+			</general.arrayLoop>
+		</general.arrayLoop>
 
 	</target>
 
@@ -574,21 +574,21 @@
 
 		<hbase.resourcePoolContainer hadoopConfig="saturn1">
 
-			<generalBuild number="1.0">
+			<general.build number="1.0">
 				<echo>HELLO</echo>
-			</generalBuild>
+			</general.build>
 
-			<generalBuild number="1.1">
+			<general.build number="1.1">
 				<echo>HELLO 1.1</echo>
-			</generalBuild>
+			</general.build>
 
-			<generalBuild number="2.1">
+			<general.build number="2.1">
 				<echo>HELLO 1.1</echo>
-			</generalBuild>
+			</general.build>
 
-			<generalBuild number="1.2">
+			<general.build number="1.2">
 				<echo>HELLO 1.1</echo>
-			</generalBuild>
+			</general.build>
 
 		</hbase.resourcePoolContainer>
 	</target>
@@ -597,18 +597,18 @@
 	<macrodef name="printResult">
 		<attribute name="refid"/>
 		<sequential>
-			<generalInitArray name="families"/>
+			<general.initArray name="families"/>
 			<hbase.getResultFamilies refid="@{refid}" array="families"/>
 
-			<generalArrayLoop array="families" elementProperty="family">
-				<generalInitArray name="columns"/>
+			<general.arrayLoop array="families" elementProperty="family">
+				<general.initArray name="columns"/>
 				<hbase.getResultColumns refid="@{refid}" columnFamily="${family}" array="columns"/>
 
-				<generalArrayLoop array="columns" elementProperty="column">
-					<generalInitArray name="timestamps"/>
+				<general.arrayLoop array="columns" elementProperty="column">
+					<general.initArray name="timestamps"/>
 					<hbase.getResultTimestamps refid="@{refid}" columnFamily="${family}" column="${column}" array="timestamps"/>
 
-					<generalArrayLoop array="timestamps" elementProperty="timestamp">
+					<general.arrayLoop array="timestamps" elementProperty="timestamp">
 						<hbase.getResultValues resultRef="@{refid}">
 							<cell columnFamily="${family}" column="${column}" timestamp="${timestamp}" property="value"/>
 						</hbase.getResultValues>
@@ -616,9 +616,9 @@
 						<hbase.getResultRowkey property="rowkey" resultRef="@{refid}"/>
 
 						<echo>${rowkey}   ${family}:${column}:${timestamp}=${value}</echo>
-					</generalArrayLoop>
-				</generalArrayLoop>
-			</generalArrayLoop>
+					</general.arrayLoop>
+				</general.arrayLoop>
+			</general.arrayLoop>
 		</sequential>
 	</macrodef>
 

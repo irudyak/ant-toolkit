@@ -17,41 +17,41 @@
     <target name="runLoadTests">
 		<!-- Creating cyclic barrier synchronization primitive.
 			It will be used to start all created threads simultaneously to simulate explosive load -->
-		<generalCreateCyclicBarrier name="BARRIER" parties="${threadsCount}"/>
+		<general.createCyclicBarrier name="BARRIER" parties="${threadsCount}"/>
 
 		<echo>Creating worker ${threadsCount} threads...</echo>
 
 		<!-- Creating threads in a cycle -->
-		<generalForLoop from="1" to="${threadsCount}" iterationProperty="iteration">
+		<general.for from="1" to="${threadsCount}" iterationProperty="iteration">
 
 			<!-- Creating and starting new thread -->
-			<generalStartThread name="thread-${iteration}" group="WORKER-THREADS" logFile="${DEPLOYMENT_LOGS_DIR}\thread-${iteration}.log">
+			<general.startThread name="thread-${iteration}" group="WORKER-THREADS" logFile="${DEPLOYMENT_LOGS_DIR}\thread-${iteration}.log">
 
 				<!-- Getting thread name into thread local property "threadName" -->
-				<generalGetThreadInfo nameProperty="threadName" />
+				<general.getThreadInfo nameProperty="threadName" />
 
 				<!-- Waiting for cyclic barrier to start all test simultaneously to imitate explosive load -->
-				<generalWaitCyclicBarrier name="BARRIER"/>
+				<general.waitCyclicBarrier name="BARRIER"/>
 
 				<!-- Start cycle inside worker thread -->
-				<generalForLoop from="1" to="${iterationsCount}" iterationProperty="iteration">
+				<general.for from="1" to="${iterationsCount}" iterationProperty="iteration">
 					<!-- Getting random test case target-->
-					<generalGetRandomArrayElement array="TEST-CASES" valueProperty="target"/>
+					<general.getRandomArrayElement array="TEST-CASES" valueProperty="target"/>
 
 					<echo>[ITERATION-${iteration}]</echo>
 
 					<!-- Executing test case-->
 					<executeTestCase testCase="${target}" threadPrefix="[${threadName}:${iteration}] "/>
-				</generalForLoop>
+				</general.for>
 
-			</generalStartThread>
+			</general.startThread>
 
-		</generalForLoop>
+		</general.for>
 
 		<echo>All worker threads were created</echo>
 
 		<echo>Waiting for worker threads to complete...</echo>
-		<generalWaitThread group="WORKER-THREADS" failonany="true"/>
+		<general.waitThread group="WORKER-THREADS" failonany="true"/>
 
 		<echo>All worker threads completed</echo>
 

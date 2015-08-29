@@ -26,7 +26,7 @@
 		<sequential>
 			<echo>MACROS VARIABLES:		${VAR1}/${VAR2}/${VAR3}/${VAR4}/${VAR5}</echo>
 			<echo>MACROS ATTRIBUTES:		@{attr1}/@{attr2}/@{attr3}/@{attr4}/@{attr5}</echo>
-			<generalProperty name="@{property}" value="@{attr1}/@{attr2}/@{attr3}/@{attr4}/@{attr5}"/>
+			<general.property name="@{property}" value="@{attr1}/@{attr2}/@{attr3}/@{attr4}/@{attr5}"/>
 		</sequential>
 	</macrodef>
 </project>

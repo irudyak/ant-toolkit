@@ -3,69 +3,69 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<target name="test">
-		<generalInitArray name="testArray" file="test_array.txt"
+		<general.initArray name="testArray" file="test_array.txt"
 						  separator="\n" trimValues="true"
 						  removeEmptyValues="true" sizeProperty="testArray.length"/>
 
 		<echo>Array length=${testArray.length}</echo>
 
-		<generalClearArray array="testArray"/>
+		<general.clearArray array="testArray"/>
 
 		<echo>testArray</echo>
-		<generalInitArray name="testArray" values="a,b,c,d,e,f,g,h"/>
-		<generalRemoveArrayElement array="testArray" index="2"/>
-		<generalArrayLoop array="testArray" elementProperty="value" indexProperty="index">
+		<general.initArray name="testArray" values="a,b,c,d,e,f,g,h"/>
+		<general.removeArrayElement array="testArray" index="2"/>
+		<general.arrayLoop array="testArray" elementProperty="value" indexProperty="index">
 			<echo>index=${index}, value=${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 
-		<generalGetArrayElement array="testArray" index="2" property="value"/>
+		<general.getArrayElement array="testArray" index="2" property="value"/>
 		<echo>value=${value}</echo>
 
 		<echo>testArray1</echo>
-		<generalInitArray name="testArray1" file="test_array.txt" separator="\n"
+		<general.initArray name="testArray1" file="test_array.txt" separator="\n"
 							removeEmptyValues="true" sizeProperty="testArray1.length"/>
-		<generalArrayLoop array="testArray1" elementProperty="value" indexProperty="index">
+		<general.arrayLoop array="testArray1" elementProperty="value" indexProperty="index">
 			<echo>index=${index}, value=${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 
 		<echo>testArray2</echo>
-		<generalInitArray name="testArray2" values=""/>
-		<generalArrayLoop array="testArray2" elementProperty="value" indexProperty="index">
+		<general.initArray name="testArray2" values=""/>
+		<general.arrayLoop array="testArray2" elementProperty="value" indexProperty="index">
 			<echo>index=${index}, value=${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 
 		<echo>Testing array serialization</echo>
-		<generalSerializeArray array="testArray1" file="bbb.txt"/>
-		<generalInitArray name="testArray3" file="bbb.txt"/>
-		<generalArrayLoop array="testArray3" elementProperty="value" indexProperty="index">
+		<general.serializeArray array="testArray1" file="bbb.txt"/>
+		<general.initArray name="testArray3" file="bbb.txt"/>
+		<general.arrayLoop array="testArray3" elementProperty="value" indexProperty="index">
 			<echo>index=${index}, value=${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 
 		<echo>Testing keys and values arrays sorting</echo>
-		<generalInitArray name="keys" values="a,b,c,d,e,f,g,h"/>
-		<generalInitArray name="vals" values="8,7,6,5,4,3,2,1"/>
-		<generalSortArray keysArray="keys" valuesArray="vals" ascending="false"/>
-		<generalArrayLoop array="keys" elementProperty="key" indexProperty="index">
-			<generalGetArrayElement array="vals" index="${index}" property="val"/>
+		<general.initArray name="keys" values="a,b,c,d,e,f,g,h"/>
+		<general.initArray name="vals" values="8,7,6,5,4,3,2,1"/>
+		<general.sortArray keysArray="keys" valuesArray="vals" ascending="false"/>
+		<general.arrayLoop array="keys" elementProperty="key" indexProperty="index">
+			<general.getArrayElement array="vals" index="${index}" property="val"/>
 			<echo>${index}) ${key}=${val}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 
 		<echo>--------------------------</echo>
 
-		<generalInitArray name="vals1" values="a,b,c,d,e,f,g,h"/>
-		<generalSortArray array="vals1"/>
-		<generalArrayLoop array="vals1" elementProperty="val" indexProperty="index">
+		<general.initArray name="vals1" values="a,b,c,d,e,f,g,h"/>
+		<general.sortArray array="vals1"/>
+		<general.arrayLoop array="vals1" elementProperty="val" indexProperty="index">
 			<echo>${index}=${val}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 
 	</target>
 
 	<target name="test1">
-		<generalInitArray name="AAA"/>
-		<generalAddArrayElement array="AAA" value="111"/>
-		<generalAddArrayElement array="AAA" value="222"/>
+		<general.initArray name="AAA"/>
+		<general.addArrayElement array="AAA" value="111"/>
+		<general.addArrayElement array="AAA" value="222"/>
 
-		<generalGetArraySize array="AAA" property="size"/>
+		<general.getArraySize array="AAA" property="size"/>
 
 		<echo>${size}</echo>
 

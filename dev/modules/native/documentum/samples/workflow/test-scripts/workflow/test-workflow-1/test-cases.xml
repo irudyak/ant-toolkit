@@ -2,7 +2,7 @@
 <project basedir=".">
 
 	<!-- Reading all users info into array -->
-	<generalInitArray name="users" file="../../test-users.txt"
+	<general.initArray name="users" file="../../test-users.txt"
 					  separator="\n" trimValues="true"
 					  removeEmptyValues="true" sizeProperty="usersCount"/>
 
@@ -14,14 +14,14 @@
 	</fail>
 
 	<!-- Creating map which will store login/password for test users-->
-	<generalInitMap name="credentials"/>
+	<general.initMap name="credentials"/>
 
 	<!-- Iterating through users array-->
-	<generalArrayLoop array="users" elementProperty="value">
+	<general.arrayLoop array="users" elementProperty="value">
 		<!--
 		Creating new temporary array based on raw line from file.
 		This array will hold parsed user details (login, user_name, password and etc...) -->
-		<generalInitArray name="userDetails" values="${value}"
+		<general.initArray name="userDetails" values="${value}"
 						  separator=";" trimValues="true"
 						  sizeProperty="count"/>
 
@@ -35,12 +35,12 @@
 		</fail>
 
 		<!-- Extracting login and password from array -->
-		<generalGetArrayElement array="userDetails" index="0" property="login"/>
-		<generalGetArrayElement array="userDetails" index="8" property="password"/>
+		<general.getArrayElement array="userDetails" index="0" property="login"/>
+		<general.getArrayElement array="userDetails" index="8" property="password"/>
 
 		<!-- Add login/password pair to credentials map -->
-		<generalPutMapElement map="credentials" key="${login}" value="${password}"/>
-	</generalArrayLoop>
+		<general.putMapElement map="credentials" key="${login}" value="${password}"/>
+	</general.arrayLoop>
 
 <!-- ******* Test case for APPROVE route ******* -->
 
@@ -49,23 +49,23 @@
 		<sequential>
 
 			<!-- Defining local scope to prevent modification of outer scope properties -->
-			<generalScope>
+			<general.scope>
 
 <!-- [STEP-1] Getting test start time -->
 
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="startTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
 				<echo>Start testing APPROVE route</echo>
 
 <!-- [STEP-2] Getting random users login/password from credentials map -->
 
 				<!-- This user will be used to create new document, start workflow and perform REVIEW activity -->
-				<generalGetRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
+				<general.getRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
 
 				<!-- This user will be used to perform APPROVE activity -->
-				<generalGetRandomMapElement map="credentials" keyProperty="approverLogin" valueProperty="approverPassword"/>
+				<general.getRandomMapElement map="credentials" keyProperty="approverLogin" valueProperty="approverPassword"/>
 
 				<echo>User selected to act as reviewer: ${reviewerLogin}</echo>
 				<echo>User selected to act as approver: ${approverLogin}</echo>
@@ -159,7 +159,7 @@
 
 				</dm.docbaseBatch>
 
-			</generalScope>
+			</general.scope>
 
 		</sequential>
 	</macrodef>
@@ -170,23 +170,23 @@
 		<attribute name="template" default="test-workflow-1"/>
 		<sequential>
 			<!-- Defining local scope to prevent modification of outer scope properties -->
-			<generalScope>
+			<general.scope>
 
 <!-- [STEP-1] Getting test start time -->
 
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="startTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
 				<echo>Start testing COORDINATE route</echo>
 
 <!-- [STEP-2] Getting random users login/password from credentials map -->
 
 				<!-- This user will be used to create new document, start workflow and perform REVIEW activity -->
-				<generalGetRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
+				<general.getRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
 
 				<!-- This user will be used to perform COORDINATE activity -->
-				<generalGetRandomMapElement map="credentials" keyProperty="coordinatorLogin" valueProperty="coordinatorPassword"/>
+				<general.getRandomMapElement map="credentials" keyProperty="coordinatorLogin" valueProperty="coordinatorPassword"/>
 
 				<echo>User selected to act as reviewer: ${reviewerLogin}</echo>
 				<echo>User selected to act as coordinator: ${coordinatorLogin}</echo>
@@ -280,7 +280,7 @@
 
 				</dm.docbaseBatch>
 
-			</generalScope>
+			</general.scope>
 
 		</sequential>
 	</macrodef>
@@ -292,23 +292,23 @@
 		<sequential>
 
 			<!-- Defining local scope to prevent modification of outer scope properties -->
-			<generalScope>
+			<general.scope>
 
 <!-- [STEP-1] Getting test start time -->
 
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="startTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
 				<echo>Start testing REDESIGN route</echo>
 
 <!-- [STEP-2] Getting random users login/password from credentials map -->
 
 				<!-- This user will be used to create new document, start workflow and perform REVIEW activity -->
-				<generalGetRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
+				<general.getRandomMapElement map="credentials" keyProperty="reviewerLogin" valueProperty="reviewerPassword"/>
 
 				<!-- This user will be used to perform REDESIGN activity -->
-				<generalGetRandomMapElement map="credentials" keyProperty="redesignerLogin" valueProperty="redesignerPassword"/>
+				<general.getRandomMapElement map="credentials" keyProperty="redesignerLogin" valueProperty="redesignerPassword"/>
 
 				<echo>User selected to act as reviewer: ${reviewerLogin}</echo>
 				<echo>User selected to act as redesigner: ${redesignerLogin}</echo>
@@ -402,7 +402,7 @@
 
 				</dm.docbaseBatch>
 
-			</generalScope>
+			</general.scope>
 
 		</sequential>
 	</macrodef>

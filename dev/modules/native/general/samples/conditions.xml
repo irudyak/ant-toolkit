@@ -4,7 +4,7 @@
 
 	<target name="test">
 
-		<generalInitArray name="testArray" file="test_array.txt"
+		<general.initArray name="testArray" file="test_array.txt"
 						  separator="\n" trimValues="true"
 						  removeEmptyValues="true" sizeProperty="testArray.length"/>
 
@@ -22,35 +22,35 @@
 
 		<echo>AAA=${AAA}</echo>
 
-		<generalCondition property="BBB" value="true" else="false">
+		<general.condition property="BBB" value="true" else="false">
 			<less arg1="7" arg2="2"/>
-		</generalCondition>
+		</general.condition>
 
 		<echo>BBB=${BBB}</echo>
 
-		<generalCondition property="BBB" value="true" else="false">
+		<general.condition property="BBB" value="true" else="false">
 			<equals arg1="2" arg2="2"/>
-		</generalCondition>
+		</general.condition>
 
 		<echo>BBB=${BBB}</echo>
 
-		<generalIf arg1="123" arg2="123.000" ignoreCase="true" condition="&lt;=">
+		<general.if arg1="123" arg2="123.000" ignoreCase="true" condition="&lt;=">
 			<echo>Condition satisfied</echo>
-		</generalIf>
+		</general.if>
 
-		<generalIf arg1="123" arg2="123.000" condition="=">
+		<general.if arg1="123" arg2="123.000" condition="=">
 			<echo>Condition satisfied</echo>
-		</generalIf>
+		</general.if>
 
-		<generalIf arg1="123" arg2="123.000" ignoreCase="true" condition="&lt;=">
+		<general.if arg1="123" arg2="123.000" ignoreCase="true" condition="&lt;=">
 			<echo>Condition satisfied</echo>
-		</generalIf>
+		</general.if>
 
-		<generalIf arg1="${testArray.hasAnyValues}" arg2="true" ignoreCase="true" condition="=">
-			<generalArrayLoop array="testArray" elementProperty="value" indexProperty="index">
+		<general.if arg1="${testArray.hasAnyValues}" arg2="true" ignoreCase="true" condition="=">
+			<general.arrayLoop array="testArray" elementProperty="value" indexProperty="index">
 				<echo>index=${index}, value=${value}</echo>
-			</generalArrayLoop>
-		</generalIf>
+			</general.arrayLoop>
+		</general.if>
 
 	</target>
 

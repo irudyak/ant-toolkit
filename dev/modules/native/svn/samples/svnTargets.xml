@@ -72,7 +72,7 @@
 	</target>
 
 	<target name="getSvnLog" depends="getRepositoryHeadRevision, getCurrentBuildRevision">
-		<generalAdd arg1="${svn.report.version.revision}" arg2="1" property="svn.report.version.revision"/>
+		<general.add arg1="${svn.report.version.revision}" arg2="1" property="svn.report.version.revision"/>
 
 		<exec executable="svn" output="${svn.report.logFile}">
 			<arg value="log"/>
@@ -97,14 +97,14 @@
 
 		<delete file="${svn.report.infoFile}"/>
 		
-		<generalInitArray name="externalPaths"
+		<general.initArray name="externalPaths"
 		                  file="${svn.externals.paths.File}"
 		                  separator="${svn.externals.paths.separator}"
 		                  trimValues="true"
 		                  arrayLengthProperty="svn.externals.count"
 		                  removeEmptyValues="true"/>
 
-		<generalInitArray name="externalValues"
+		<general.initArray name="externalValues"
 		                  file="${svn.externals.values.File}"
 		                  separator="${svn.externals.values.separator}"
 		                  trimValues="true"
@@ -120,32 +120,32 @@
 			<update dir="${svn.checkout.rootDirectory}/${svn.checkout.MainModule}" recurse="true"/>
 		</svn>
 
-		<generalPropertyCondition property="svn.externals.hasAnyExternals" equals="true">
-			<generalArrayLoop array="externalPaths" elementProperty="path" indexProperty="index">
+		<general.propertyCondition property="svn.externals.hasAnyExternals" equals="true">
+			<general.arrayLoop array="externalPaths" elementProperty="path" indexProperty="index">
 
-				<generalGetArrayElement array="externalValues" index="${index}" property="externalPattern"/>
-				<generalMessageFormat pattern="${externalPattern}" property="externalValue" array="-r${svn.repository.headRevision}"/>
+				<general.getArrayElement array="externalValues" index="${index}" property="externalPattern"/>
+				<general.messageFormat pattern="${externalPattern}" property="externalValue" array="-r${svn.repository.headRevision}"/>
 
 				<svn>
 					<propdel path="${path}" name="svn:externals" />
 					<propset path="${path}" name="svn:externals" value="${externalValue}" />
 				</svn>
 
-			</generalArrayLoop>
-		</generalPropertyCondition>
+			</general.arrayLoop>
+		</general.propertyCondition>
 
 	</target>
 
 	<target name="setExternalsToHeadRevision">
 
-		<generalInitArray name="externalPaths"
+		<general.initArray name="externalPaths"
 		                  file="${svn.externals.paths.File}"
 		                  separator="${svn.externals.paths.separator}"
 		                  trimValues="true"
 		                  arrayLengthProperty="svn.externals.count"
 		                  removeEmptyValues="true"/>
 
-		<generalInitArray name="externalValues"
+		<general.initArray name="externalValues"
 		                  file="${svn.externals.values.File}"
 		                  separator="${svn.externals.values.separator}"
 		                  trimValues="true"
@@ -161,19 +161,19 @@
 			<update dir="${svn.checkout.rootDirectory}/${svn.checkout.MainModule}" recurse="true"/>
 		</svn>
 
-		<generalPropertyCondition property="svn.externals.hasAnyExternals" equals="true">
-			<generalArrayLoop array="externalPaths" elementProperty="path" indexProperty="index">
+		<general.propertyCondition property="svn.externals.hasAnyExternals" equals="true">
+			<general.arrayLoop array="externalPaths" elementProperty="path" indexProperty="index">
 
-				<generalGetArrayElement array="externalValues" index="${index}" property="externalPattern"/>
-				<generalMessageFormat pattern="${externalPattern}" property="externalValue" array=""/>
+				<general.getArrayElement array="externalValues" index="${index}" property="externalPattern"/>
+				<general.messageFormat pattern="${externalPattern}" property="externalValue" array=""/>
 
 				<svn>
 					<propdel path="${path}" name="svn:externals" />
 					<propset path="${path}" name="svn:externals" value="${externalValue}" />
 				</svn>
 
-			</generalArrayLoop>
-		</generalPropertyCondition>
+			</general.arrayLoop>
+		</general.propertyCondition>
 		
 	</target>
 

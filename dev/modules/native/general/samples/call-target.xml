@@ -6,8 +6,8 @@
 
 	<target name="test">
 		<echo>TEST</echo>
-		<generalCallTarget target="test1"/>
-		<generalCallTarget target="test1"/>
+		<general.callTarget target="test1"/>
+		<general.callTarget target="test1"/>
 
 	</target>
 

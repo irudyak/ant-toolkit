@@ -18,9 +18,9 @@
 			</dirset>
 		</path>
 
-		<generalThreadClassLoader classpathRef="AAA">
+		<general.threadClassLoader classpathRef="AAA">
 			<echo>HELLO WORLD</echo>
-		</generalThreadClassLoader>
+		</general.threadClassLoader>
 
 	</target>
 

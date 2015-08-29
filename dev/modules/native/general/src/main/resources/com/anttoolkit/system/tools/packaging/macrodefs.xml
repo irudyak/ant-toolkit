@@ -20,9 +20,9 @@
 			</copy>
 
 			<!-- Copy macrodefs -->
-			<generalCondition property="exists" value="true" else="false">
+			<general.condition property="exists" value="true" else="false">
 				<available file="@{basedir}/macrodefs" type="dir"/>
-			</generalCondition>
+			</general.condition>
 
 			<sequential if:true="${exists}">
 				<mkdir dir="@{basedir}/target/package/macrodefs"/>
@@ -34,9 +34,9 @@
 			</sequential>
 
 			<!-- Copy samples -->
-			<generalCondition property="exists" value="true" else="false">
+			<general.condition property="exists" value="true" else="false">
 				<available file="@{basedir}/samples" type="dir"/>
-			</generalCondition>
+			</general.condition>
 
 			<sequential if:true="${exists}">
 				<mkdir dir="@{basedir}/target/package/samples"/>
@@ -48,7 +48,7 @@
 			</sequential>
 
 			<!-- Creating module.properties module descriptor -->
-			<generalProperty name="moduleDescriptor" value="@{basedir}/target/package/module.properties"/>
+			<general.property name="moduleDescriptor" value="@{basedir}/target/package/module.properties"/>
 
 			<echo file="${moduleDescriptor}" encoding="UTF-8">name=@{name}</echo>
 			<echo file="${moduleDescriptor}" encoding="UTF-8" append="true"></echo>
@@ -78,46 +78,46 @@
 		<attribute name="libsFolder"/>
 		<attribute name="taskdef"/>
 		<sequential>
-			<generalProperty name="taskdefJar" value=""/>
-			<generalProperty name="libs" value=""/>
+			<general.property name="taskdefJar" value=""/>
+			<general.property name="libs" value=""/>
 
-			<generalDirectoryFilesLoop dir="@{libsFolder}" type="file" recursive="true" fullNameProperty="libFile">
+			<general.directoryFilesLoop dir="@{libsFolder}" type="file" recursive="true" fullNameProperty="libFile">
 
-				<generalExecuteClassMethod class="com.anttoolkit.system.tools.packaging.ModuleHelper"
+				<general.executeClassMethod class="com.anttoolkit.system.tools.packaging.ModuleHelper"
 										   method="getNormalizedDependencyName"
 										   resultProperty="normalizedFile">
 					<parameter value="${libFile}" class="java.lang.String"/>
-				</generalExecuteClassMethod>
+				</general.executeClassMethod>
 
-				<generalCondition property="libs" value="${libs},">
+				<general.condition property="libs" value="${libs},">
 					<not>
 						<equals arg1="${libs}" arg2=""/>
 					</not>
-				</generalCondition>
+				</general.condition>
 
-				<generalProperty name="libs" value="${libs}${normalizedFile}"/>
+				<general.property name="libs" value="${libs}${normalizedFile}"/>
 
-				<generalCondition property="isJarFile" value="true" else="false">
+				<general.condition property="isJarFile" value="true" else="false">
 					<matches string="${libFile}" pattern="(?i)^.*\.jar$"/>
-				</generalCondition>
+				</general.condition>
 
 				<sequential if:true="${isJarFile}">
-					<generalCondition property="exists" value="true" else="false">
+					<general.condition property="exists" value="true" else="false">
 						<available resource="@{taskdef}">
 							<classpath>
 								<pathelement location="${libFile}" />
 							</classpath>
 						</available>
-					</generalCondition>
+					</general.condition>
 
-					<generalCondition property="taskdefJar" value="${libFile}">
+					<general.condition property="taskdefJar" value="${libFile}">
 						<and>
 							<equals arg1="${taskdefJar}" arg2=""/>
 							<equals arg1="${exists}" arg2="true"/>
 						</and>
-					</generalCondition>
+					</general.condition>
 				</sequential>
-			</generalDirectoryFilesLoop>
+			</general.directoryFilesLoop>
 
 			<fail message="Failed to detect module jar which contains taskdef resource: @{taskdef}">
 				<condition>
@@ -125,11 +125,11 @@
 				</condition>
 			</fail>
 
-			<generalExecuteClassMethod class="com.anttoolkit.system.tools.packaging.ModuleHelper"
+			<general.executeClassMethod class="com.anttoolkit.system.tools.packaging.ModuleHelper"
 									   method="getNormalizedDependencyName"
 									   resultProperty="taskdefJarNorm">
 				<parameter value="${taskdefJar}" class="java.lang.String"/>
-			</generalExecuteClassMethod>
+			</general.executeClassMethod>
 
 			<echo file="@{moduleDescriptor}" encoding="UTF-8" append="true">taskdefJar=${taskdefJarNorm}</echo>
 			<echo file="@{moduleDescriptor}" encoding="UTF-8" append="true"></echo>
@@ -142,15 +142,15 @@
 	<macrodef name="addDependenciesInfoToModuleDescriptor">
 		<attribute name="moduleDescriptor"/>
 		<sequential>
-			<generalExecuteClassMethod class="com.anttoolkit.system.tools.packaging.ModuleHelper"
+			<general.executeClassMethod class="com.anttoolkit.system.tools.packaging.ModuleHelper"
 									   method="getModuleDependencies"
 									   resultProperty="dependencies">
 				<parameter value="@{moduleDescriptor}" class="java.lang.String"/>
-			</generalExecuteClassMethod>
+			</general.executeClassMethod>
 
-			<generalCondition property="hasDependencies" value="true" else="false">
+			<general.condition property="hasDependencies" value="true" else="false">
 				<isset property="dependencies"/>
-			</generalCondition>
+			</general.condition>
 
 			<sequential if:true="${hasDependencies}">
 				<echo file="@{moduleDescriptor}" encoding="UTF-8" append="true"></echo>
@@ -178,17 +178,17 @@
 			<fixcrlf srcdir="${packagingDir}/bin" includes="init" eol="lf" eof="remove" />
 			<fixcrlf srcdir="${packagingDir}/bin" includes="setenv" eol="lf" eof="remove" />
 
-			<generalCreateObject class="com.anttoolkit.system.tools.packaging.FrameworkHelper" reference="frameworkHelper">
+			<general.createObject class="com.anttoolkit.system.tools.packaging.FrameworkHelper" reference="frameworkHelper">
 				<parameter value="${frameworkBasedir}"/>
 				<parameter value="${modulesRootDirs}"/>
-			</generalCreateObject>
+			</general.createObject>
 
-			<generalExecuteObjectMethod objectReference="frameworkHelper" method="initModulesTobePackaged">
+			<general.executeObjectMethod objectReference="frameworkHelper" method="initModulesTobePackaged">
 				<parameter class="org.apache.tools.ant.Task"/>
 				<parameter value="moduleNames"/>
 				<parameter value="modulePaths"/>
 				<parameter value="moduleTaskdefs"/>
-			</generalExecuteObjectMethod>
+			</general.executeObjectMethod>
 
 			<echo></echo>
 
@@ -196,10 +196,10 @@
 
 			<mkdir dir="${packagingDir}/lib"/>
 
-			<generalArrayLoop array="moduleNames" elementProperty="moduleName" indexProperty="index">
+			<general.arrayLoop array="moduleNames" elementProperty="moduleName" indexProperty="index">
 				<echo>Packaging module: ${moduleName}</echo>
 
-				<generalGetArrayElement array="modulePaths" index="${index}" property="modulePath"/>
+				<general.getArrayElement array="modulePaths" index="${index}" property="modulePath"/>
 
 				<copy todir="${packagingDir}/lib" >
 					<fileset dir="${modulePath}/target/package/lib">
@@ -207,9 +207,9 @@
 					</fileset>
 				</copy>
 
-				<generalCondition property="hasMacroses" value="true" else="false">
+				<general.condition property="hasMacroses" value="true" else="false">
 					<available file="${modulePath}/target/package/macrodefs" type="dir"/>
-				</generalCondition>
+				</general.condition>
 
 				<mkdir if:true="${hasMacroses}" dir="${packagingDir}/com/anttoolkit/system/macroses/${moduleName}"/>
 
@@ -219,9 +219,9 @@
 					</fileset>
 				</copy>
 
-				<generalCondition property="hasSamples" value="true" else="false">
+				<general.condition property="hasSamples" value="true" else="false">
 					<available file="${modulePath}/target/package/samples" type="dir"/>
-				</generalCondition>
+				</general.condition>
 
 				<mkdir if:true="${hasSamples}" dir="${packagingDir}/samples/${moduleName}"/>
 
@@ -231,7 +231,7 @@
 					</fileset>
 				</copy>
 
-			</generalArrayLoop>
+			</general.arrayLoop>
 
 			<property name="frameworkFile" value="${packagingDir}/com/anttoolkit/anttoolkit.xml"/>
 
@@ -246,9 +246,9 @@
 			<packageTaskdefs file="${frameworkFile}" taskdefsArray="moduleTaskdefs"/>
 			<packageLogsCreation file="${frameworkFile}"/>
 
-			<generalCondition property="hasMacroses" value="true" else="false">
+			<general.condition property="hasMacroses" value="true" else="false">
 				<available file="${packagingDir}/com/anttoolkit/system/macroses" type="dir"/>
-			</generalCondition>
+			</general.condition>
 
 			<importMacroses if:true="${hasMacroses}" file="${frameworkFile}" macrosesRoot="${packagingDir}/com/anttoolkit/system/macroses"/>
 
@@ -257,9 +257,9 @@
 			<echo file="${frameworkFile}" encoding="UTF-8" append="true"></echo>
 			<echo file="${frameworkFile}" encoding="UTF-8" append="true"><![CDATA[</project>]]></echo>
 
-			<generalExecuteObjectMethod objectReference="frameworkHelper" method="createModulesDescriptor">
+			<general.executeObjectMethod objectReference="frameworkHelper" method="createModulesDescriptor">
 				<parameter value="${packagingDir}/com/anttoolkit/system/modules.xml"/>
-			</generalExecuteObjectMethod>
+			</general.executeObjectMethod>
 
 			<echo file="${packagingDir}/com/anttoolkit/system/version.properties" encoding="UTF-8">version=${frameworkVersion}</echo>
 
@@ -297,15 +297,15 @@
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<!-- Defining custom tasks and types -->]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 
-			<generalArrayLoop array="@{taskdefsArray}" elementProperty="taskdef">
+			<general.arrayLoop array="@{taskdefsArray}" elementProperty="taskdef">
 				<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<taskdef resource="${taskdef}"/>]]></echo>
 				<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			</generalArrayLoop>
+			</general.arrayLoop>
 
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<!-- Defining scope-based property resolver -->]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<generalScopePropertyHandler/>]]></echo>
+			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<general.scopePropertyHandler/>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 		</sequential>
 	</macrodef>
@@ -317,7 +317,7 @@
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<!-- Checks if LOGS_DIR specified -->]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<generalCondition property="LOGS_DIR" value="${ENV.LOGS_DIR}">]]></echo>
+			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<general.condition property="LOGS_DIR" value="${ENV.LOGS_DIR}">]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			<and>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
@@ -331,10 +331,10 @@
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			</and>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		</generalCondition>]]></echo>
+			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		</general.condition>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<generalCondition property="LOGS_DIR" value="${logs_dir}">]]></echo>
+			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<general.condition property="LOGS_DIR" value="${logs_dir}">]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			<and>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
@@ -348,21 +348,21 @@
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			</and>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		</generalCondition>]]></echo>
+			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		</general.condition>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<!-- Creates LOGS_DIR if it doesn't exit -->]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<sequential if:set="LOGS_DIR">]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			<generalGetFileFullPath file="${LOGS_DIR}" property="LOGS_DIR"/>]]></echo>
+			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			<general.getFileFullPath file="${LOGS_DIR}" property="LOGS_DIR"/>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			<generalCondition property="logsDirExists" value="true" else="false">]]></echo>
+			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			<general.condition property="logsDirExists" value="true" else="false">]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[				<available file="${LOGS_DIR}" type="dir"/>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
-			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			</generalCondition>]]></echo>
+			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			</general.condition>]]></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[			<mkdir unless:true="${logsDirExists}" dir="${LOGS_DIR}"/>]]></echo>
@@ -380,15 +380,15 @@
 			<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 			<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<!-- Importing macroses -->]]></echo>
 
-			<generalReplaceTextSubstring string="@{macrosesRoot}" substring="\" replaceWith="/" property="normalizedRoot"/>
+			<general.replaceSubstring string="@{macrosesRoot}" substring="\" replaceWith="/" property="normalizedRoot"/>
 
-			<generalDirectoryFilesLoop dir="@{macrosesRoot}" type="file" recursive="true" filter="(?i)[a-zA-Z0-9-_:\.\\/]+\.xml[\s]*" fullNameProperty="macrosFile">
-				<generalReplaceTextSubstring string="${macrosFile}" substring="\" replaceWith="/" property="macrosFile"/>
-				<generalReplaceTextSubstring string="${macrosFile}" substring="${normalizedRoot}/" replaceWith="" property="macrosResource"/>
+			<general.directoryFilesLoop dir="@{macrosesRoot}" type="file" recursive="true" filter="(?i)[a-zA-Z0-9-_:\.\\/]+\.xml[\s]*" fullNameProperty="macrosFile">
+				<general.replaceSubstring string="${macrosFile}" substring="\" replaceWith="/" property="macrosFile"/>
+				<general.replaceSubstring string="${macrosFile}" substring="${normalizedRoot}/" replaceWith="" property="macrosResource"/>
 
 				<echo file="@{file}" encoding="UTF-8" append="true"></echo>
 				<echo file="@{file}" encoding="UTF-8" append="true"><![CDATA[		<import><javaresource name="com/anttoolkit/system/macroses/${macrosResource}"/></import>]]></echo>
-			</generalDirectoryFilesLoop>
+			</general.directoryFilesLoop>
 		</sequential>
 	</macrodef>
 
@@ -396,11 +396,11 @@
 		<attribute name="libDir"/>
 		<attribute name="classpathJarFile"/>
 		<sequential>
-			<generalProperty name="frameworkClasspath" value=""/>
+			<general.property name="frameworkClasspath" value=""/>
 
-			<generalDirectoryFilesLoop dir="@{libDir}" type="file" filter="(?i)^.*\.jar$" shortNameProperty="jarFile">
-				<generalProperty name="frameworkClasspath" value="${frameworkClasspath} lib/${jarFile}"/>
-			</generalDirectoryFilesLoop>
+			<general.directoryFilesLoop dir="@{libDir}" type="file" filter="(?i)^.*\.jar$" shortNameProperty="jarFile">
+				<general.property name="frameworkClasspath" value="${frameworkClasspath} lib/${jarFile}"/>
+			</general.directoryFilesLoop>
 
 			<delete file="@{classpathJarFile}" quiet="true"/>
 

@@ -6,34 +6,34 @@
 
 	<target name="test">
 
-		<generalOrchestration name="AAA"
+		<general.orchestration name="AAA"
 							  configFile="orchestration-config.txt"
 							  progressLog="progress.log"
 							  statusLogs="status.log, status2.log"
 							  threadsLogFolder=".">
 
-			<generalWorkStep name="BBB">
+			<general.workstep name="BBB">
 				<echo>HELLO 1</echo>
 				<emulateFailure />
-			</generalWorkStep>
+			</general.workstep>
 
-			<generalWorkStep name="CCC">
+			<general.workstep name="CCC">
 				<echo>HELLO 2</echo>
 				<emulateFailure />
-			</generalWorkStep>
+			</general.workstep>
 
-			<generalWorkStep name="DDD" threadGroup="DDD">
+			<general.workstep name="DDD" threadGroup="DDD">
 				<echo>HELLO 3</echo>
 				<emulateFailure />
-			</generalWorkStep>
+			</general.workstep>
 
-			<generalWorkStep name="EEE" threadGroup="MMM">
+			<general.workstep name="EEE" threadGroup="MMM">
 				<echo>HELLO 4</echo>
 				<sleep seconds="5"/>
 				<emulateFailure />
-			</generalWorkStep>
+			</general.workstep>
 
-		</generalOrchestration>
+		</general.orchestration>
 
 	</target>
 

@@ -2,7 +2,7 @@
 
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
-	<generalScopePropertyHandler/>
+	<general.scopePropertyHandler/>
 
 	<target name="property-test">
 		<property name="AAA" value="000"/>
@@ -10,14 +10,14 @@
 		<echo>--- START LEVEL 0 ---</echo>
 		<echo>AAA=${AAA}</echo>
 
-		<generalScope>
+		<general.scope>
 			<echo>--- START LEVEL 1 ---</echo>
 			<echo>AAA=${AAA}</echo>
 
 			<property name="AAA" value="111"/>
 			<echo>MODIFIED: AAA=${AAA}</echo>
 
-			<generalScope>
+			<general.scope>
 				<echo>--- START LEVEL 2 ---</echo>
 				<echo>AAA=${AAA}</echo>
 
@@ -27,7 +27,7 @@
 				<echo>parent:AAA=${parent:AAA}</echo>
 				<echo>parent:parent:AAA=${parent:parent:AAA}</echo>
 
-				<generalScope>
+				<general.scope>
 					<echo>--- START LEVEL 3 ---</echo>
 					<echo>AAA=${AAA}</echo>
 
@@ -38,25 +38,25 @@
 					<echo>parent:parent:AAA=${parent:parent:AAA}</echo>
 					<echo>parent:parent:parent:AAA=${parent:parent:parent:AAA}</echo>
 
-					<generalProperty name="parent:AAA" value="${parent:AAA}-MOD"/>
-					<generalProperty name="parent:parent:AAA" value="${parent:parent:AAA}-MOD"/>
-					<generalProperty name="parent:parent:parent:AAA" value="${parent:parent:parent:AAA}-MOD"/>
+					<general.property name="parent:AAA" value="${parent:AAA}-MOD"/>
+					<general.property name="parent:parent:AAA" value="${parent:parent:AAA}-MOD"/>
+					<general.property name="parent:parent:parent:AAA" value="${parent:parent:parent:AAA}-MOD"/>
 
 					<echo>MODIFIED: parent:AAA=${parent:AAA}</echo>
 					<echo>MODIFIED: parent:parent:AAA=${parent:parent:AAA}</echo>
 					<echo>MODIFIED: parent:parent:parent:AAA=${parent:parent:parent:AAA}</echo>
 
 					<echo>--- END LEVEL 3 ---</echo>
-				</generalScope>
+				</general.scope>
 
 				<echo>AAA=${AAA}</echo>
 
 				<echo>--- END LEVEL 2 ---</echo>
-			</generalScope>
+			</general.scope>
 
 			<echo>AAA=${AAA}</echo>
 			<echo>--- END LEVEL 1 ---</echo>
-		</generalScope>
+		</general.scope>
 
 		<echo>AAA=${AAA}</echo>
 
@@ -68,79 +68,79 @@
 		<property name="value" value="XXX"/>
 		<property name="arrayString" value="YYY"/>
 
-		<generalInitArray name="AAA" values="1,2,3,4,5"/>
+		<general.initArray name="AAA" values="1,2,3,4,5"/>
 		<printArray array="AAA"/>
 
-		<generalScope>
+		<general.scope>
 			<property name="value" value="XXX"/>
 			<property name="arrayString" value="YYY"/>
 
-			<generalInitArray name="AAA" values="11,22,33,44,55"/>
+			<general.initArray name="AAA" values="11,22,33,44,55"/>
 			<printArray array="AAA"/>
 
-			<generalScope>
+			<general.scope>
 				<property name="value" value="XXX"/>
 				<property name="arrayString" value="YYY"/>
 
-				<generalInitArray name="AAA" values="111,222,333,444,555"/>
+				<general.initArray name="AAA" values="111,222,333,444,555"/>
 				<printArray array="AAA"/>
 
-				<generalScope>
+				<general.scope>
 					<property name="value" value="XXX"/>
 					<property name="arrayString" value="YYY"/>
 
-					<generalInitArray name="AAA" values="1111,2222,3333,4444,5555"/>
+					<general.initArray name="AAA" values="1111,2222,3333,4444,5555"/>
 					<printArray array="AAA"/>
-				</generalScope>
+				</general.scope>
 
 				<printArray array="AAA"/>
-			</generalScope>
+			</general.scope>
 
 			<printArray array="AAA"/>
-		</generalScope>
+		</general.scope>
 
 		<printArray array="AAA"/>
 
 	</target>
 
 	<target name="map-test">
-		<generalInitMap name="AAA">
+		<general.initMap name="AAA">
 			<entry key="a" value="1"/>
 			<entry key="b" value="2"/>
 			<entry key="c" value="3"/>
-		</generalInitMap>
+		</general.initMap>
 		<printMap map="AAA"/>
 
-		<generalScope>
-			<generalInitMap name="AAA">
+		<general.scope>
+			<general.initMap name="AAA">
 				<entry key="aa" value="11"/>
 				<entry key="bb" value="22"/>
 				<entry key="cc" value="33"/>
-			</generalInitMap>
+			</general.initMap>
 			<printMap map="AAA"/>
 
-			<generalScope>
-				<generalInitMap name="AAA">
+			<general.scope>
+				<general.initMap name="AAA">
 					<entry key="aaa" value="111"/>
 					<entry key="bbb" value="222"/>
 					<entry key="ccc" value="333"/>
-				</generalInitMap>
+				</general.initMap>
 				<printMap map="AAA"/>
 
-				<generalScope>
-					<generalInitMap name="AAA">
+				<general.scope>
+					<general.initMap name="AAA">
 						<entry key="aaaa" value="1111"/>
 						<entry key="bbbb" value="2222"/>
 						<entry key="cccc" value="3333"/>
-					</generalInitMap>
+					</general.initMap>
 					<printMap map="AAA"/>
-				</generalScope>
+				</general.scope>
 
 				<printMap map="AAA"/>
-			</generalScope>
+			</general.scope>
 
 			<printMap map="AAA"/>
-		</generalScope>
+		</general.scope>
 
 		<printMap map="AAA"/>
 	</target>
@@ -157,12 +157,12 @@
 		<mkdir dir="${basedir}/thread-test"/>
 
 		<property name="AAA" value="a"/>
-		<generalInitArray name="AAA" values="a,b,c,d,e"/>
-		<generalInitMap name="AAA">
+		<general.initArray name="AAA" values="a,b,c,d,e"/>
+		<general.initMap name="AAA">
 			<entry key="a" value="a"/>
 			<entry key="b" value="b"/>
 			<entry key="c" value="c"/>
-		</generalInitMap>
+		</general.initMap>
 
 		<echo>Before threads started</echo>
 
@@ -172,49 +172,49 @@
 
 <!-- ##################### -->
 
-		<generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+		<general.createCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
 
-        <generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+        <general.for from="1" to="${threadsNumber}" iterationProperty="iteration">
 
-            <generalStartThread name="${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
+            <general.startThread name="${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
 
-				<generalGetThreadInfo nameProperty="threadName"/>
+				<general.getThreadInfo nameProperty="threadName"/>
 
-				<generalWaitCyclicBarrier name="cyclicBarrier"/>
+				<general.waitCyclicBarrier name="cyclicBarrier"/>
 
 				<property name="AAA" value="${threadName}"/>
-				<generalInitArray name="AAA" values="${threadName}-a,${threadName}-b,${threadName}-c,${threadName}-d,${threadName}-e"/>
-				<generalInitMap name="AAA">
+				<general.initArray name="AAA" values="${threadName}-a,${threadName}-b,${threadName}-c,${threadName}-d,${threadName}-e"/>
+				<general.initMap name="AAA">
 					<entry key="${threadName}-a" value="${threadName}-a"/>
 					<entry key="${threadName}-b" value="${threadName}-b"/>
 					<entry key="${threadName}-c" value="${threadName}-c"/>
-				</generalInitMap>
+				</general.initMap>
 
 				<printThreadVariables property="AAA" array="AAA" map="AAA"/>
 
-                <generalForLoop from="1" to="${threadLoopIterations}" iterationProperty="iteration">
+                <general.for from="1" to="${threadLoopIterations}" iterationProperty="iteration">
 
-					<generalWaitCyclicBarrier name="cyclicBarrier"/>
+					<general.waitCyclicBarrier name="cyclicBarrier"/>
 
-					<generalProperty name="AAA" value="${threadName}-${iteration}"/>
-					<generalAddArrayElement array="AAA" value="${threadName}-${iteration}"/>
-					<generalPutMapElement map="AAA" key="${threadName}-${iteration}" value="${threadName}-${iteration}"/>
+					<general.property name="AAA" value="${threadName}-${iteration}"/>
+					<general.addArrayElement array="AAA" value="${threadName}-${iteration}"/>
+					<general.putMapElement map="AAA" key="${threadName}-${iteration}" value="${threadName}-${iteration}"/>
 
 					<printThreadVariables property="AAA" array="AAA" map="AAA"/>
 
-                    <generalGenerateRandomInteger min="${threadMinSleep}" max="${threadMaxSleep}" property="sleepTimeout"/>
+                    <general.randomInteger min="${threadMinSleep}" max="${threadMaxSleep}" property="sleepTimeout"/>
 
                     <echo>Sleeping for ${sleepTimeout}ms</echo>
 
                     <sleep milliseconds="${sleepTimeout}"/>
-                </generalForLoop>
+                </general.for>
 
-            </generalStartThread>
+            </general.startThread>
 
-        </generalForLoop>
+        </general.for>
 
         <echo>Waiting for threads to complete...</echo>
-        <generalWaitThread group="threadsGroup" failonany="true"/>
+        <general.waitThread group="threadsGroup" failonany="true"/>
 
 		<echo>AAA=${AAA}</echo>
 		<printArray array="AAA"/>
@@ -234,12 +234,12 @@
 		<mkdir dir="${basedir}/thread-test"/>
 
 		<property name="AAA" value="a"/>
-		<generalInitArray name="AAA" values="a,b,c,d,e"/>
-		<generalInitMap name="AAA">
+		<general.initArray name="AAA" values="a,b,c,d,e"/>
+		<general.initMap name="AAA">
 			<entry key="a" value="a"/>
 			<entry key="b" value="b"/>
 			<entry key="c" value="c"/>
-		</generalInitMap>
+		</general.initMap>
 
 		<echo>Before threads started</echo>
 
@@ -249,41 +249,41 @@
 
 <!-- ##################### -->
 
-		<generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+		<general.createCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
 
-        <generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+        <general.for from="1" to="${threadsNumber}" iterationProperty="iteration">
 
-            <generalStartThread name="${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
+            <general.startThread name="${iteration}" group="threadsGroup" logFile="${threadsLogDir}\thread-${iteration}.log">
 
-				<generalGetThreadInfo nameProperty="threadName"/>
+				<general.getThreadInfo nameProperty="threadName"/>
 
-				<generalWaitCyclicBarrier name="cyclicBarrier"/>
+				<general.waitCyclicBarrier name="cyclicBarrier"/>
 
 				<printThreadVariables property="AAA" array="AAA" map="AAA"/>
 
-                <generalForLoop from="1" to="${threadLoopIterations}" iterationProperty="iteration">
+                <general.for from="1" to="${threadLoopIterations}" iterationProperty="iteration">
 
-					<generalWaitCyclicBarrier name="cyclicBarrier"/>
+					<general.waitCyclicBarrier name="cyclicBarrier"/>
 
-					<generalProperty name="AAA" value="${threadName}-${iteration}"/>
-					<generalAddArrayElement array="AAA" value="${threadName}-${iteration}"/>
-					<generalPutMapElement map="AAA" key="${threadName}-${iteration}" value="${threadName}-${iteration}"/>
+					<general.property name="AAA" value="${threadName}-${iteration}"/>
+					<general.addArrayElement array="AAA" value="${threadName}-${iteration}"/>
+					<general.putMapElement map="AAA" key="${threadName}-${iteration}" value="${threadName}-${iteration}"/>
 
 					<printThreadVariables property="AAA" array="AAA" map="AAA"/>
 
-                    <generalGenerateRandomInteger min="${threadMinSleep}" max="${threadMaxSleep}" property="sleepTimeout"/>
+                    <general.randomInteger min="${threadMinSleep}" max="${threadMaxSleep}" property="sleepTimeout"/>
 
                     <echo>Sleeping for ${sleepTimeout}ms</echo>
 
                     <sleep milliseconds="${sleepTimeout}"/>
-                </generalForLoop>
+                </general.for>
 
-            </generalStartThread>
+            </general.startThread>
 
-        </generalForLoop>
+        </general.for>
 
         <echo>Waiting for threads to complete...</echo>
-        <generalWaitThread group="threadsGroup" failonany="true"/>
+        <general.waitThread group="threadsGroup" failonany="true"/>
 
 		<echo>AAA=${AAA}</echo>
 		<printArray array="AAA"/>
@@ -297,38 +297,38 @@
 		<attribute name="array"/>
 
 		<sequential>
-			<generalScope>
-				<generalProperty name="arrayString" value=""/>
+			<general.scope>
+				<general.property name="arrayString" value=""/>
 
-				<generalArrayLoop array="@{array}" elementProperty="value">
-					<generalIf arg1="${arrayString}" condition="!=" arg2="">
-						<generalProperty name="arrayString" value="${arrayString},"/>
-					</generalIf>
+				<general.arrayLoop array="@{array}" elementProperty="value">
+					<general.if arg1="${arrayString}" condition="!=" arg2="">
+						<general.property name="arrayString" value="${arrayString},"/>
+					</general.if>
 
-					<generalProperty name="arrayString" value="${arrayString}${value}"/>
-				</generalArrayLoop>
+					<general.property name="arrayString" value="${arrayString}${value}"/>
+				</general.arrayLoop>
 
 				<echo>${arrayString}</echo>
-			</generalScope>
+			</general.scope>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="printMap">
 		<attribute name="map"/>
 		<sequential>
-			<generalScope>
-				<generalProperty name="mapString" value=""/>
+			<general.scope>
+				<general.property name="mapString" value=""/>
 
-				<generalMapLoop map="@{map}" keyProperty="key" valueProperty="value">
-					<generalIf arg1="${mapString}" condition="!=" arg2="">
-						<generalProperty name="mapString" value="${mapString};"/>
-					</generalIf>
+				<general.mapLoop map="@{map}" keyProperty="key" valueProperty="value">
+					<general.if arg1="${mapString}" condition="!=" arg2="">
+						<general.property name="mapString" value="${mapString};"/>
+					</general.if>
 
-					<generalProperty name="mapString" value="${mapString}[${key},${value}]"/>
-				</generalMapLoop>
+					<general.property name="mapString" value="${mapString}[${key},${value}]"/>
+				</general.mapLoop>
 
 				<echo>${mapString}</echo>
-			</generalScope>
+			</general.scope>
 		</sequential>
 	</macrodef>
 

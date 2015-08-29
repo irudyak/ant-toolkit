@@ -1,5 +1,5 @@
 <project xmlns:if="ant:if" xmlns:unless="ant:unless">
 	<taskdef resource="com/anttoolkit/general/antlib.xml"/>
 	<taskdef resource="com/anttoolkit/documentum/antlib.xml"/>
-	<generalScopePropertyHandler/>
+	<general.scopePropertyHandler/>
 </project>

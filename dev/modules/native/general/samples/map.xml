@@ -4,47 +4,47 @@
 
 	<target name="test">
 
-		<generalInitMap name="testMap" file="test_map.txt">
+		<general.initMap name="testMap" file="test_map.txt">
 			<entry key="aaa" value="bbb"/>
 			<entry key="aaa1" value="bbb2"/>
 			<entry key="aaa2" value="bbb2"/>
-		</generalInitMap>
+		</general.initMap>
 
-		<generalGetMapElement map="testMap" key="aaa" property="value"/>
+		<general.getMapElement map="testMap" key="aaa" property="value"/>
 		<echo>${value}</echo>
 
-		<generalGetMapElement map="testMap" key="HELLO" property="value" default="111"/>
+		<general.getMapElement map="testMap" key="HELLO" property="value" default="111"/>
 		<echo>DEFAULT=${value}</echo>
 
 
-		<generalPutMapElement map="testMap" key="QWERTY" value="1234567890"/>
+		<general.putMapElement map="testMap" key="QWERTY" value="1234567890"/>
 
-		<generalGetRandomMapElement map="testMap" keyProperty="key" valueProperty="value"/>
+		<general.getRandomMapElement map="testMap" keyProperty="key" valueProperty="value"/>
 		<echo>Random element - ${key}:${value}</echo>
 
-		<generalCheckMapContainsKey map="testMap" key="MMMMMM" property="containsKey"/>
+		<general.checkMapContainsKey map="testMap" key="MMMMMM" property="containsKey"/>
 		<echo>Contains key "MMMMMM" - ${containsKey}</echo>
 
-		<generalCheckMapContainsKey map="testMap" key="aaa" property="containsKey"/>
+		<general.checkMapContainsKey map="testMap" key="aaa" property="containsKey"/>
 		<echo>Contains key "aaa" - ${containsKey}</echo>
 
 		<echo>Printing map</echo>
-		<generalRemoveMapElement map="testMap" key="aaa"/>
-		<generalMapLoop map="testMap" keyProperty="key" valueProperty="value">
+		<general.removeMapElement map="testMap" key="aaa"/>
+		<general.mapLoop map="testMap" keyProperty="key" valueProperty="value">
 			<echo>${key}:${value}</echo>
-		</generalMapLoop>
+		</general.mapLoop>
 
 		<echo>Testing map serialization</echo>
 
-		<generalSerializeMap map="testMap" file="aaa.txt"/>
+		<general.serializeMap map="testMap" file="aaa.txt"/>
 
-		<generalInitMap name="testMap1" file="aaa.txt"/>
+		<general.initMap name="testMap1" file="aaa.txt"/>
 
 		<echo>Printing map</echo>
 
-		<generalMapLoop map="testMap1" keyProperty="key" valueProperty="value">
+		<general.mapLoop map="testMap1" keyProperty="key" valueProperty="value">
 			<echo>${key}:${value}</echo>
-		</generalMapLoop>
+		</general.mapLoop>
 	</target>
 
 </project>

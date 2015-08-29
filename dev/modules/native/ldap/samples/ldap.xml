@@ -41,12 +41,12 @@
 			<echo>${distinguishedName}</echo>
 
 			<ldap.searchAttributeSize name="memberOf" property="count"/>
-			<generalSubstract arg1="${count}" arg2="1" property="count"/>
+			<general.substract arg1="${count}" arg2="1" property="count"/>
 
-			<generalForLoop from="0" to="${count}" iterationProperty="index">
+			<general.for from="0" to="${count}" iterationProperty="index">
 				<ldap.searchAttributeValue name="memberOf" index="${index}" property="memberOf"/>
 				<echo>--->${memberOf}</echo>
-			</generalForLoop>
+			</general.for>
 		</ldap.search>
 	</target>
 </project>

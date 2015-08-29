@@ -129,11 +129,11 @@
 		</hadoop.config>
 
 		<mapred.jobListLoop hadoopConfig="saturn" jobStatusRef="status" stateFilter="FAILED|KILLED">
-			<generalProperty name="jobID" refid="status" refMethod="getJobID"/>
-			<generalProperty name="userName" refid="status" refMethod="getUsername"/>
-			<generalProperty name="priority" refid="status" refMethod="getPriority"/>
-			<generalProperty name="state" refid="status" refMethod="getState"/>
-			<generalProperty name="startTime" refid="status" refMethod="getStartTime" timeFormat="MM/dd/yyyy hh:mm:ss aaa"/>
+			<general.property name="jobID" refid="status" refMethod="getJobID"/>
+			<general.property name="userName" refid="status" refMethod="getUsername"/>
+			<general.property name="priority" refid="status" refMethod="getPriority"/>
+			<general.property name="state" refid="status" refMethod="getState"/>
+			<general.property name="startTime" refid="status" refMethod="getStartTime" timeFormat="MM/dd/yyyy hh:mm:ss aaa"/>
 
 			<echo>${jobID}  ${startTime}  ${state}  ${priority}  ${userName}</echo>
 		</mapred.jobListLoop>

@@ -21,7 +21,7 @@
 
 		  <property name="differenceUnits" value="m"/>
 
-		  <generalTimeDifference time1="${startTime}" time2="${finishTime}" timeFormat="dd.MM.yyyy hh:mm:ss:SS" locale="ru,RU"
+		  <general.timeDifference time1="${startTime}" time2="${finishTime}" timeFormat="dd.MM.yyyy hh:mm:ss:SS" locale="ru,RU"
 								 differenceUnits="${differenceUnits}" property="difference"/>
 
 		  <echo>Start time: ${startTime}</echo>
@@ -30,33 +30,33 @@
 
 <!-- Iterating throught directory files -->
 
-		<generalInitArray name="fullName"/>
-		<generalInitArray name="name"/>
-		<generalInitArray name="shortName"/>
-		<generalInitArray name="extension"/>
+		<general.initArray name="fullName"/>
+		<general.initArray name="name"/>
+		<general.initArray name="shortName"/>
+		<general.initArray name="extension"/>
 
-		<generalGetDirectoryFiles dir="D:\Temp" recursive="true" fullNameArray="fullName" shortNameArray="shortName"
+		<general.getDirectoryFiles dir="D:\Temp" recursive="true" fullNameArray="fullName" shortNameArray="shortName"
 				nameArray="name" extensionArray="extension" />
 
-		<generalArrayLoop array="fullName" elementProperty="fileFullName" indexProperty="index">
+		<general.arrayLoop array="fullName" elementProperty="fileFullName" indexProperty="index">
 
-			<generalGetArrayElement array="shortName" index="${index}" property="fileShortName"/>
-			<generalGetArrayElement array="name" index="${index}" property="fileName"/>
-			<generalGetArrayElement array="extension" index="${index}" property="fileExtension"/>
+			<general.getArrayElement array="shortName" index="${index}" property="fileShortName"/>
+			<general.getArrayElement array="name" index="${index}" property="fileName"/>
+			<general.getArrayElement array="extension" index="${index}" property="fileExtension"/>
 
 			<echo>ShortName=${fileShortName}, Name.Ext=${fileName}.${fileExtension}, FullName=${fileFullName}</echo>
 
-		</generalArrayLoop>
+		</general.arrayLoop>
 
 <!-- Getting thread info -->
 
-		<generalGetThreadInfo nameProperty="threadName" idProperty="threadId"/>
+		<general.getThreadInfo nameProperty="threadName" idProperty="threadId"/>
 
 		<echo>thread name=${threadName},  threadId=${threadId}</echo>
 
 <!-- Compound properties -->
 
-		<generalScopePropertyHandler/>
+		<general.scopePropertyHandler/>
 
 		<property name="aaa" value="xxx"/>
 		<property name="${aaa}" value="yyy"/>
@@ -65,45 +65,45 @@
 
 <!-- Iterating throught file lines -->
 
-		<generalFileLinesLoop file="${basedir}/test_array.txt" iterationProperty="lineText">
+		<general.fileLinesLoop file="${basedir}/test_array.txt" iterationProperty="lineText">
 			<echo>${lineText}</echo>
-		</generalFileLinesLoop>
+		</general.fileLinesLoop>
 
 <!-- Getting random numbers -->
 
-		<generalGenerateRandomInteger min="0" max="5" property="AAA"/>
+		<general.randomInteger min="0" max="5" property="AAA"/>
 		<echo>${AAA}</echo>
-		<generalGenerateRandomInteger min="0" max="5" property="AAA"/>
+		<general.randomInteger min="0" max="5" property="AAA"/>
 		<echo>${AAA}</echo>
-		<generalGenerateRandomInteger min="0" max="5" property="AAA"/>
+		<general.randomInteger min="0" max="5" property="AAA"/>
 		<echo>${AAA}</echo>
 
 <!-- Directory subdirs loop test -->
 		<echo>-- Directory subdirs loop test --</echo>
 
-		<generalDirectoryFilesLoop dir="D:\Documents" type="dir" recursive="true" fullNameProperty="subdir">
+		<general.directoryFilesLoop dir="D:\Documents" type="dir" recursive="true" fullNameProperty="subdir">
 			<echo>${subdir}</echo>
-		</generalDirectoryFilesLoop>
+		</general.directoryFilesLoop>
 
 <!-- Directory files loop test -->
 		<echo>-- Directory files loop test --</echo>
 
-		<generalDirectoryFilesLoop dir="D:\downloads" type="file" recursive="true" fullNameProperty="file">
+		<general.directoryFilesLoop dir="D:\downloads" type="file" recursive="true" fullNameProperty="file">
 			<echo>${file}</echo>
-		</generalDirectoryFilesLoop>
+		</general.directoryFilesLoop>
 
 <!-- Checksums -->
 
-		<generalGenerateChecksum file="${basedir}/test_array.txt" property="md5" checksumFile="${basedir}/test_array.txt.md5"/>
-		<generalGenerateChecksum file="${basedir}/test_array.txt" algorithm="SHA-1" property="sha1"/>
-		<generalGenerateChecksum file="${basedir}/test_array.txt" algorithm="SHA-256" property="sha256"/>
+		<general.generateChecksum file="${basedir}/test_array.txt" property="md5" checksumFile="${basedir}/test_array.txt.md5"/>
+		<general.generateChecksum file="${basedir}/test_array.txt" algorithm="SHA-1" property="sha1"/>
+		<general.generateChecksum file="${basedir}/test_array.txt" algorithm="SHA-256" property="sha256"/>
 		<echo>MD5=${md5}</echo>
 		<echo>SHA-1=${sha1}</echo>
 		<echo>SHA-256=${sha256}</echo>
 
-		<generalVerifyChecksum file="${basedir}/test_array.txt" checksumFile="${basedir}/test_array.txt.md5" property="equals"/>
-		<generalVerifyChecksum file="${basedir}/test_array.txt" checksum="195B982C70EDC9F101B50E1CD7F088DD" property="equals1"/>
-		<generalVerifyChecksum file="${basedir}/test_array.txt" checksum="195B982C70EDC9F101B50E1CD7F088DC" property="equals2"/>
+		<general.verifyChecksum file="${basedir}/test_array.txt" checksumFile="${basedir}/test_array.txt.md5" property="equals"/>
+		<general.verifyChecksum file="${basedir}/test_array.txt" checksum="195B982C70EDC9F101B50E1CD7F088DD" property="equals1"/>
+		<general.verifyChecksum file="${basedir}/test_array.txt" checksum="195B982C70EDC9F101B50E1CD7F088DC" property="equals2"/>
 
 		<echo>${equals}, ${equals1}, ${equals2}</echo>
 

@@ -12,20 +12,20 @@
 
 		<yarn.applicationsListLoop hadoopConfig="saturn" appReportRef="report">
 
-			<generalProperty name="appId" refid="report" refMethod="getApplicationId"/>
-			<generalProperty name="appUser" refid="report" refMethod="getUser"/>
-			<generalProperty name="appName" refid="report" refMethod="getName"/>
-			<generalProperty name="startTime" refid="report" refMethod="getStartTime" timeFormat="MM/dd/yyyy hh:mm:ss"/>
-			<generalProperty name="finishTime" refid="report" refMethod="getFinishTime" timeFormat="MM/dd/yyyy hh:mm:ss"/>
-			<generalProperty name="appType" refid="report" refMethod="getApplicationType"/>
-			<generalProperty name="queue" refid="report" refMethod="getQueue"/>
-			<generalProperty name="appState" refid="report" refMethod="getYarnApplicationState"/>
-			<generalProperty name="appStatus" refid="report" refMethod="getFinalApplicationStatus"/>
-			<generalProperty name="appProgress" refid="report" refMethod="getProgress"/>
-			<generalProperty name="appTrackingUrl" refid="report" refMethod="getTrackingUrl"/>
+			<general.property name="appId" refid="report" refMethod="getApplicationId"/>
+			<general.property name="appUser" refid="report" refMethod="getUser"/>
+			<general.property name="appName" refid="report" refMethod="getName"/>
+			<general.property name="startTime" refid="report" refMethod="getStartTime" timeFormat="MM/dd/yyyy hh:mm:ss"/>
+			<general.property name="finishTime" refid="report" refMethod="getFinishTime" timeFormat="MM/dd/yyyy hh:mm:ss"/>
+			<general.property name="appType" refid="report" refMethod="getApplicationType"/>
+			<general.property name="queue" refid="report" refMethod="getQueue"/>
+			<general.property name="appState" refid="report" refMethod="getYarnApplicationState"/>
+			<general.property name="appStatus" refid="report" refMethod="getFinalApplicationStatus"/>
+			<general.property name="appProgress" refid="report" refMethod="getProgress"/>
+			<general.property name="appTrackingUrl" refid="report" refMethod="getTrackingUrl"/>
 
-			<generalMultiply arg1="${appProgress}" arg2="100" property="appProgress"/>
-			<generalCastToInteger value="${appProgress}" property="appProgress"/>
+			<general.multiply arg1="${appProgress}" arg2="100" property="appProgress"/>
+			<general.castToInteger value="${appProgress}" property="appProgress"/>
 
 			<echo>${appId},${appUser},${appName},${startTime},${finishTime},${appType},${queue},${appState},${appStatus},${appProgress},${appTrackingUrl}</echo>
 		</yarn.applicationsListLoop>

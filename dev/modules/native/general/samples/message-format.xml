@@ -4,8 +4,8 @@
 
 	<target name="test">
 
-		<generalInitArray name="testArray" values="Vasia,Pupkin"/>
-		<generalMessageFormat pattern="hello {0} {1}" property="testFormat" array="testArray"/>
+		<general.initArray name="testArray" values="Vasia,Pupkin"/>
+		<general.messageFormat pattern="hello {0} {1}" property="testFormat" array="testArray"/>
 		<echo>${testFormat}</echo>
 
 	</target>

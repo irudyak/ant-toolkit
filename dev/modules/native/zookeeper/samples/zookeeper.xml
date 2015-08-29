@@ -63,15 +63,15 @@
 	</target>
 
 	<target name="test6">
-		<generalInitArray name="children" />
+		<general.initArray name="children" />
 
 		<zookeeper.session connectionString="saturn:2181" timeout="15000">
 			<zookeeper.getChildren node="/" array="children" recursive="true"/>
 		</zookeeper.session>
 
-		<generalArrayLoop array="children" elementProperty="value">
+		<general.arrayLoop array="children" elementProperty="value">
 			<echo>${value}</echo>
-		</generalArrayLoop>
+		</general.arrayLoop>
 	</target>
 
 	<target name="test7">
@@ -124,26 +124,26 @@
 		<delete dir="${basedir}/thread-test" includeemptydirs="true" />
 		<mkdir dir="${basedir}/thread-test"/>
 
-		<generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+		<general.createCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
 
 		<echo>Starting threads...</echo>
 
-		<generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+		<general.for from="1" to="${threadsNumber}" iterationProperty="iteration">
 
-			<generalGenerateRandomInteger min="0" max="100" property="randomNumber"/>
+			<general.randomInteger min="0" max="100" property="randomNumber"/>
 
-			<generalProperty name="lockType" value="READ"/>
+			<general.property name="lockType" value="READ"/>
 
-			<generalIf arg1="${randomNumber}" arg2="35" condition="&lt;=">
-				<generalProperty name="lockType" value="WRITE"/>
-			</generalIf>
+			<general.if arg1="${randomNumber}" arg2="35" condition="&lt;=">
+				<general.property name="lockType" value="WRITE"/>
+			</general.if>
 
-      		<generalStartThread name="thread-${iteration}-${lockType}"
+      		<general.startThread name="thread-${iteration}-${lockType}"
 								group="threadsGroup"
 								associatedValues="${lockType}"
 								logFile="${threadsLogDir}\thread-${iteration}.log">
 
-				<generalGetThreadAssociatedValue index="0" property="lockType"/>
+				<general.getThreadAssociatedValue index="0" property="lockType"/>
 
 				<zookeeper.session connectionString="saturn:2181" timeout="15000">
 
@@ -151,7 +151,7 @@
 						ZooKeeper ensemble an a host performing this Ant script -->
 					<zookeeper.exists node="/locks" property="exist"/>
 
-					<generalWaitCyclicBarrier name="cyclicBarrier"/>
+					<general.waitCyclicBarrier name="cyclicBarrier"/>
 
 					<zookeeper.syncSection rootNode="/locks" sectionName="AAA" lockType="${lockType}">
 
@@ -163,12 +163,12 @@
 
 				</zookeeper.session>
 
-      		</generalStartThread>
+      		</general.startThread>
 
-  		</generalForLoop>
+  		</general.for>
 
 		<echo>Waiting for threads to complete...</echo>
-		<generalWaitThread group="threadsGroup" failonany="true"/>
+		<general.waitThread group="threadsGroup" failonany="true"/>
 
 	</target>
 
@@ -184,7 +184,7 @@
 
 		<echo>Creating cyclic barrier...</echo>
 
-		<generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
+		<general.createCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
 
 		<zookeeper.session connectionString="saturn:2181" timeout="15000">
 			<zookeeper.createCyclicBarrier rootNode="/" name="AAA" parties="${parties}"/>
@@ -192,20 +192,20 @@
 
 		<echo>Starting threads...</echo>
 
-		<generalForLoop from="1" to="${threadsNumber}" iterationProperty="iteration">
+		<general.for from="1" to="${threadsNumber}" iterationProperty="iteration">
 
-      		<generalStartThread name="thread-${iteration}"
+      		<general.startThread name="thread-${iteration}"
 								group="threadsGroup"
 								associatedValues="${sleepTimeout}"
 								logFile="${threadsLogDir}\thread-${iteration}.log">
 
-				<generalGetThreadAssociatedValue index="0" property="sleepTimeout"/>
+				<general.getThreadAssociatedValue index="0" property="sleepTimeout"/>
 
 				<zookeeper.session connectionString="saturn:2181" timeout="15000">
 
-					<generalForLoop from="1" to="${iterations}">
+					<general.for from="1" to="${iterations}">
 
-						<generalWaitCyclicBarrier name="cyclicBarrier"/>
+						<general.waitCyclicBarrier name="cyclicBarrier"/>
 
 						<zookeeper.waitCyclicBarrier name="AAA"/>
 
@@ -213,16 +213,16 @@
 						<sleep seconds="2"/>
 						<echo>Work completed...</echo>
 
-					</generalForLoop>
+					</general.for>
 
 				</zookeeper.session>
 
-      		</generalStartThread>
+      		</general.startThread>
 
-  		</generalForLoop>
+  		</general.for>
 
 		<echo>Waiting for threads to complete...</echo>
-		<generalWaitThread group="threadsGroup" failonany="true"/>
+		<general.waitThread group="threadsGroup" failonany="true"/>
 
 		<echo>Deleting cyclic barrier...</echo>
 		<zookeeper.session connectionString="saturn:2181" timeout="15000">

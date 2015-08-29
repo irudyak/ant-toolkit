@@ -4,7 +4,7 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<target name="test">
-		<generalValidateBuildFile file="${ant.file.docbase_update}" xPath="/project/target[@name='update']/dmDocbaseBatch/generalBuild"/>
+		<general.validateBuildFile file="${ant.file.docbase_update}" xPath="/project/target[@name='update']/dmDocbaseBatch/generalBuild"/>
 	</target>
 
 	<target name="test1">
@@ -12,17 +12,17 @@
 
 		<dm.docbaseBatch docbase="archive" login="dmadmin" password="ZSE$zse4">
 
-			<generalBuild number="1.0">
+			<general.build number="1.0">
 				<echo>version - 1.0</echo>
-			</generalBuild>
+			</general.build>
 
-			<generalBuild number="1.1">
+			<general.build number="1.1">
 				<echo>version - 1.1</echo>
-			</generalBuild>
+			</general.build>
 
-			<generalBuild number="1.2">
+			<general.build number="1.2">
 				<echo>version - 1.2</echo>
-			</generalBuild>
+			</general.build>
 
 		</dm.docbaseBatch>
 	</target>
@@ -36,17 +36,17 @@
 		</dm.buildVersionProvider>
 
 
-		<generalBuild number="1.0">
+		<general.build number="1.0">
 			<echo>version - 1.0</echo>
-		</generalBuild>
+		</general.build>
 
-		<generalBuild number="1.1">
+		<general.build number="1.1">
 			<echo>version - 1.1</echo>
-		</generalBuild>
+		</general.build>
 
-		<generalBuild number="1.2">
+		<general.build number="1.2">
 			<echo>version - 1.2</echo>
-		</generalBuild>
+		</general.build>
 
 	</target>
 

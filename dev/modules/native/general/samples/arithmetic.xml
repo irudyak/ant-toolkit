@@ -3,19 +3,19 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<target name="test">
-		<generalTimeStamp>
+		<general.timestamp>
 			<format property="aaa" pattern="dd.MM.yyyy HH:mm:ss" locale="ru,RU"/>
-		</generalTimeStamp>
+		</general.timestamp>
 
 		<echo>${aaa}</echo>
 
-		<generalAdd arg1="123" arg2="200.0" property="result"/>
+		<general.add arg1="123" arg2="200.0" property="result"/>
 		<echo>${result}</echo>
-		<generalSubstract arg1="123" arg2="200.0" property="result"/>
+		<general.substract arg1="123" arg2="200.0" property="result"/>
 		<echo>${result}</echo>
-		<generalMultiply arg1="123" arg2="200.0" property="result"/>
+		<general.multiply arg1="123" arg2="200.0" property="result"/>
 		<echo>${result}</echo>
-		<generalDivide arg1="123" arg2="200.0" property="result"/>
+		<general.divide arg1="123" arg2="200.0" property="result"/>
 		<echo>${result}</echo>
 	</target>
 

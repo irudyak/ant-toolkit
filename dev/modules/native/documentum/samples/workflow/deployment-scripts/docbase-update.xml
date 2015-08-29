@@ -5,7 +5,7 @@
 
     <!-- Validate current docbase-update.xml script, so that it has valid structure of dmBuild containers -->
     <target name="validate">
-        <generalValidateBuildFile file="${ant.file.docbase-update}" xPath="/project/target[@name='update']/dm.docbaseBatch/dmBuild"/>
+        <general.validateBuildFile file="${ant.file.docbase-update}" xPath="/project/target[@name='update']/dm.docbaseBatch/dmBuild"/>
     </target>
 
     <!-- Log update start time -->
@@ -42,14 +42,14 @@
         <dm.docbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}" buildQualifier="TEST-WORKFLOW-1">
 
 			<!-- Creating test folders structure -->
-			<generalBuild number="1.0" comment="Creating test folders structure">
+			<general.build number="1.0" comment="Creating test folders structure">
 				<!-- Check if '/TEST-WORKFLOW-1' cabinet already exists-->
 				<dm.dqlExist property="exists">
 					select r_object_id from dm_cabinet where object_name='TEST-WORKFLOW-1'
 				</dm.dqlExist>
 
 				<!-- Create '/TEST-WORKFLOW-1' cabinet if it doesn't exist -->
-				<generalIf arg1="${exists}" condition="!=" arg2="true">
+				<general.if arg1="${exists}" condition="!=" arg2="true">
 					<!-- Cabinet creation -->
 					<dm.dql>
 						create dm_cabinet object
@@ -60,7 +60,7 @@
 					<dm.setPermit objectId="select r_object_id from dm_cabinet where object_name='TEST-WORKFLOW-1'">
 						<user name="dm_world" permit="WRITE"/>
 					</dm.setPermit>
-				</generalIf>
+				</general.if>
 
 				<!-- Check if '/TEST-WORKFLOW-1/APPROVED' folder already exists-->
 				<dm.dqlExist property="exists">
@@ -68,7 +68,7 @@
 				</dm.dqlExist>
 
 				<!-- Create '/TEST-WORKFLOW-1/APPROVED' folder if it doesn't exist -->
-				<generalIf arg1="${exists}" condition="!=" arg2="true">
+				<general.if arg1="${exists}" condition="!=" arg2="true">
 					<!-- Folder creation -->
 					<dm.dql>
 						create dm_folder object
@@ -80,7 +80,7 @@
 					<dm.setPermit objectId="select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/APPROVED'">
 						<user name="dm_world" permit="WRITE"/>
 					</dm.setPermit>
-				</generalIf>
+				</general.if>
 
 				<!-- Check if '/TEST-WORKFLOW-1/COORDINATED' folder already exists-->
 				<dm.dqlExist property="exists">
@@ -88,7 +88,7 @@
 				</dm.dqlExist>
 
 				<!-- Create '/TEST-WORKFLOW-1/COORDINATED' folder if it doesn't exist -->
-				<generalIf arg1="${exists}" condition="!=" arg2="true">
+				<general.if arg1="${exists}" condition="!=" arg2="true">
 					<!-- Folder creation -->
 					<dm.dql>
 						create dm_folder object
@@ -100,7 +100,7 @@
 					<dm.setPermit objectId="select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/COORDINATED'">
 						<user name="dm_world" permit="WRITE"/>
 					</dm.setPermit>
-				</generalIf>
+				</general.if>
 
 				<!-- Check if '/TEST-WORKFLOW-1/REDESIGNED' folder already exists-->
 				<dm.dqlExist property="exists">
@@ -108,7 +108,7 @@
 				</dm.dqlExist>
 
 				<!-- Create '/TEST-WORKFLOW-1/REDESIGNED' folder if it doesn't exist -->
-				<generalIf arg1="${exists}" condition="!=" arg2="true">
+				<general.if arg1="${exists}" condition="!=" arg2="true">
 					<!-- Folder creation -->
 					<dm.dql>
 						create dm_folder object
@@ -120,7 +120,7 @@
 					<dm.setPermit objectId="select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/REDESIGNED'">
 						<user name="dm_world" permit="WRITE"/>
 					</dm.setPermit>
-				</generalIf>
+				</general.if>
 
 				<!-- Check if '/TEST-WORKFLOW-1/NEW' folder already exists-->
 				<dm.dqlExist property="exists">
@@ -128,7 +128,7 @@
 				</dm.dqlExist>
 
 				<!-- Create '/TEST-WORKFLOW-1/NEW' folder if it doesn't exist -->
-				<generalIf arg1="${exists}" condition="!=" arg2="true">
+				<general.if arg1="${exists}" condition="!=" arg2="true">
 					<!-- Folder creation -->
 					<dm.dql>
 						create dm_folder object
@@ -140,26 +140,26 @@
 					<dm.setPermit objectId="select r_object_id from dm_folder where any r_folder_path='/TEST-WORKFLOW-1/NEW'">
 						<user name="dm_world" permit="WRITE"/>
 					</dm.setPermit>
-				</generalIf>
+				</general.if>
 
-			</generalBuild>
+			</general.build>
 
 			<!-- Creating test user accounts -->
-			<generalBuild number="1.1" comment="Creating test user accounts">
+			<general.build number="1.1" comment="Creating test user accounts">
 				<ant antfile="../test-scripts/test-users-creation/test-users-creation.xml" useNativeBasedir="true"/>
-			</generalBuild>
+			</general.build>
 
 			<!-- Installing workflow template -->
-			<generalBuild number="1.2" comment="Workflow installation">
+			<general.build number="1.2" comment="Workflow installation">
 				<dm.installDar darFile="dar/test-workflow-1.dar"/>
-			</generalBuild>
+			</general.build>
 
 			<!-- Granting rights to workflow template -->
-			<generalBuild number="1.3" comment="Granting rights to workflow template">
+			<general.build number="1.3" comment="Granting rights to workflow template">
 				<dm.setPermit objectId="select r_object_id from dm_process where object_name='test-workflow-1'">
 					<user name="dm_world" permit="RELATE" xpermit="EXECUTE_PROC,CHANGE_LOCATION"/>
 				</dm.setPermit>
-			</generalBuild>
+			</general.build>
 
 		</dm.docbaseBatch>
 

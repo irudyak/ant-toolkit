@@ -7,22 +7,22 @@
 	<import file="test-cases.xml"/>
 
 	<!-- Defining array of target names for all smoke tests -->
-	<generalInitArray name="TEST-CASES" sizeProperty="testsCount">
+	<general.initArray name="TEST-CASES" sizeProperty="testsCount">
 		testApproveRoute,testCoordinateRoute,testRedesignRoute
-	</generalInitArray>
+	</general.initArray>
 
 	<!-- Defining array which will hold passed and failed tests list -->
-	<generalInitArray name="PASSED-TESTS"/>
-	<generalInitArray name="FAILED-TESTS"/>
+	<general.initArray name="PASSED-TESTS"/>
+	<general.initArray name="FAILED-TESTS"/>
 
 <!-- ***** TARGET TO EXECUTE THE WHOLE BUNCH OF SMOKE TESTS ******** -->
 
     <target name="runSmokeTests">
 		<!-- Iterating through test cases targets array and executing them sequentially -->
-		<generalArrayLoop array="TEST-CASES" elementProperty="target">
+		<general.arrayLoop array="TEST-CASES" elementProperty="target">
 			<!-- Executing test case-->
 			<executeTestCase testCase="${target}"/>
-		</generalArrayLoop>
+		</general.arrayLoop>
 
 		<!-- Printing summary results -->
 		<printSummaryResults/>
@@ -49,62 +49,62 @@
 		<attribute name="threadPrefix" default=""/>
 		<sequential>
 			<!-- Defining local scope to prevent modification of outer scope properties -->
-			<generalScope>
+			<general.scope>
 				<echo></echo>
 				<echo>Start execution of test case: @{testCase}</echo>
 
 				<!-- Property which will hold the error -->
-				<generalProperty name="error" value=""/>
+				<general.property name="error" value=""/>
 
 				<!-- Getting test start time -->
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="startTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
 				<!-- Executing test case target in try/catch block to be able handle exceptions -->
 				<trycatch reference="errorRef">
 					<try>
-						<generalCallTarget target="@{testCase}"/>
+						<general.callTarget target="@{testCase}"/>
 					</try>
 
 					<catch>
-						<generalGetExceptionStackTrace refid="errorRef" property="error"/>
+						<general.getExceptionStackTrace refid="errorRef" property="error"/>
 						<echo>[ERROR] Error occured during @{testCase} test case execution</echo>
 						<echo>${error}</echo>
 					</catch>
 				</trycatch>
 
 				<!-- Getting test finish time -->
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="finishTime" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
 				<!-- Measuring test duration -->
-				<generalTimeDifference time1="${startTime}" time2="${finishTime}" timeFormat="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"
+				<general.timeDifference time1="${startTime}" time2="${finishTime}" timeFormat="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"
 									   differenceUnits="s" property="duration"/>
 
 				<!-- Add test case to passed tests -->
-				<generalIf arg1="${error}" condition="=" arg2="">
-					<generalAddArrayElement array="PASSED-TESTS" value="@{threadPrefix}@{testCase} [${duration} sec]"/>
+				<general.if arg1="${error}" condition="=" arg2="">
+					<general.addArrayElement array="PASSED-TESTS" value="@{threadPrefix}@{testCase} [${duration} sec]"/>
 					<echo>Finished execution of test case: @{testCase} [PASSED, ${duration} sec]</echo>
-				</generalIf>
+				</general.if>
 
 				<!-- Add test case to failed tests -->
-				<generalIf arg1="${error}" condition="!=" arg2="">
-					<generalAddArrayElement array="FAILED-TESTS" value="@{threadPrefix}@{testCase} [${duration} sec]"/>
+				<general.if arg1="${error}" condition="!=" arg2="">
+					<general.addArrayElement array="FAILED-TESTS" value="@{threadPrefix}@{testCase} [${duration} sec]"/>
 					<echo>Finished execution of test case: @{testCase} [FAILED, ${duration} sec]</echo>
-				</generalIf>
+				</general.if>
 
 				<echo></echo>
-			</generalScope>
+			</general.scope>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="printSummaryResults">
 		<sequential>
 			<!-- Calculating summary results -->
-			<generalGetArraySize array="PASSED-TESTS" property="passedCount"/>
-			<generalGetArraySize array="FAILED-TESTS" property="failedCount"/>
+			<general.getArraySize array="PASSED-TESTS" property="passedCount"/>
+			<general.getArraySize array="FAILED-TESTS" property="failedCount"/>
 
 
 			<echo></echo>
@@ -113,20 +113,20 @@
 			<echo>Number of failed tests: ${failedCount}</echo>
 
 			<!-- Report name/time of passed tests if any of them exist -->
-			<generalIf arg1="${passedCount}" condition="!=" arg2="0">
+			<general.if arg1="${passedCount}" condition="!=" arg2="0">
 				<echo>--------- PASSED TESTS --------</echo>
-				<generalArrayLoop array="PASSED-TESTS" elementProperty="testName">
+				<general.arrayLoop array="PASSED-TESTS" elementProperty="testName">
 					<echo>${testName}</echo>
-				</generalArrayLoop>
-			</generalIf>
+				</general.arrayLoop>
+			</general.if>
 
 			<!-- Report name/time of failed tests if any of them exist -->
-			<generalIf arg1="${failedCount}" condition="!=" arg2="0">
+			<general.if arg1="${failedCount}" condition="!=" arg2="0">
 				<echo>--------- FAILED TESTS --------</echo>
-				<generalArrayLoop array="FAILED-TESTS" elementProperty="testName">
+				<general.arrayLoop array="FAILED-TESTS" elementProperty="testName">
 					<echo>${testName}</echo>
-				</generalArrayLoop>
-			</generalIf>
+				</general.arrayLoop>
+			</general.if>
 
 			<echo>-------------------------------</echo>
 			<echo></echo>

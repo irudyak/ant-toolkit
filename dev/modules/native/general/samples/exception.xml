@@ -10,7 +10,7 @@
 			</try>
 
 			<catch>
-				<generalPrintExceptionStackTrace refId="errorRef"/>
+				<general.printExceptionStackTrace refId="errorRef"/>
 			</catch>
 
 			<finally>

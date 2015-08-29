@@ -3,17 +3,17 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<target name="test">
-		<generalRunMacros macros="hello">
+		<general.runMacros macros="hello">
 			<attribute name="firstName" value="John"/>
 			<attribute name="secondName" value="Silver"/>
-		</generalRunMacros>
+		</general.runMacros>
 
-		<generalRunMacros macros="hello">
+		<general.runMacros macros="hello">
 			<attribute name="firstName" value="Bob"/>
 			<attribute name="secondName" value="Marley"/>
-		</generalRunMacros>
+		</general.runMacros>
 
-		<generalRunMacros macros="helloWorld"/>
+		<general.runMacros macros="helloWorld"/>
 	</target>
 
 	<macrodef name="hello">

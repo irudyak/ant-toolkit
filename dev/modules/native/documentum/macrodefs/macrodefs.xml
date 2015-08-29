@@ -2,10 +2,10 @@
 	<!-- Check necessary prerequisites required to use HeadlessComposer -->
 	<macrodef name="dm.checkHeadlessComposer">
 		<sequential>
-			<generalIf arg1="${g:HEADLESS-COMPOSER-ALREADY-RESOLVED}" condition="!=" arg2="true">
+			<general.if arg1="${g:HEADLESS-COMPOSER-ALREADY-RESOLVED}" condition="!=" arg2="true">
 
 				<!-- Configure headless-composer location & check that it exists -->
-				<generalCondition property="headless-composer.root.dir" value="${ENV.HEADLESS_COMPOSER_HOME}">
+				<general.condition property="headless-composer.root.dir" value="${ENV.HEADLESS_COMPOSER_HOME}">
 					<and>
 						<not>
 							<isset property="headless-composer.root.dir"/>
@@ -13,19 +13,19 @@
 
 						<isset property="ENV.HEADLESS_COMPOSER_HOME"/>
 					</and>
-				</generalCondition>
+				</general.condition>
 
-				<generalIf arg1="${headless-composer.root.dir}" arg2="$${headless-composer.root.dir}" condition="!=">
-					<generalGetFileFullPath file="${headless-composer.root.dir}" property="headless-composer.root.dir"/>
-				</generalIf>
+				<general.if arg1="${headless-composer.root.dir}" arg2="$${headless-composer.root.dir}" condition="!=">
+					<general.getFileFullPath file="${headless-composer.root.dir}" property="headless-composer.root.dir"/>
+				</general.if>
 
-				<generalCondition property="headless-composer.root.dir"
+				<general.condition property="headless-composer.root.dir"
 								  value="${headless-composer.root.dir}"
 								  else="${profile-resolution.basedir}/../headless-composer">
 					<available file="${headless-composer.root.dir}" type="dir"/>
-				</generalCondition>
+				</general.condition>
 
-				<generalGetFileFullPath file="${headless-composer.root.dir}" property="headless-composer.root.dir"/>
+				<general.getFileFullPath file="${headless-composer.root.dir}" property="headless-composer.root.dir"/>
 
 				<fail message="Failed to find HeadlessComposer location. Either headless-composer.root.dir Ant property or HEADLESS_COMPOSER_HOME environment variable should be specified">
 					<condition>
@@ -49,8 +49,8 @@
 				<copy file="${profile.dir}/dfc.properties" todir="${headless-composer.plugins.dfc.dir}" overwrite="true" force="true" />
 				<copy file="${profile.dir}/log4j.properties" todir="${headless-composer.plugins.dfc.dir}" overwrite="true" force="true"/>
 
-				<generalProperty name="g:HEADLESS-COMPOSER-ALREADY-RESOLVED" value="true"/>
-			</generalIf>
+				<general.property name="g:HEADLESS-COMPOSER-ALREADY-RESOLVED" value="true"/>
+			</general.if>
 		</sequential>
 	</macrodef>
 
@@ -93,29 +93,29 @@
 				</condition>
 			</fail>
 
-			<generalInitMap name="g:INSTALLED_DARS" ignoreIfExist="true"/>
+			<general.initMap name="g:INSTALLED_DARS" ignoreIfExist="true"/>
 
-			<generalCheckMapContainsKey map="g:INSTALLED_DARS" key="${docbaseName}-@{darFile}" property="__isAlreadyInstalled__"/>
+			<general.checkMapContainsKey map="g:INSTALLED_DARS" key="${docbaseName}-@{darFile}" property="__isAlreadyInstalled__"/>
 
-			<generalIf arg1="${__isAlreadyInstalled__}" condition="=" arg2="true">
+			<general.if arg1="${__isAlreadyInstalled__}" condition="=" arg2="true">
 				<echo>[DAR-ALREADY-INSTALLED] @{darFile} archive was already installed</echo>
-			</generalIf>
+			</general.if>
 
-			<generalIf arg1="${__isAlreadyInstalled__}" condition="!=" arg2="true">
+			<general.if arg1="${__isAlreadyInstalled__}" condition="!=" arg2="true">
 
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="__dar.install.start" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="__dar.install.log.start" pattern="MM-dd-yyyy-hh-mm-ss-aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
-				<generalProperty name="darLogFile" value="dar-inst-${__dar.install.log.start}.log"/>
+				<general.property name="darLogFile" value="dar-inst-${__dar.install.log.start}.log"/>
 
-				<generalIf arg1="${DEPLOYMENT_LOGS_DIR}" condition="!=" arg2="$${DEPLOYMENT_LOGS_DIR}">
-					<generalProperty name="darLogFile" value="${DEPLOYMENT_LOGS_DIR}/dar-inst-${__dar.install.log.start}.log"/>
-				</generalIf>
+				<general.if arg1="${DEPLOYMENT_LOGS_DIR}" condition="!=" arg2="$${DEPLOYMENT_LOGS_DIR}">
+					<general.property name="darLogFile" value="${DEPLOYMENT_LOGS_DIR}/dar-inst-${__dar.install.log.start}.log"/>
+				</general.if>
 
 				<echo>[START-DAR-INSTALL] Start installing DAR archive @{darFile} at ${__dar.install.start}. Installation log: ${darLogFile}</echo>
 				<echo>Using HeadlessComposer: ${headless-composer.root.dir}</echo>
@@ -131,13 +131,13 @@
 				<echo file="${basedir}/dar-installation.xml" append="true" encoding="UTF-8"></echo>
 				<echo file="${basedir}/dar-installation.xml" append="true" encoding="UTF-8"><![CDATA[	<target name="install">]]></echo>
 
-				<generalIf arg1="@{references}" condition="!=" arg2="">
-					<generalInitArray name="referenceDars" values="@{references}" trimValues="true" removeEmptyValues="true"/>
-					<generalArrayLoop array="referenceDars" elementProperty="refDar">
+				<general.if arg1="@{references}" condition="!=" arg2="">
+					<general.initArray name="referenceDars" values="@{references}" trimValues="true" removeEmptyValues="true"/>
+					<general.arrayLoop array="referenceDars" elementProperty="refDar">
 						<echo file="${basedir}/dar-installation.xml" append="true" encoding="UTF-8"></echo>
 						<echo file="${basedir}/dar-installation.xml" append="true" encoding="UTF-8"><![CDATA[		<emc.install docbase="$${docbase}" username="$${user}" password="$${password}" dar="${refDar}"/>]]></echo>
-					</generalArrayLoop>
-				</generalIf>
+					</general.arrayLoop>
+				</general.if>
 
 				<echo file="${basedir}/dar-installation.xml" append="true" encoding="UTF-8"></echo>
 				<echo file="${basedir}/dar-installation.xml" append="true" encoding="UTF-8"><![CDATA[		<emc.install docbase="$${docbase}" username="$${user}" password="$${password}" dar="$${dar}"/>]]></echo>
@@ -172,18 +172,18 @@
 				<delete dir="${basedir}/darInstallTemp" quiet="true"/>
 				<delete file="${basedir}/dar-installation.xml" quiet="true"/>
 
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="__dar.install.finish" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
-				<generalTimeDifference time1="${__dar.install.start}" time2="${__dar.install.finish}" timeFormat="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"
+				<general.timeDifference time1="${__dar.install.start}" time2="${__dar.install.finish}" timeFormat="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"
 									   differenceUnits="m" property="__dar.install.duration"/>
 
-				<generalPutMapElement map="g:INSTALLED_DARS" key="${docbaseName}-@{darFile}" value="1"/>
+				<general.putMapElement map="g:INSTALLED_DARS" key="${docbaseName}-@{darFile}" value="1"/>
 
 				<echo>[FINISHED-DAR-INSTALL] Finished installing DAR archive @{darFile} at ${__dar.install.finish}, duration: ${__dar.install.duration} min</echo>
 
-			</generalIf>
+			</general.if>
 
 		</sequential>
 	</macrodef>
@@ -196,47 +196,47 @@
 		<attribute name="commentDelimiter" default="#"/>
 
 		<sequential>
-			<generalInitMap name="g:EXECUTED_DQL_SCRIPTS" ignoreIfExist="true"/>
+			<general.initMap name="g:EXECUTED_DQL_SCRIPTS" ignoreIfExist="true"/>
 
 			<dm.getDocbaseCredentials docbaseProperty="docbaseName"
 									 loginProperty="docbaseLogin"
 									 passwordProperty="docbasePassword"/>
 
-			<generalCheckMapContainsKey mapname="g:EXECUTED_DQL_SCRIPTS" key="${docbaseName}-@{file}" property="__isAlreadyExecutedDql__"/>
+			<general.checkMapContainsKey mapname="g:EXECUTED_DQL_SCRIPTS" key="${docbaseName}-@{file}" property="__isAlreadyExecutedDql__"/>
 
-			<generalIf arg1="${__isAlreadyExecutedDql__}" condition="=" arg2="true">
+			<general.if arg1="${__isAlreadyExecutedDql__}" condition="=" arg2="true">
 				<echo>[DQL-SCRIPT-WAS-ALREADY-EXECUTED] @{file} script was already executed</echo>
-			</generalIf>
+			</general.if>
 
-			<generalIf arg1="${__isAlreadyExecutedDql__}" condition="!=" arg2="true">
+			<general.if arg1="${__isAlreadyExecutedDql__}" condition="!=" arg2="true">
 				<echo>[START-EXECUTING-DQL-SCRIPT] Start execution of @{file} DQL script</echo>
 
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="__dql.start.time__" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
-				<generalIf arg1="@{transactional}" condition="=" arg2="true">
+				<general.if arg1="@{transactional}" condition="=" arg2="true">
 					<dm.startTransaction/>
-				</generalIf>
+				</general.if>
 
 				<dm.dql file="@{file}" delimiter="@{delimiter}" commentDelimiter="@{commentDelimiter}"/>
 
-				<generalIf arg1="@{transactional}" condition="=" arg2="true">
+				<general.if arg1="@{transactional}" condition="=" arg2="true">
 					<dm.commitTransaction/>
-				</generalIf>
+				</general.if>
 
-				<generalTimeStamp>
+				<general.timestamp>
 					<format property="__dql.finish.time__" pattern="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"/>
-				</generalTimeStamp>
+				</general.timestamp>
 
-				<generalTimeDifference time1="${__dql.start.time__}" time2="${__dql.finish.time__}" timeFormat="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"
+				<general.timeDifference time1="${__dql.start.time__}" time2="${__dql.finish.time__}" timeFormat="MM/dd/yyyy hh:mm:ss aaa" locale="en,US"
 									   differenceUnits="m" property="__dql.duration.time__"/>
 
 
-				<generalPutMapElement map="g:EXECUTED_DQL_SCRIPTS" key="${docbaseName}-@{file}" value="1"/>
+				<general.putMapElement map="g:EXECUTED_DQL_SCRIPTS" key="${docbaseName}-@{file}" value="1"/>
 
 				<echo>[FINISHED-EXECUTING-DQL-SCRIPT] Finished executing DQL script @{file}, duration: ${__dql.duration.time__} min</echo>
-			</generalIf>
+			</general.if>
 		</sequential>
 	</macrodef>
 </project>

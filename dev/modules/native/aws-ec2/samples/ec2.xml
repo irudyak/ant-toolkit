@@ -118,10 +118,10 @@
 
 
 	<target name="test11">
-		<generalInitArray name="ids"/>
-		<generalInitArray name="types"/>
-		<generalInitArray name="keys"/>
-		<generalInitArray name="vals"/>
+		<general.initArray name="ids"/>
+		<general.initArray name="types"/>
+		<general.initArray name="keys"/>
+		<general.initArray name="vals"/>
 
 		<aws.ec2.describeTags awsConfig="myAwsConfig"
 							  filters="Name=resource-id,Values=i-778691b5,i-80968142 Name=resource-type,Values=instance"
