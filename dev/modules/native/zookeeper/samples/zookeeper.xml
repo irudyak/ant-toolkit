@@ -3,36 +3,36 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<target name="test1">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperCreate node="/test1" data="HELLO WORLD" mode="PERSISTENT"/>
-		</zookeeperSession>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.create node="/test1" data="HELLO WORLD" mode="PERSISTENT"/>
+		</zookeeper.session>
 	</target>
 
 	<target name="test2">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperCreate node="/test1/aaa/bbb" data="HELLO WORLD" mode="PERSISTENT"/>
-		</zookeeperSession>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.create node="/test1/aaa/bbb" data="HELLO WORLD" mode="PERSISTENT"/>
+		</zookeeper.session>
 	</target>
 
 	<target name="test3">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperDelete node="/test1" />
-		</zookeeperSession>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.delete node="/test1" />
+		</zookeeper.session>
 	</target>
 
 	<target name="test4">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperExists node="/test1/aaa/bbb" property="result"/>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.exists node="/test1/aaa/bbb" property="result"/>
 			<echo>${result}</echo>
 
-			<zookeeperExists node="/test1/aaa/ccc" property="result"/>
+			<zookeeper.exists node="/test1/aaa/ccc" property="result"/>
 			<echo>${result}</echo>
-		</zookeeperSession>
+		</zookeeper.session>
 	</target>
 
 	<target name="test5">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperGetData node="/test1/aaa"
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.getData node="/test1/aaa"
 				dataProperty="data"
 				czxidProperty="czxid"
 				mzxidProperty="mzxid"
@@ -59,15 +59,15 @@
 			<echo>numChildren=${numChildren}</echo>
 			<echo>pzxid=${pzxid}</echo>
 
-		</zookeeperSession>
+		</zookeeper.session>
 	</target>
 
 	<target name="test6">
 		<generalInitArray name="children" />
 
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperGetChildren node="/" array="children" recursive="true"/>
-		</zookeeperSession>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.getChildren node="/" array="children" recursive="true"/>
+		</zookeeper.session>
 
 		<generalArrayLoop array="children" elementProperty="value">
 			<echo>${value}</echo>
@@ -75,44 +75,44 @@
 	</target>
 
 	<target name="test7">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperChildrenLoop node="/" recursive="true" property="value">
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.childrenLoop node="/" recursive="true" property="value">
 				<echo>value=${value}</echo>
-			</zookeeperChildrenLoop>
-		</zookeeperSession>
+			</zookeeper.childrenLoop>
+		</zookeeper.session>
 	</target>
 
 	<target name="test8">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperSetACL node="/test">
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.setACL node="/test">
 				<permission scheme="world" id="anyone" permissions="ALL"/>
 				<permission scheme="digest" id="test:123" permissions="READ,WRITE"/>
-			</zookeeperSetACL>
-		</zookeeperSession>
+			</zookeeper.setACL>
+		</zookeeper.session>
 	</target>
 
 	<target name="test9">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperGetACL node="/test" property="acl"/>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.getACL node="/test" property="acl"/>
 			<echo>${acl}</echo>
-		</zookeeperSession>
+		</zookeeper.session>
 	</target>
 
 	<target name="test10">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperSetData node="/test1/aaa/bbb" data="AAA BBB"/>
-		</zookeeperSession>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.setData node="/test1/aaa/bbb" data="AAA BBB"/>
+		</zookeeper.session>
 	</target>
 
 	<target name="test11">
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperTransaction>
-				<zookeeperCheck node="/test1/aaa" version="1"/>
-				<zookeeperCreate node="/test1/aaa/yyy" data="XXX" mode="PERSISTENT"/>
-				<zookeeperDelete node="/test1/aaa/bbb" />
-				<zookeeperSetData node="/test1" data="AAA BBB"/>
-			</zookeeperTransaction>
-		</zookeeperSession>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.transaction>
+				<zookeeper.Check node="/test1/aaa" version="1"/>
+				<zookeeper.create node="/test1/aaa/yyy" data="XXX" mode="PERSISTENT"/>
+				<zookeeper.Delete node="/test1/aaa/bbb" />
+				<zookeeper.SetData node="/test1" data="AAA BBB"/>
+			</zookeeper.transaction>
+		</zookeeper.session>
 	</target>
 
 	<target name="test12">
@@ -145,23 +145,23 @@
 
 				<generalGetThreadAssociatedValue index="0" property="lockType"/>
 
-				<zookeeperSession connectionString="saturn:2181" timeout="15000">
+				<zookeeper.session connectionString="saturn:2181" timeout="15000">
 
 					<!-- Perform simple operation to create real connection between
 						ZooKeeper ensemble an a host performing this Ant script -->
-					<zookeeperExists node="/locks" property="exist"/>
+					<zookeeper.exists node="/locks" property="exist"/>
 
 					<generalWaitCyclicBarrier name="cyclicBarrier"/>
 
-					<zookeeperSynchronizationSection rootNode="/locks" sectionName="AAA" lockType="${lockType}">
+					<zookeeper.syncSection rootNode="/locks" sectionName="AAA" lockType="${lockType}">
 
 						<echo>Doing some work...</echo>
 
 						<sleep seconds="${threadSleepTime}"/>
 
-					</zookeeperSynchronizationSection>
+					</zookeeper.syncSection>
 
-				</zookeeperSession>
+				</zookeeper.session>
 
       		</generalStartThread>
 
@@ -186,9 +186,9 @@
 
 		<generalCreateCyclicBarrier name="cyclicBarrier" parties="${threadsNumber}"/>
 
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperCreateCyclicBarrier rootNode="/" name="AAA" parties="${parties}"/>
-		</zookeeperSession>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.createCyclicBarrier rootNode="/" name="AAA" parties="${parties}"/>
+		</zookeeper.session>
 
 		<echo>Starting threads...</echo>
 
@@ -201,13 +201,13 @@
 
 				<generalGetThreadAssociatedValue index="0" property="sleepTimeout"/>
 
-				<zookeeperSession connectionString="saturn:2181" timeout="15000">
+				<zookeeper.session connectionString="saturn:2181" timeout="15000">
 
 					<generalForLoop from="1" to="${iterations}">
 
 						<generalWaitCyclicBarrier name="cyclicBarrier"/>
 
-						<zookeeperWaitCyclicBarrier name="AAA"/>
+						<zookeeper.waitCyclicBarrier name="AAA"/>
 
 						<echo>Doing some work...</echo>
 						<sleep seconds="2"/>
@@ -215,7 +215,7 @@
 
 					</generalForLoop>
 
-				</zookeeperSession>
+				</zookeeper.session>
 
       		</generalStartThread>
 
@@ -225,9 +225,9 @@
 		<generalWaitThread group="threadsGroup" failonany="true"/>
 
 		<echo>Deleting cyclic barrier...</echo>
-		<zookeeperSession connectionString="saturn:2181" timeout="15000">
-			<zookeeperDeleteCyclicBarrier name="AAA"/>
-		</zookeeperSession>
+		<zookeeper.session connectionString="saturn:2181" timeout="15000">
+			<zookeeper.deleteCyclicBarrier name="AAA"/>
+		</zookeeper.session>
 	</target>
 
 </project>
