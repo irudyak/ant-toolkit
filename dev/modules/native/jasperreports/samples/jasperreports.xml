@@ -3,7 +3,7 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<target name="test1">
-		<jasperDataSource name="xxx">
+		<jasper.dataSource name="xxx">
 			<column name="AAA" type="int"/>
 			<column name="BBB" type="int"/>
 			<column name="CCC" />
@@ -19,39 +19,39 @@
 				34,-34,FFF,0,0,
 			</data>
 			<data file="datasource.txt"/>
-		</jasperDataSource>
+		</jasper.dataSource>
 
-		<jasperAddToDataSource dataSource="xxx">
+		<jasper.addToDataSource dataSource="xxx">
 			<data>
 				1,2,AAA,true,12.456,
 				12,4,BBB,false,1.908,09/12/1980 07:20:23 PM
 				5,67,CCC,yes,-3,
 			</data>
-		</jasperAddToDataSource>
+		</jasper.addToDataSource>
 
-		<jasperReport template="report1.jasper" format="pdf" reportFile="aaa.pdf" dataSource="xxx">
+		<jasper.report template="report1.jasper" format="pdf" reportFile="aaa.pdf" dataSource="xxx">
 			<param name="report_title" value="HELLO WORLD"/>
 			<param name="creation_time" type="date" value="02/02/2012 07:20:23 AM" format="MM/dd/yyyy hh:mm:ss aaa"/>
-		</jasperReport>
+		</jasper.report>
 
-		<jasperReport template="report1.jrxml" format="pdf" reportFile="bbb.pdf" dataSource="xxx">
+		<jasper.report template="report1.jrxml" format="pdf" reportFile="bbb.pdf" dataSource="xxx">
 			<param name="report_title" value="HELLO WORLD"/>
 			<param name="creation_time" type="date" value="02/02/2012 07:20:23 AM" format="MM/dd/yyyy hh:mm:ss aaa"/>
-		</jasperReport>
+		</jasper.report>
 
 		<!-- When second time filling in report based on the same jrxml template,
 		 actually it will not be compiled once again, cause it was already compiled
 		 and cached after the first invocation -->
-		<jasperReport template="report1.jrxml" format="pdf" reportFile="bbb1.pdf" dataSource="xxx">
+		<jasper.report template="report1.jrxml" format="pdf" reportFile="bbb1.pdf" dataSource="xxx">
 			<param name="report_title" value="HELLO WORLD"/>
 			<param name="creation_time" type="date" value="02/02/2012 07:20:23 AM" format="MM/dd/yyyy hh:mm:ss aaa"/>
-		</jasperReport>
+		</jasper.report>
 
 	</target>
 
 	<target name="test2">
 
-		<jasperCompile src="report1.jrxml" dest="aaa.jasper"/>
+		<jasper.compile src="report1.jrxml" dest="aaa.jasper"/>
 
 	</target>
 
