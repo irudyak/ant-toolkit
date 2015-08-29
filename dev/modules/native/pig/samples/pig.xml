@@ -11,9 +11,9 @@
 	</propertyset>
 
 	<target name="test1">
-		<hadoopConfig id="saturn" hadoopUser="pig">
+		<hadoop.config id="saturn" hadoopUser="pig">
 			<pathelement location="D:/TEMP/hadoop-new-1-client"/>
-		</hadoopConfig>
+		</hadoop.config>
 
 		<generalInitArray name="pigJobs"/>
 
@@ -39,9 +39,9 @@
 	</target>
 
 	<target name="test2">
-		<hadoopConfig id="saturn" hadoopUser="pig">
+		<hadoop.config id="saturn" hadoopUser="pig">
 			<pathelement location="D:/TEMP/hadoop-new-1-client"/>
-		</hadoopConfig>
+		</hadoop.config>
 
 		<property name="pigScript">
 			A = LOAD '/user/pig/sample1.txt' USING PigStorage(',') AS (first:int, second:int, third:int, start_time:datetime);
@@ -67,9 +67,9 @@
 	</target>
 
 	<target name="test3">
-		<hadoopConfig id="saturn" hadoopUser="pig">
+		<hadoop.config id="saturn" hadoopUser="pig">
 			<pathelement location="D:/TEMP/hadoop-new-1-client"/>
-		</hadoopConfig>
+		</hadoop.config>
 
 		<property name="pigScript">
 			A = LOAD '/user/pig/sample2.txt' AS (map[chararray]);

@@ -2,15 +2,15 @@
 
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
-	<hadoopConfig id="saturn">
+	<hadoop.config id="saturn">
 		<pathelement location="D:/Distr/BigData/hbase/hbase-0.98.0-hadoop2/conf"/>
-	</hadoopConfig>
+	</hadoop.config>
 
-	<hadoopConfig id="saturn1">
+	<hadoop.config id="saturn1">
 		<property name="dfs.support.append" value="true"/>
 		<property name="hbase.cluster.distributed" value="true"/>
 		<property name="hbase.zookeeper.quorum" value="saturn"/>
-	</hadoopConfig>
+	</hadoop.config>
 
 	<target name="test1">
 		<hbase.createTable hadoopConfig="saturn" table="AAA">

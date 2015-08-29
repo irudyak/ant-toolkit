@@ -5,138 +5,138 @@
 <!-- Different samples of hadoopSession configuration and usage -->
 
 	<target name="session-sample-1">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
 			<condition property="exist" value="true" else="false">
-				<hdfsAvailable file="/user/irudyak/aaa.txt"/>
+				<hdfs.available file="/user/my-user/aaa.txt"/>
 			</condition>
 			<echo>EXIST=${exist}</echo>
-		</hadoopSession>
+		</hadoop.session>
 	</target>
 
 	<target name="session-sample-2">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
 			<condition property="exist" value="true" else="false">
-				<hdfsAvailable file="/user/irudyak/bbb" type="dir"/>
+				<hdfs.available file="/user/my-user/bbb" type="dir"/>
 			</condition>
 			<echo>EXIST=${exist}</echo>
-		</hadoopSession>
+		</hadoop.session>
 	</target>
 
 	<target name="session-sample-3">
-		<hadoopConfig id="saturn" hadoopUser="irudyak">
+		<hadoop.config id="saturn" hadoopUser="my-user">
 			<pathelement location="D:/TEMP/hadoop-new-1"/>
-		</hadoopConfig>
+		</hadoop.config>
 
-		<hadoopSession hadoopConfig="saturn">
+		<hadoop.session hadoopConfig="saturn">
 			<condition property="exist" value="true" else="false">
-				<hdfsAvailable file="/user/irudyak/aaa.txt"/>
+				<hdfs.available file="/user/my-user/aaa.txt"/>
 			</condition>
 			<echo>EXIST=${exist}</echo>
-		</hadoopSession>
+		</hadoop.session>
 	</target>
 
 	<target name="session-sample-4">
-		<hadoopConfig id="saturn" hadoopUser="irudyak">
+		<hadoop.config id="saturn" hadoopUser="my-user">
 			<pathelement location="D:/TEMP/hadoop-new-1/hdfs-site.xml"/>
 			<pathelement location="D:/TEMP/hadoop-new-1/mapred-site.xml"/>
 			<pathelement location="D:/TEMP/hadoop-new-1/yarn-site.xml"/>
 			<pathelement location="D:/TEMP/hadoop-new-1/core-site.xml"/>
-		</hadoopConfig>
+		</hadoop.config>
 
-		<hadoopSession hadoopConfig="saturn">
+		<hadoop.session hadoopConfig="saturn">
 			<condition property="exist" value="true" else="false">
-				<hdfsAvailable file="/user/irudyak/aaa.txt"/>
+				<hdfs.available file="/user/my-user/aaa.txt"/>
 			</condition>
 			<echo>EXIST=${exist}</echo>
-		</hadoopSession>
+		</hadoop.session>
 	</target>
 
 	<target name="session-sample-5">
-		<hadoopConfig id="saturn" hadoopUser="irudyak">
-			<property name="fs.defaultFS" value="hdfs://saturn:8020"/>
-		</hadoopConfig>
+		<hadoop.config id="saturn" hadoopUser="my-user">
+			<property name="fs.defaultFS" value="hdfs://my-server:8020"/>
+		</hadoop.config>
 
-		<hadoopSession hadoopConfig="saturn">
+		<hadoop.session hadoopConfig="saturn">
 			<condition property="exist" value="true" else="false">
-				<hdfsAvailable file="/user/irudyak/aaa.txt"/>
+				<hdfs.available file="/user/my-user/aaa.txt"/>
 			</condition>
 			<echo>EXIST=${exist}</echo>
-		</hadoopSession>
+		</hadoop.session>
 	</target>
 
 	<target name="session-sample-6">
-		<hadoopConfig id="saturn" hadoopUser="irudyak">
-			<property name="fs.defaultFS" value="hdfs://saturn:8020"/>
-		</hadoopConfig>
+		<hadoop.config id="saturn" hadoopUser="my-user">
+			<property name="fs.defaultFS" value="hdfs://my-server:8020"/>
+		</hadoop.config>
 
-		<hdfsPut hadoopConfig="saturn" overwrite="true" src="D:/Documents/BigData/HBase in Action.pdf" dest="/user/irudyak/aaa.pdf"/>
+		<hdfs.put hadoopConfig="saturn" overwrite="true" src="D:/Documents/BigData/HBase in Action.pdf" dest="/user/my-user/aaa.pdf"/>
 	</target>
 
 <!-- Different HDFS actions samples -->
 
 	<target name="test1">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsPut overwrite="true" src="D:/Documents/BigData/HBase in Action.pdf" dest="/user/irudyak/aaa.pdf"/>
-			<hdfsPut hadoopUser="IGOR" src="D:/Documents/BigData/HBase in Action.pdf" dest="/user/IGOR/aaa.pdf"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.put overwrite="true" src="D:/Documents/BigData/HBase in Action.pdf" dest="/user/my-user/aaa.pdf"/>
+			<hdfs.put hadoopUser="IGOR" src="D:/Documents/BigData/HBase in Action.pdf" dest="/user/IGOR/aaa.pdf"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test2">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="IGOR">
-			<hdfsMkdir dir="/user/IGOR/AAA"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.mkdir dir="/user/my-user/AAA"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test3">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
 			<condition property="exist" value="true" else="false">
-				<hdfsAvailable file="/user/irudyak/aaa.pdf" type="dir"/>
+				<hdfs.available file="/user/my-user/aaa.pdf" type="dir"/>
 			</condition>
-		</hadoopSession>
+		</hadoop.session>
 
 		<echo>${exist}</echo>
 	</target>
 
 	<target name="test4">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsCopy overwrite="true" srcUser="irudyak" destUser="IGOR" src="/user/irudyak/aaa.pdf" dest="/user/IGOR"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.copy overwrite="true" srcUser="my-user" destUser="new-user" src="/user/my-user/aaa.pdf" dest="/user/my-user"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test5">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsMove srcUser="irudyak" destUser="IGOR" src="/user/irudyak/aaa.pdf" dest="/user/IGOR"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.move srcUser="my-user" destUser="new-user" src="/user/my-user/aaa.pdf" dest="/user/my-user"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test6">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsDelete file="/user/irudyak/aaa.txt"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.delete file="/user/my-user/aaa.txt"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test7">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsChown hadoopUser="hadoop" file="/user/irudyak/bbb" owner="irudyak" group="irudyak" recursive="true"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.chown hadoopUser="hadoop" file="/user/my-user/bbb" owner="my-user" group="my-user" recursive="true"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test8">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsChmod hadoopUser="hadoop" file="/user/irudyak/bbb" perm="o+w" recursive="true"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.chmod hadoopUser="hadoop" file="/user/my-user/bbb" perm="o+w" recursive="true"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test9">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsReplication hadoopUser="hadoop" file="/user/irudyak/bbb/aaa/qq.txt" replication="2"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.replication hadoopUser="hadoop" file="/user/my-user/bbb/aaa/qq.txt" replication="2"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test10">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsFileInfo hadoopUser="hadoop" file="/user/irudyak/bbb/aaa/qq.txt" lengthProperty="length" permissionsProperty="perm"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.fileInfo hadoopUser="hadoop" file="/user/my-user/bbb/aaa/qq.txt" lengthProperty="length" permissionsProperty="perm"/>
+		</hadoop.session>
 
 		<echo>LENGTH=${length}</echo>
 		<echo>PERM=${perm}</echo>
@@ -148,11 +148,11 @@
 		<generalInitArray name="shortName"/>
 		<generalInitArray name="extension"/>
 
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsGetDirectoryFiles hadoopUser="hadoop" dir="/user" recursive="true"
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.getDirectoryFiles hadoopUser="hadoop" dir="/user" recursive="true"
 								   fullNameArray="fullName" shortNameArray="shortName"
 								   nameArray="name" extensionArray="extension"/>
-		</hadoopSession>
+		</hadoop.session>
 
 		<generalArrayLoop array="fullName" elementProperty="fileFullName" indexProperty="index">
 
@@ -169,10 +169,10 @@
 		<generalInitArray name="fullName"/>
 		<generalInitArray name="name"/>
 
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsGetDirectoryFiles hadoopUser="hadoop" dir="/user" type="dir" recursive="true"
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.getDirectoryFiles hadoopUser="hadoop" dir="/user" type="dir" recursive="true"
 								   fullNameArray="fullName" nameArray="name"/>
-		</hadoopSession>
+		</hadoop.session>
 
 		<generalArrayLoop array="fullName" elementProperty="dirFullName" indexProperty="index">
 			<generalGetArrayElement array="name" index="${index}" property="dirName"/>
@@ -182,87 +182,87 @@
 
 	<target name="test13">
 <!--
-		<hadoopConfig id="test">
-			<property name="fs.defaultFS" value="hdfs://evbyminsd470c.minsk.epam.com:8020"/>
+		<hadoop.config id="test">
+			<property name="fs.defaultFS" value="hdfs://abc.inc.com:8020"/>
 			<property name="hadoop.security.authentication" value="kerberos"/>
 			<property name="hadoop.security.authorization" value="true"/>
-		</hadoopConfig>
+		</hadoop.config>
 -->
 
-		<hadoopConfig id="test" principal="IGOR/evbyminsd470c.minsk.epam.com@HADOOPTEST.COM" keytab="D:/TEMP/IGOR.keytab">
+		<hadoop.config id="test" principal="my-user/abc.inc.com@HADOOPTEST.COM" keytab="D:/TEMP/IGOR.keytab">
 			<pathelement location="D:/TEMP/hadoop-epam/hdfs-site.xml"/>
 			<pathelement location="D:/TEMP/hadoop-epam/mapred-site.xml"/>
 			<pathelement location="D:/TEMP/hadoop-epam/yarn-site.xml"/>
 			<pathelement location="D:/TEMP/hadoop-epam/core-site.xml"/>
-		</hadoopConfig>
+		</hadoop.config>
 
-		<hadoopSession hadoopConfig="test">
-			<hdfsDirectoryFilesLoop dir="/" recursive="true"
+		<hadoop.session hadoopConfig="test">
+			<hdfs.directoryFilesLoop dir="/" recursive="true"
 									fullNameProperty="fullName" shortNameProperty="shortName"
 									nameProperty="name" extensionProperty="ext">
 
 				<echo>ShortName=${shortName}, Name.Ext=${name}.${ext}, FullName=${fullName}</echo>
 
-			</hdfsDirectoryFilesLoop>
-		</hadoopSession>
+			</hdfs.directoryFilesLoop>
+		</hadoop.session>
 	</target>
 
 	<target name="test14">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsDirectoryFilesLoop hadoopUser="hadoop" dir="/user" type="dir" recursive="true"
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.directoryFilesLoop hadoopUser="hadoop" dir="/user" type="dir" recursive="true"
 									fullNameProperty="fullName" nameProperty="name">
 				<echo>Name=${name}, FullName=${fullName}</echo>
-			</hdfsDirectoryFilesLoop>
-		</hadoopSession>
+			</hdfs.directoryFilesLoop>
+		</hadoop.session>
 	</target>
 
 	<target name="test15">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsPut overwrite="true" src="D:/TEMP/aaa.txt" dest="/user/irudyak/bbb"/>
-			<hdfsPut overwrite="true" src="D:/TEMP/bbb.txt" dest="/user/irudyak/bbb"/>
-			<hdfsPut overwrite="true" src="D:/TEMP/ccc.txt" dest="/user/irudyak/bbb"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.put overwrite="true" src="D:/TEMP/aaa.txt" dest="/user/my-user/bbb"/>
+			<hdfs.put overwrite="true" src="D:/TEMP/bbb.txt" dest="/user/my-user/bbb"/>
+			<hdfs.put overwrite="true" src="D:/TEMP/ccc.txt" dest="/user/my-user/bbb"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test16">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsGet overwrite="true" src="/user/irudyak/bbb/aaa.txt" dest="D:/TEMP/AAA"/>
-			<hdfsGet overwrite="true" src="/user/irudyak/bbb/bbb.txt" dest="D:/TEMP/AAA"/>
-			<hdfsGet overwrite="true" src="/user/irudyak/bbb/ccc.txt" dest="D:/TEMP/AAA"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.get overwrite="true" src="/user/my-user/bbb/aaa.txt" dest="D:/TEMP/AAA"/>
+			<hdfs.get overwrite="true" src="/user/my-user/bbb/bbb.txt" dest="D:/TEMP/AAA"/>
+			<hdfs.get overwrite="true" src="/user/my-user/bbb/ccc.txt" dest="D:/TEMP/AAA"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test17">
-		<hadoopSession defaultFS="hdfs://saturn:8020" hadoopUser="irudyak">
-			<hdfsMerge overwrite="true" dest="/user/irudyak/bbb/merge.txt" addString="&#13;&#10;">
-				/user/irudyak/bbb/aaa.txt,
-				/user/irudyak/bbb/bbb.txt,
-				/user/irudyak/bbb/ccc.txt
-			</hdfsMerge>
+		<hadoop.session defaultFS="hdfs://my-server:8020" hadoopUser="my-user">
+			<hdfs.merge overwrite="true" dest="/user/my-user/bbb/merge.txt" addString="&#13;&#10;">
+				/user/my-user/bbb/aaa.txt,
+				/user/my-user/bbb/bbb.txt,
+				/user/my-user/bbb/ccc.txt
+			</hdfs.merge>
 
-			<hdfsGet overwrite="true" src="/user/irudyak/bbb/merge.txt" dest="D:/TEMP"/>
-		</hadoopSession>
+			<hdfs.get overwrite="true" src="/user/my-user/bbb/merge.txt" dest="D:/TEMP"/>
+		</hadoop.session>
 	</target>
 
 	<!-- Snapshots -->
 	<target name="test18">
-		<hadoopSession defaultFS="hdfs://EVHUBUDSD21B7.budapest.epam.com:8020" hadoopUser="hdfs">
-			<hdfsAllowSnapshot path="/user/hdfs-backup"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://abc.inc.com:8020" hadoopUser="hdfs">
+			<hdfs.allowSnapshot path="/user/hdfs-backup"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test19">
-		<hadoopSession defaultFS="hdfs://EVHUBUDSD21B7.budapest.epam.com:8020" hadoopUser="hdfs">
-			<hdfsDisallowSnapshot path="/user/hdfs-backup"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://abc.inc.com:8020" hadoopUser="hdfs">
+			<hdfs.disallowSnapshot path="/user/hdfs-backup"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test20">
 		<generalInitArray name="test"/>
 
-		<hadoopSession defaultFS="hdfs://EVHUBUDSD21B7.budapest.epam.com:8020" hadoopUser="hdfs">
-			<hdfsGetSnapshottableDirs array="test"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://abc.inc.com:8020" hadoopUser="hdfs">
+			<hdfs.getSnapshottableDirs array="test"/>
+		</hadoop.session>
 
 		<generalArrayLoop array="test" elementProperty="file">
 			<echo>${file}</echo>
@@ -270,15 +270,15 @@
 	</target>
 
 	<target name="test21">
-		<hadoopSession defaultFS="hdfs://EVHUBUDSD21B7.budapest.epam.com:8020" hadoopUser="hdfs">
-			<hdfsCreateSnapshot path="/user/hdfs-backup" snapshot="test-snapshot"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://abc.inc.com:8020" hadoopUser="hdfs">
+			<hdfs.createSnapshot path="/user/hdfs-backup" snapshot="test-snapshot"/>
+		</hadoop.session>
 	</target>
 
 	<target name="test22">
-		<hadoopSession defaultFS="hdfs://EVHUBUDSD21B7.budapest.epam.com:8020" hadoopUser="hdfs">
-			<hdfsDeleteSnapshot path="/user/hdfs-backup" snapshot="test-snapshot"/>
-		</hadoopSession>
+		<hadoop.session defaultFS="hdfs://abc.inc.com:8020" hadoopUser="hdfs">
+			<hdfs.deleteSnapshot path="/user/hdfs-backup" snapshot="test-snapshot"/>
+		</hadoop.session>
 	</target>
 
 </project>

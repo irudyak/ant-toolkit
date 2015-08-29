@@ -1,73 +1,73 @@
 <?xml version="1.0"?>
 <antlib>
 	<!-- Hadoop generic tasks -->
-	<taskdef name="hadoopSession" classname="com.anttoolkit.hadoop.tasks.hadoop.HadoopSessionTask" />
+	<taskdef name="hadoop.session" classname="com.anttoolkit.hadoop.tasks.hadoop.HadoopSessionTask" />
 
 	<!-- HDFS tasks -->
-	<taskdef name="hdfsAppendToFile" classname="com.anttoolkit.hadoop.tasks.hdfs.AppendToFileTask" />
-	<taskdef name="hdfsChecksum" classname="com.anttoolkit.hadoop.tasks.hdfs.ChecksumTask" />
-	<taskdef name="hdfsDf" classname="com.anttoolkit.hadoop.tasks.hdfs.DfTask" />
-	<taskdef name="hdfsDu" classname="com.anttoolkit.hadoop.tasks.hdfs.DuTask" />
-	<taskdef name="hdfsExpunge" classname="com.anttoolkit.hadoop.tasks.hdfs.ExpungeTask" />
-	<taskdef name="hdfsText" classname="com.anttoolkit.hadoop.tasks.hdfs.TextTask" />
-	<taskdef name="hdfsTouchz" classname="com.anttoolkit.hadoop.tasks.hdfs.TouchzTask" />
-	<taskdef name="hdfsTruncate" classname="com.anttoolkit.hadoop.tasks.hdfs.TruncateTask" />
-	<taskdef name="hdfsPut" classname="com.anttoolkit.hadoop.tasks.hdfs.PutTask" />
-	<taskdef name="hdfsGet" classname="com.anttoolkit.hadoop.tasks.hdfs.GetTask" />
-	<taskdef name="hdfsMkdir" classname="com.anttoolkit.hadoop.tasks.hdfs.MkdirTask" />
-	<taskdef name="hdfsCopy" classname="com.anttoolkit.hadoop.tasks.hdfs.CopyTask" />
-	<taskdef name="hdfsMove" classname="com.anttoolkit.hadoop.tasks.hdfs.MoveTask" />
-	<taskdef name="hdfsDelete" classname="com.anttoolkit.hadoop.tasks.hdfs.DeleteTask" />
-	<taskdef name="hdfsSetExtAttr" classname="com.anttoolkit.hadoop.tasks.hdfs.SetExtAttributeTask" />
-	<taskdef name="hdfsGetExtAttr" classname="com.anttoolkit.hadoop.tasks.hdfs.GetExtAttributeTask" />
-	<taskdef name="hdfsRemoveExtAttr" classname="com.anttoolkit.hadoop.tasks.hdfs.RemoveExtAttributeTask" />
-	<taskdef name="hdfsChown" classname="com.anttoolkit.hadoop.tasks.hdfs.ChownTask" />
-	<taskdef name="hdfsChmod" classname="com.anttoolkit.hadoop.tasks.hdfs.ChmodTask" />
-	<taskdef name="hdfsSetAcl" classname="com.anttoolkit.hadoop.tasks.hdfs.SetAclTask" />
-	<taskdef name="hdfsGetAcl" classname="com.anttoolkit.hadoop.tasks.hdfs.GetAclTask" />
-	<taskdef name="hdfsRemoveAcl" classname="com.anttoolkit.hadoop.tasks.hdfs.RemoveAclTask" />
-	<taskdef name="hdfsMerge" classname="com.anttoolkit.hadoop.tasks.hdfs.MergeTask" />
-	<taskdef name="hdfsReplication" classname="com.anttoolkit.hadoop.tasks.hdfs.SetReplicationTask" />
-	<taskdef name="hdfsFileInfo" classname="com.anttoolkit.hadoop.tasks.hdfs.FileInfoTask" />
-	<taskdef name="hdfsGetDirectoryFiles" classname="com.anttoolkit.hadoop.tasks.hdfs.GetDirectoryFilesTask" />
-	<taskdef name="hdfsDirectoryFilesLoop" classname="com.anttoolkit.hadoop.tasks.hdfs.DirectoryFilesLoop" />
-	<taskdef name="hdfsAllowSnapshot" classname="com.anttoolkit.hadoop.tasks.hdfs.AllowSnapshotTask" />
-	<taskdef name="hdfsDisallowSnapshot" classname="com.anttoolkit.hadoop.tasks.hdfs.DisallowSnapshotTask" />
-	<taskdef name="hdfsGetSnapshottableDirs" classname="com.anttoolkit.hadoop.tasks.hdfs.GetSnapshottableDirsTask" />
-	<taskdef name="hdfsCreateSnapshot" classname="com.anttoolkit.hadoop.tasks.hdfs.CreateSnapshotTask" />
-	<taskdef name="hdfsDeleteSnapshot" classname="com.anttoolkit.hadoop.tasks.hdfs.DeleteSnapshotTask" />
+	<taskdef name="hdfs.appendToFile" classname="com.anttoolkit.hadoop.tasks.hdfs.AppendToFileTask" />
+	<taskdef name="hdfs.checksum" classname="com.anttoolkit.hadoop.tasks.hdfs.ChecksumTask" />
+	<taskdef name="hdfs.df" classname="com.anttoolkit.hadoop.tasks.hdfs.DfTask" />
+	<taskdef name="hdfs.du" classname="com.anttoolkit.hadoop.tasks.hdfs.DuTask" />
+	<taskdef name="hdfs.expunge" classname="com.anttoolkit.hadoop.tasks.hdfs.ExpungeTask" />
+	<taskdef name="hdfs.text" classname="com.anttoolkit.hadoop.tasks.hdfs.TextTask" />
+	<taskdef name="hdfs.touchz" classname="com.anttoolkit.hadoop.tasks.hdfs.TouchzTask" />
+	<taskdef name="hdfs.truncate" classname="com.anttoolkit.hadoop.tasks.hdfs.TruncateTask" />
+	<taskdef name="hdfs.put" classname="com.anttoolkit.hadoop.tasks.hdfs.PutTask" />
+	<taskdef name="hdfs.get" classname="com.anttoolkit.hadoop.tasks.hdfs.GetTask" />
+	<taskdef name="hdfs.mkdir" classname="com.anttoolkit.hadoop.tasks.hdfs.MkdirTask" />
+	<taskdef name="hdfs.copy" classname="com.anttoolkit.hadoop.tasks.hdfs.CopyTask" />
+	<taskdef name="hdfs.move" classname="com.anttoolkit.hadoop.tasks.hdfs.MoveTask" />
+	<taskdef name="hdfs.delete" classname="com.anttoolkit.hadoop.tasks.hdfs.DeleteTask" />
+	<taskdef name="hdfs.setExtAttr" classname="com.anttoolkit.hadoop.tasks.hdfs.SetExtAttributeTask" />
+	<taskdef name="hdfs.getExtAttr" classname="com.anttoolkit.hadoop.tasks.hdfs.GetExtAttributeTask" />
+	<taskdef name="hdfs.removeExtAttr" classname="com.anttoolkit.hadoop.tasks.hdfs.RemoveExtAttributeTask" />
+	<taskdef name="hdfs.chown" classname="com.anttoolkit.hadoop.tasks.hdfs.ChownTask" />
+	<taskdef name="hdfs.chmod" classname="com.anttoolkit.hadoop.tasks.hdfs.ChmodTask" />
+	<taskdef name="hdfs.setAcl" classname="com.anttoolkit.hadoop.tasks.hdfs.SetAclTask" />
+	<taskdef name="hdfs.getAcl" classname="com.anttoolkit.hadoop.tasks.hdfs.GetAclTask" />
+	<taskdef name="hdfs.removeAcl" classname="com.anttoolkit.hadoop.tasks.hdfs.RemoveAclTask" />
+	<taskdef name="hdfs.merge" classname="com.anttoolkit.hadoop.tasks.hdfs.MergeTask" />
+	<taskdef name="hdfs.replication" classname="com.anttoolkit.hadoop.tasks.hdfs.SetReplicationTask" />
+	<taskdef name="hdfs.fileInfo" classname="com.anttoolkit.hadoop.tasks.hdfs.FileInfoTask" />
+	<taskdef name="hdfs.getDirectoryFiles" classname="com.anttoolkit.hadoop.tasks.hdfs.GetDirectoryFilesTask" />
+	<taskdef name="hdfs.directoryFilesLoop" classname="com.anttoolkit.hadoop.tasks.hdfs.DirectoryFilesLoop" />
+	<taskdef name="hdfs.allowSnapshot" classname="com.anttoolkit.hadoop.tasks.hdfs.AllowSnapshotTask" />
+	<taskdef name="hdfs.disallowSnapshot" classname="com.anttoolkit.hadoop.tasks.hdfs.DisallowSnapshotTask" />
+	<taskdef name="hdfs.getSnapshottableDirs" classname="com.anttoolkit.hadoop.tasks.hdfs.GetSnapshottableDirsTask" />
+	<taskdef name="hdfs.createSnapshot" classname="com.anttoolkit.hadoop.tasks.hdfs.CreateSnapshotTask" />
+	<taskdef name="hdfs.deleteSnapshot" classname="com.anttoolkit.hadoop.tasks.hdfs.DeleteSnapshotTask" />
 
 	<!-- MapReduce tasks -->
-	<taskdef name="mapredRunJar" classname="com.anttoolkit.hadoop.tasks.mapred.RunJarTask" />
-	<taskdef name="mapredCreateJob" classname="com.anttoolkit.hadoop.tasks.mapred.CreateJobTask" />
-	<taskdef name="mapredSubmitJob" classname="com.anttoolkit.hadoop.tasks.mapred.SubmitJobTask" />
-	<taskdef name="mapredJobState" classname="com.anttoolkit.hadoop.tasks.mapred.GetJobStateTask" />
-	<taskdef name="mapredKillJob" classname="com.anttoolkit.hadoop.tasks.mapred.KillJobTask" />
-	<taskdef name="mapredKillTask" classname="com.anttoolkit.hadoop.tasks.mapred.KillTaskTask" />
-	<taskdef name="mapredFailTask" classname="com.anttoolkit.hadoop.tasks.mapred.FailTaskTask" />
-	<taskdef name="mapredWaitJobToComplete" classname="com.anttoolkit.hadoop.tasks.mapred.WaitJobToCompleteTask" />
-	<taskdef name="mapredGetJobEvents" classname="com.anttoolkit.hadoop.tasks.mapred.GetJobEventsTask" />
-	<taskdef name="mapredSetJobPriority" classname="com.anttoolkit.hadoop.tasks.mapred.SetJobPriorityTask" />
-	<taskdef name="mapredPrintJobHistory" classname="com.anttoolkit.hadoop.tasks.mapred.PrintHistoryTask" />
-	<taskdef name="mapredJobListLoop" classname="com.anttoolkit.hadoop.tasks.mapred.JobsListLoopTask" />
-	<taskdef name="mapredDistCp" classname="com.anttoolkit.hadoop.tasks.mapred.DistCpTask" />
+	<taskdef name="mapred.runJar" classname="com.anttoolkit.hadoop.tasks.mapred.RunJarTask" />
+	<taskdef name="mapred.createJob" classname="com.anttoolkit.hadoop.tasks.mapred.CreateJobTask" />
+	<taskdef name="mapred.submitJob" classname="com.anttoolkit.hadoop.tasks.mapred.SubmitJobTask" />
+	<taskdef name="mapred.jobState" classname="com.anttoolkit.hadoop.tasks.mapred.GetJobStateTask" />
+	<taskdef name="mapred.killJob" classname="com.anttoolkit.hadoop.tasks.mapred.KillJobTask" />
+	<taskdef name="mapred.killTask" classname="com.anttoolkit.hadoop.tasks.mapred.KillTaskTask" />
+	<taskdef name="mapred.failTask" classname="com.anttoolkit.hadoop.tasks.mapred.FailTaskTask" />
+	<taskdef name="mapred.waitJobToComplete" classname="com.anttoolkit.hadoop.tasks.mapred.WaitJobToCompleteTask" />
+	<taskdef name="mapred.getJobEvents" classname="com.anttoolkit.hadoop.tasks.mapred.GetJobEventsTask" />
+	<taskdef name="mapred.setJobPriority" classname="com.anttoolkit.hadoop.tasks.mapred.SetJobPriorityTask" />
+	<taskdef name="mapred.printJobHistory" classname="com.anttoolkit.hadoop.tasks.mapred.PrintHistoryTask" />
+	<taskdef name="mapred.jobListLoop" classname="com.anttoolkit.hadoop.tasks.mapred.JobsListLoopTask" />
+	<taskdef name="mapred.distcp" classname="com.anttoolkit.hadoop.tasks.mapred.DistCpTask" />
 
 	<!-- YARN tasks -->
-	<taskdef name="yarnKillApp" classname="com.anttoolkit.hadoop.tasks.yarn.KillAppTask" />
-	<taskdef name="yarnRunJar" classname="com.anttoolkit.hadoop.tasks.yarn.RunJarTask" />
-	<taskdef name="yarnGetAppInfo" classname="com.anttoolkit.hadoop.tasks.yarn.GetApplicationInfoTask" />
-	<taskdef name="yarnGetAppLogs" classname="com.anttoolkit.hadoop.tasks.yarn.GetApplicationLogsTask" />
-	<taskdef name="yarnMoveApp" classname="com.anttoolkit.hadoop.tasks.yarn.MoveAppToQueueTask" />
-	<taskdef name="yarnAppListLoop" classname="com.anttoolkit.hadoop.tasks.yarn.ApplicationsListLoopTask" />
-	<taskdef name="yarnNodeListLoop" classname="com.anttoolkit.hadoop.tasks.yarn.NodesListLoopTask" />
-	<taskdef name="yarnGetNodeStatus" classname="com.anttoolkit.hadoop.tasks.yarn.NodeStatusTask" />
-	<taskdef name="yarnWaitAppToComplete" classname="com.anttoolkit.hadoop.tasks.yarn.WaitAppToCompleteTask" />
+	<taskdef name="yarn.killApp" classname="com.anttoolkit.hadoop.tasks.yarn.KillAppTask" />
+	<taskdef name="yarn.runJar" classname="com.anttoolkit.hadoop.tasks.yarn.RunJarTask" />
+	<taskdef name="yarn.getAppInfo" classname="com.anttoolkit.hadoop.tasks.yarn.GetApplicationInfoTask" />
+	<taskdef name="yarn.getAppLogs" classname="com.anttoolkit.hadoop.tasks.yarn.GetApplicationLogsTask" />
+	<taskdef name="yarn.moveApp" classname="com.anttoolkit.hadoop.tasks.yarn.MoveAppToQueueTask" />
+	<taskdef name="yarn.appListLoop" classname="com.anttoolkit.hadoop.tasks.yarn.ApplicationsListLoopTask" />
+	<taskdef name="yarn.nodeListLoop" classname="com.anttoolkit.hadoop.tasks.yarn.NodesListLoopTask" />
+	<taskdef name="yarn.getNodeStatus" classname="com.anttoolkit.hadoop.tasks.yarn.NodeStatusTask" />
+	<taskdef name="yarn.waitAppToComplete" classname="com.anttoolkit.hadoop.tasks.yarn.WaitAppToCompleteTask" />
 
 	<!-- Types -->
-	<typedef name="hadoopConfig" classname="com.anttoolkit.hadoop.types.HadoopConfig"/>
+	<typedef name="hadoop.config" classname="com.anttoolkit.hadoop.types.HadoopConfig"/>
 
 	<!-- Conditions -->
-	<typedef name="hdfsAvailable" classname="com.anttoolkit.hadoop.conditions.hdfs.Available"/>
-	<typedef name="hdfsIsEmpty" classname="com.anttoolkit.hadoop.conditions.hdfs.IsEmpty"/>
+	<typedef name="hdfs.available" classname="com.anttoolkit.hadoop.conditions.hdfs.Available"/>
+	<typedef name="hdfs.isEmpty" classname="com.anttoolkit.hadoop.conditions.hdfs.IsEmpty"/>
 
 </antlib>
