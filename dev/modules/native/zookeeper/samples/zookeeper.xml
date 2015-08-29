@@ -1,4 +1,4 @@
-<project name="HBase test" default="test13" basedir="">
+<project name="Zookeeper test" default="test13" basedir="">
 
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
