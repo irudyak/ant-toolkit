@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <antlib>
 	<!-- Tasks -->
-	<taskdef name="ldapSession" classname="com.anttoolkit.ldap.tasks.LdapSessionTask" />
-	<taskdef name="ldapSetProperty" classname="com.anttoolkit.ldap.tasks.LdapSetPropertyTask" />
-	<taskdef name="ldapSearchAttributeSize" classname="com.anttoolkit.ldap.tasks.SearchAttributeSizeTask" />
-	<taskdef name="ldapSearchAttributeValue" classname="com.anttoolkit.ldap.tasks.SearchAttributeValueTask" />
-	<taskdef name="ldapSearch" classname="com.anttoolkit.ldap.tasks.SearchTask" />
+	<taskdef name="ldap.session" classname="com.anttoolkit.ldap.tasks.LdapSessionTask" />
+	<taskdef name="ldap.setProperty" classname="com.anttoolkit.ldap.tasks.LdapSetPropertyTask" />
+	<taskdef name="ldap.searchAttributeSize" classname="com.anttoolkit.ldap.tasks.SearchAttributeSizeTask" />
+	<taskdef name="ldap.searchAttributeValue" classname="com.anttoolkit.ldap.tasks.SearchAttributeValueTask" />
+	<taskdef name="ldap.search" classname="com.anttoolkit.ldap.tasks.SearchTask" />
 
 	<!-- Types -->
-	<typedef name="ldapConfig" classname="com.anttoolkit.ldap.types.LdapConfig"/>
-	<typedef name="ldapSearchConfig" classname="com.anttoolkit.ldap.types.SearchConfig"/>
+	<typedef name="ldap.config" classname="com.anttoolkit.ldap.types.LdapConfig"/>
+	<typedef name="ldap.searchConfig" classname="com.anttoolkit.ldap.types.SearchConfig"/>
 
 </antlib>
