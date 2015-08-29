@@ -3,7 +3,7 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<mongo.config id="mongoDB" database="mydb">
-		<server>EVHUBUDSD21BE.budapest.epam.com:27017</server>
+		<server>my-server:27017</server>
 	</mongo.config>
 
 	<target name="test1">
