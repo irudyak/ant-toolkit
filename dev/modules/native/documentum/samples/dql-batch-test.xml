@@ -4,11 +4,11 @@
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<target name="test">
-		<dmDocbaseBatch docbase="dctm" login="dmadmin" password="qwerty">
+		<dm.docbaseBatch docbase="dctm" login="dmadmin" password="qwerty">
 
-			<dmDql file="dql-batch.dql"/>
+			<dm.dql file="dql-batch.dql"/>
 
-		</dmDocbaseBatch>
+		</dm.docbaseBatch>
 	</target>
 
 </project>

@@ -84,15 +84,15 @@
 
 			<generalArrayLoop array="__groups_names__" elementProperty="__groupName__">
 
-				<dmDqlExist property="groupExist">
+				<dm.dqlExist property="groupExist">
 					select r_object_id from dm_group where group_name='${__groupName__}'
-				</dmDqlExist>
+				</dm.dqlExist>
 
 				<generalIf arg1="${groupExist}" condition="!=" arg2="true">
-					<dmDqlExist property="userExist">
+					<dm.dqlExist property="userExist">
 						select r_object_id from dm_user
 						where user_name='${__groupName__}' or user_login_name='${__groupName__}'
-					</dmDqlExist>
+					</dm.dqlExist>
 
 					<generalIf arg1="${userExist}" condition="=" arg2="true">
 						<fail message="WARNING: Can't create group ${__groupName__} because there is already dm_user object with such user_name or user_login_name!!!"/>
@@ -101,10 +101,10 @@
 					<generalIf arg1="${userExist}" condition="!=" arg2="true">
 						<echo>Creating group: ${__groupName__}</echo>
 
-						<dmDocbaseObject type="dm_group">
+						<dm.docbaseObject type="dm_group">
 							<property name="group_name" value="${__groupName__}"/>
 							<property name="group_class" value="@{groupClass}"/>
-						</dmDocbaseObject>
+						</dm.docbaseObject>
 					</generalIf>
 				</generalIf>
 
@@ -122,9 +122,9 @@
 							  separator="," trimValues="true" removeEmptyValues="true"/>
 
 			<generalArrayLoop array="__groups_names__" elementProperty="__groupName__">
-				<dmDqlExist property="contains">
+				<dm.dqlExist property="contains">
 					select r_object_id from dm_group where group_name='${__groupName__}' and any i_all_users_names='@{userName}'
-				</dmDqlExist>
+				</dm.dqlExist>
 
 				<echo>
 					select r_object_id from dm_group where group_name='${__groupName__}' and any i_all_users_names='@{userName}'
@@ -132,9 +132,9 @@
 
 				<generalIf arg1="${contains}" condition="!=" arg2="true">
 					<echo>Adding user @{userName} to group ${__groupName__}</echo>
-					<dmDql>
+					<dm.dql>
 						alter group '${__groupName__}' add '@{userName}'
-					</dmDql>
+					</dm.dql>
 				</generalIf>
 			</generalArrayLoop>
 		</sequential>
@@ -155,22 +155,22 @@
 			<createGroupsIfNotExist groupsNames="@{defaultGroup}" groupClass="group"/>
 			<createGroupsIfNotExist groupsNames="@{userRoles}" groupClass="role"/>
 
-			<dmDqlExist property="userNameExist">
+			<dm.dqlExist property="userNameExist">
 				select r_object_id from dm_user where user_name='@{userName}'
-			</dmDqlExist>
+			</dm.dqlExist>
 
-			<dmDqlExist property="userLoginNameExist">
+			<dm.dqlExist property="userLoginNameExist">
 				select r_object_id from dm_user where user_login_name='@{userLogin}'
-			</dmDqlExist>
+			</dm.dqlExist>
 
 			<generalProperty name="actualUserName" value="@{userName}"/>
 
 			<generalIf arg1="${userLoginNameExist}" condition="==" arg2="true">
-				<dmDqlSetProperty property="actualUserName">
+				<dm.dqlSetProperty property="actualUserName">
 					select user_name
 					from dm_user
 					where user_login_name='@{userLogin}'
-				</dmDqlSetProperty>
+				</dm.dqlSetProperty>
 			</generalIf>
 
 			<generalIf arg1="${userNameExist}${userLoginNameExist}" condition="=" arg2="falsefalse">
@@ -180,7 +180,7 @@
 
 				<generalGetMapElement map="privilegesMap" key="@{privileges}" property="privileges"/>
 
-				<dmDql>
+				<dm.dql>
 					create dm_user object
 					set user_name='@{userName}',
 					set user_login_name='@{userLogin}',
@@ -191,7 +191,7 @@
 					set user_address='@{email}',
 					set user_source='inline password',
 					set user_password='@{password}'
-				</dmDql>
+				</dm.dql>
 			</generalIf>
 
 			<addUserToGroups userName="${actualUserName}" groups="@{defaultGroup}"/>

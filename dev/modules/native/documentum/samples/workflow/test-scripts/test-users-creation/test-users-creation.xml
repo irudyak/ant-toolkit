@@ -7,9 +7,9 @@
 	<import file="macrodefs.xml"/>
 
     <target name="create-test-users">
-		<dmDocbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}">
+		<dm.docbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}">
 			<processUsersFile file="../test-users.txt" />
-		</dmDocbaseBatch>
+		</dm.docbaseBatch>
     </target>
 
 </project>

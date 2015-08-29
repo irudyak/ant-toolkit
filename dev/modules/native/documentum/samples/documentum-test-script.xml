@@ -6,7 +6,7 @@
 
     <!-- Validate current docbase-update.xml script, so that it has valid structure of dmBuild containers -->
     <target name="validate">
-        <dmBuildFileValidator file="${ant.file.docbase-update}" xPath="/project/target[@name='update']/dmDocbaseBatch/dmBuild"/>
+        <generalValidateBuildFile file="${ant.file.docbase-update}" xPath="/project/target[@name='update']/dm.docbaseBatch/dmBuild"/>
     </target>
 
     <!-- Log update start time -->
@@ -34,14 +34,14 @@
     <target name="update" depends="start">
 
 		<!-- Specifying docbase connection options -->
-        <dmDocbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}">
+        <dm.docbaseBatch docbase="${docbase.name}" login="${docbase.login}" password="${docbase.password}">
 
 			<!-- Test -->
-			<dmBuild number="1.0" comment="Test">
+			<generalBuild number="1.0" comment="Test">
 				<echo>Hello world</echo>
-			</dmBuild>
+			</generalBuild>
 
-		</dmDocbaseBatch>
+		</dm.docbaseBatch>
 
     </target>
 

@@ -71,14 +71,14 @@
 				<echo>User selected to act as approver: ${approverLogin}</echo>
 
 				<!-- Starting reviewer docbase session -->
-				<dmDocbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
+				<dm.docbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
 
 <!-- [STEP-3] Document creation -->
 					<echo>Creating new document...</echo>
 
-					<dmDocbaseObject type="dm_document" newObjectIdProperty="documentId">
+					<dm.docbaseObject type="dm_document" newObjectIdProperty="documentId">
 						<property name="object_name" value="[@{template}] APPROVE ROUTE ${startTime}"/>
-					</dmDocbaseObject>
+					</dm.docbaseObject>
 
 					<echo>Document ${documentId} was created</echo>
 
@@ -86,12 +86,12 @@
 					<echo>Starting new workflow instance...</echo>
 
 					<!-- Starting new workflow based on specified template -->
-					<dmStartWorkflow template="@{template}" workflowName="[@{template}] APPROVE ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
+					<dm.startWorkflow template="@{template}" workflowName="[@{template}] APPROVE ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
 						<!-- Specifying what packages and documents should be added to workflow -->
 						<package name="document" objectId="${documentId}"/>
 						<!-- Specifying performer for REVIEW activity -->
 						<activity name="REVIEW" performer="${reviewerLogin}" />
-					</dmStartWorkflow>
+					</dm.startWorkflow>
 
 					<echo>Workflow ${workflowId} was started</echo>
 
@@ -100,7 +100,7 @@
 
 					<echo>Waiting for REVIEW workitem to appear in reviewer inbox...</echo>
 
-					<dmWaitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
+					<dm.waitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
 
 					<echo>REVIEW workitem ${workitemId} appeared in reviewer inbox</echo>
 
@@ -109,7 +109,7 @@
 					<echo>Completing REVIEW workitem...</echo>
 
 					<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
-					<dmUpdateWorkflow workflowId="${workflowId}">
+					<dm.updateWorkflow workflowId="${workflowId}">
 						<!-- Specifying performer for APPROVE activity -->
 						<activity name="APPROVE" performer="${approverLogin}" />
 
@@ -118,7 +118,7 @@
 
 						<!-- Specifying that we want to complete REVIEW activity -->
 						<completeWorkitem activity="REVIEW"/>
-					</dmUpdateWorkflow>
+					</dm.updateWorkflow>
 
 					<echo>REVIEW workitem was completed</echo>
 
@@ -126,11 +126,11 @@
 			workitem associated with APPROVE activity appears in approver inbox -->
 
 					<!-- Starting approver docbase session -->
-					<dmDocbaseBatch docbase="${docbase.name}" login="${approverLogin}" password="${approverPassword}">
+					<dm.docbaseBatch docbase="${docbase.name}" login="${approverLogin}" password="${approverPassword}">
 
 						<echo>Waiting for APPROVE workitem to appear in approver inbox...</echo>
 
-						<dmWaitForWorkitem workflowId="${workflowId}" activity="APPROVE" workitemIdProperty="workitemId" waitTime="3m"/>
+						<dm.waitForWorkitem workflowId="${workflowId}" activity="APPROVE" workitemIdProperty="workitemId" waitTime="3m"/>
 
 						<echo>APPROVE workitem ${workitemId} appeared in approver inbox</echo>
 
@@ -139,25 +139,25 @@
 						<echo>Completing APPROVE workitem...</echo>
 
 						<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
-						<dmUpdateWorkflow workflowId="${workflowId}">
+						<dm.updateWorkflow workflowId="${workflowId}">
 							<!-- Specifying that we want to complete APPROVE activity -->
 							<completeWorkitem activity="APPROVE"/>
-						</dmUpdateWorkflow>
+						</dm.updateWorkflow>
 
 						<echo>APPROVE workitem was completed</echo>
 
-					</dmDocbaseBatch>
+					</dm.docbaseBatch>
 
 <!-- [STEP-9] Waiting for the workflow to complete. As far as reviewer is also the workflow supervisor,
 			we will use its docbase session to wait for workflow completion  -->
 
 					<echo>Waiting for workflow completion...</echo>
 
-					<dmWaitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
+					<dm.waitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
 
 					<echo>Workflow completed</echo>
 
-				</dmDocbaseBatch>
+				</dm.docbaseBatch>
 
 			</generalScope>
 
@@ -192,14 +192,14 @@
 				<echo>User selected to act as coordinator: ${coordinatorLogin}</echo>
 
 				<!-- Starting reviewer docbase session -->
-				<dmDocbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
+				<dm.docbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
 
 <!-- [STEP-3] Document creation -->
 					<echo>Creating new document...</echo>
 
-					<dmDocbaseObject type="dm_document" newObjectIdProperty="documentId">
+					<dm.docbaseObject type="dm_document" newObjectIdProperty="documentId">
 						<property name="object_name" value="[@{template}] COORDINATE ROUTE ${startTime}"/>
-					</dmDocbaseObject>
+					</dm.docbaseObject>
 
 					<echo>Document ${documentId} was created</echo>
 
@@ -207,12 +207,12 @@
 					<echo>Starting new workflow instance...</echo>
 
 					<!-- Starting new workflow based on specified template -->
-					<dmStartWorkflow template="@{template}" workflowName="[@{template}] COORDINATE ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
+					<dm.startWorkflow template="@{template}" workflowName="[@{template}] COORDINATE ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
 						<!-- Specifying what packages and documents should be added to workflow -->
 						<package name="document" objectId="${documentId}"/>
 						<!-- Specifying performer for REVIEW activity -->
 						<activity name="REVIEW" performer="${reviewerLogin}" />
-					</dmStartWorkflow>
+					</dm.startWorkflow>
 
 					<echo>Workflow ${workflowId} was started</echo>
 
@@ -221,7 +221,7 @@
 
 					<echo>Waiting for REVIEW workitem to appear in reviewer inbox...</echo>
 
-					<dmWaitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
+					<dm.waitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
 
 					<echo>REVIEW workitem ${workitemId} appeared in reviewer inbox</echo>
 
@@ -230,7 +230,7 @@
 					<echo>Completing REVIEW workitem...</echo>
 
 					<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
-					<dmUpdateWorkflow workflowId="${workflowId}">
+					<dm.updateWorkflow workflowId="${workflowId}">
 						<!-- Specifying performer for COORDINATE activity -->
 						<activity name="COORDINATE" performer="${coordinatorLogin}" />
 
@@ -239,7 +239,7 @@
 
 						<!-- Specifying that we want to complete REVIEW activity -->
 						<completeWorkitem activity="REVIEW"/>
-					</dmUpdateWorkflow>
+					</dm.updateWorkflow>
 
 					<echo>REVIEW workitem was completed</echo>
 
@@ -247,11 +247,11 @@
 			workitem associated with COORDINATE activity appears in coordinator inbox -->
 
 					<!-- Starting coordinator docbase session -->
-					<dmDocbaseBatch docbase="${docbase.name}" login="${coordinatorLogin}" password="${coordinatorPassword}">
+					<dm.docbaseBatch docbase="${docbase.name}" login="${coordinatorLogin}" password="${coordinatorPassword}">
 
 						<echo>Waiting for COORDINATE workitem to appear in coordinator inbox...</echo>
 
-						<dmWaitForWorkitem workflowId="${workflowId}" activity="COORDINATE" workitemIdProperty="workitemId" waitTime="3m"/>
+						<dm.waitForWorkitem workflowId="${workflowId}" activity="COORDINATE" workitemIdProperty="workitemId" waitTime="3m"/>
 
 						<echo>COORDINATE workitem ${workitemId} appeared in coordinator inbox</echo>
 
@@ -260,25 +260,25 @@
 						<echo>Completing COORDINATE workitem...</echo>
 
 						<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
-						<dmUpdateWorkflow workflowId="${workflowId}">
+						<dm.updateWorkflow workflowId="${workflowId}">
 							<!-- Specifying that we want to complete COORDINATE activity -->
 							<completeWorkitem activity="COORDINATE"/>
-						</dmUpdateWorkflow>
+						</dm.updateWorkflow>
 
 						<echo>COORDINATE workitem was completed</echo>
 
-					</dmDocbaseBatch>
+					</dm.docbaseBatch>
 
 <!-- [STEP-9] Waiting for the workflow to complete. As far as reviewer is also the workflow supervisor,
 			we will use its docbase session to wait for workflow completion  -->
 
 					<echo>Waiting for workflow completion...</echo>
 
-					<dmWaitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
+					<dm.waitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
 
 					<echo>Workflow completed</echo>
 
-				</dmDocbaseBatch>
+				</dm.docbaseBatch>
 
 			</generalScope>
 
@@ -314,14 +314,14 @@
 				<echo>User selected to act as redesigner: ${redesignerLogin}</echo>
 
 				<!-- Starting reviewer docbase session -->
-				<dmDocbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
+				<dm.docbaseBatch docbase="${docbase.name}" login="${reviewerLogin}" password="${reviewerPassword}">
 
 <!-- [STEP-3] Document creation -->
 					<echo>Creating new document...</echo>
 
-					<dmDocbaseObject type="dm_document" newObjectIdProperty="documentId">
+					<dm.docbaseObject type="dm_document" newObjectIdProperty="documentId">
 						<property name="object_name" value="[@{template}] REDESIGN ROUTE ${startTime}"/>
-					</dmDocbaseObject>
+					</dm.docbaseObject>
 
 					<echo>Document ${documentId} was created</echo>
 
@@ -329,12 +329,12 @@
 					<echo>Starting new workflow instance...</echo>
 
 					<!-- Starting new workflow based on specified template -->
-					<dmStartWorkflow template="@{template}" workflowName="[@{template}] REDESIGN ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
+					<dm.startWorkflow template="@{template}" workflowName="[@{template}] REDESIGN ROUTE ${startTime}" newWorkflowIdProperty="workflowId">
 						<!-- Specifying what packages and documents should be added to workflow -->
 						<package name="document" objectId="${documentId}"/>
 						<!-- Specifying performer for REVIEW activity -->
 						<activity name="REVIEW" performer="${reviewerLogin}" />
-					</dmStartWorkflow>
+					</dm.startWorkflow>
 
 					<echo>Workflow ${workflowId} was started</echo>
 
@@ -343,7 +343,7 @@
 
 					<echo>Waiting for REVIEW workitem to appear in reviewer inbox...</echo>
 
-					<dmWaitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
+					<dm.waitForWorkitem workflowId="${workflowId}" activity="REVIEW" workitemIdProperty="workitemId" waitTime="3m"/>
 
 					<echo>REVIEW workitem ${workitemId} appeared in reviewer inbox</echo>
 
@@ -352,7 +352,7 @@
 					<echo>Completing REVIEW workitem...</echo>
 
 					<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
-					<dmUpdateWorkflow workflowId="${workflowId}">
+					<dm.updateWorkflow workflowId="${workflowId}">
 						<!-- Specifying performer for REDESIGN activity -->
 						<activity name="REDESIGN" performer="${redesignerLogin}" />
 
@@ -361,7 +361,7 @@
 
 						<!-- Specifying that we want to complete REVIEW activity -->
 						<completeWorkitem activity="REVIEW"/>
-					</dmUpdateWorkflow>
+					</dm.updateWorkflow>
 
 					<echo>REVIEW workitem was completed</echo>
 
@@ -369,11 +369,11 @@
 			workitem associated with REDESIGN activity appears in redesigner inbox -->
 
 					<!-- Starting approver docbase session -->
-					<dmDocbaseBatch docbase="${docbase.name}" login="${redesignerLogin}" password="${redesignerPassword}">
+					<dm.docbaseBatch docbase="${docbase.name}" login="${redesignerLogin}" password="${redesignerPassword}">
 
 						<echo>Waiting for REDESIGN workitem to appear in redesigner inbox...</echo>
 
-						<dmWaitForWorkitem workflowId="${workflowId}" activity="REDESIGN" workitemIdProperty="workitemId" waitTime="3m"/>
+						<dm.waitForWorkitem workflowId="${workflowId}" activity="REDESIGN" workitemIdProperty="workitemId" waitTime="3m"/>
 
 						<echo>REDESIGN workitem ${workitemId} appeared in redesigner inbox</echo>
 
@@ -382,25 +382,25 @@
 						<echo>Completing REDESIGN workitem...</echo>
 
 						<!-- Specifying modifications which we want to perform on workflow instance (order is not important) -->
-						<dmUpdateWorkflow workflowId="${workflowId}">
+						<dm.updateWorkflow workflowId="${workflowId}">
 							<!-- Specifying that we want to complete REDESIGN activity -->
 							<completeWorkitem activity="REDESIGN"/>
-						</dmUpdateWorkflow>
+						</dm.updateWorkflow>
 
 						<echo>REDESIGN workitem was completed</echo>
 
-					</dmDocbaseBatch>
+					</dm.docbaseBatch>
 
 <!-- [STEP-9] Waiting for the workflow to complete. As far as reviewer is also the workflow supervisor,
 			we will use its docbase session to wait for workflow completion  -->
 
 					<echo>Waiting for workflow completion...</echo>
 
-					<dmWaitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
+					<dm.waitForWorkflowCompletion workflowId="${workflowId}" waitTime="3m"/>
 
 					<echo>Workflow completed</echo>
 
-				</dmDocbaseBatch>
+				</dm.docbaseBatch>
 
 			</generalScope>
 

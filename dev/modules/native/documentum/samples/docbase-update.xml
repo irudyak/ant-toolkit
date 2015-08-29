@@ -8,9 +8,9 @@
 	</target>
 
 	<target name="test1">
-		<dmBuildVersionProvider/>
+		<dm.buildVersionProvider/>
 
-		<dmDocbaseBatch docbase="archive" login="dmadmin" password="ZSE$zse4">
+		<dm.docbaseBatch docbase="archive" login="dmadmin" password="ZSE$zse4">
 
 			<generalBuild number="1.0">
 				<echo>version - 1.0</echo>
@@ -24,16 +24,16 @@
 				<echo>version - 1.2</echo>
 			</generalBuild>
 
-		</dmDocbaseBatch>
+		</dm.docbaseBatch>
 	</target>
 
 	<target name="test2">
-		<dmBuildVersionProvider>
+		<dm.buildVersionProvider>
 			<property name="build.qualifier" value="AAA"/>
 			<property name="docbase.name" value="archive"/>
 			<property name="docbase.user" value="dmadmin"/>
 			<property name="docbase.password" value="ZSE$zse4"/>
-		</dmBuildVersionProvider>
+		</dm.buildVersionProvider>
 
 
 		<generalBuild number="1.0">
