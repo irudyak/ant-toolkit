@@ -13,11 +13,11 @@
 	</hadoopConfig>
 
 	<target name="test1">
-		<hbaseCreateTable hadoopConfig="saturn" table="AAA">
+		<hbase.createTable hadoopConfig="saturn" table="AAA">
 			<columnFamily name="BBB" maxVersions="3"/>
-		</hbaseCreateTable>
+		</hbase.createTable>
 
-		<hbaseCreateTable hadoopConfig="saturn" table="BBB" maxFileSize="1073741824">
+		<hbase.createTable hadoopConfig="saturn" table="BBB" maxFileSize="1073741824">
 			<columnFamily name="AAA" maxVersions="2">
 				<metadata key="a" value="1"/>
 				<metadata key="b" value="2"/>
@@ -26,16 +26,16 @@
 				<metadata key="a" value="111"/>
 				<metadata key="b" value="222"/>
 			</columnFamily>
-		</hbaseCreateTable>
+		</hbase.createTable>
 	</target>
 
 	<target name="test2">
-		<hbaseDescribeTable hadoopConfig="saturn" table="BBB"/>
+		<hbase.describeTable hadoopConfig="saturn" table="BBB"/>
 	</target>
 
 	<target name="test3">
 		<generalInitArray name="tables"/>
-		<hbaseListTables hadoopConfig="saturn" array="tables"/>
+		<hbase.listTables hadoopConfig="saturn" array="tables"/>
 
 		<generalArrayLoop array="tables" elementProperty="value">
 			<echo>${value}</echo>
@@ -43,17 +43,17 @@
 	</target>
 
 	<target name="test4">
-		<hbaseDropTable hadoopConfig="saturn" table="BBB"/>
+		<hbase.dropTable hadoopConfig="saturn" table="BBB"/>
 	</target>
 
 	<target name="test5">
-		<hbaseGetClusterInfo hadoopConfig="saturn" property="prop"/>
+		<hbase.getClusterInfo hadoopConfig="saturn" property="prop"/>
 		<echo>${prop}</echo>
 	</target>
 
 	<target name="test6">
 		<generalInitArray name="regions"/>
-		<hbaseGetServerRegions hadoopConfig="saturn" server="saturn,60020,1395954584906" array="regions"/>
+		<hbase.getServerRegions hadoopConfig="saturn" server="saturn,60020,1395954584906" array="regions"/>
 
 		<generalArrayLoop array="regions" elementProperty="value">
 			<echo>${value}</echo>
@@ -62,7 +62,7 @@
 
 	<target name="test7">
 		<generalInitArray name="regions"/>
-		<hbaseGetClusterInfo hadoopConfig="saturn" regionsArray="regions"/>
+		<hbase.getClusterInfo hadoopConfig="saturn" regionsArray="regions"/>
 
 		<generalArrayLoop array="regions" elementProperty="value">
 			<echo>${value}</echo>
@@ -70,7 +70,7 @@
 	</target>
 
 	<target name="test8">
-		<hbaseGetRegionLoad hadoopConfig="saturn" reference="aaa"
+		<hbase.getRegionLoad hadoopConfig="saturn" reference="aaa"
 							region="hbase:meta,,1"/>
 
 		<generalProperty name="readRequests" refid="aaa" refMethod="getReadRequestsCount"/>
@@ -80,7 +80,7 @@
 
 	<target name="test9">
 		<generalInitArray name="regions"/>
-		<hbaseGetTableRegions hadoopConfig="saturn" table="AAA" array="regions"/>
+		<hbase.getTableRegions hadoopConfig="saturn" table="AAA" array="regions"/>
 
 		<generalArrayLoop array="regions" elementProperty="value">
 			<echo>${value}</echo>
@@ -88,19 +88,19 @@
 	</target>
 
 	<target name="test10">
-		<hbaseTruncateTable hadoopConfig="saturn" table="AAA"/>
+		<hbase.truncateTable hadoopConfig="saturn" table="AAA"/>
 	</target>
 
 	<target name="test11">
-		<hbaseCreateNamespace hadoopConfig="saturn" name="my">
+		<hbase.createNamespace hadoopConfig="saturn" name="my">
 			<metadata key="AAA" value="111"/>
 			<metadata key="BBB" value="222"/>
-		</hbaseCreateNamespace>
+		</hbase.createNamespace>
 	</target>
 
 	<target name="test12">
 		<generalInitArray name="namespaces"/>
-		<hbaseGetNamespaces hadoopConfig="saturn" array="namespaces"/>
+		<hbase.getNamespaces hadoopConfig="saturn" array="namespaces"/>
 
 		<generalArrayLoop array="namespaces" elementProperty="value">
 			<echo>${value}</echo>
@@ -109,7 +109,7 @@
 
 	<target name="test13">
 		<generalInitArray name="tables"/>
-		<hbaseGetNamespaceTables hadoopConfig="saturn" namespace="hbase" array="tables"/>
+		<hbase.getNamespaceTables hadoopConfig="saturn" namespace="hbase" array="tables"/>
 
 		<generalArrayLoop array="tables" elementProperty="value">
 			<echo>${value}</echo>
@@ -117,11 +117,11 @@
 	</target>
 
 	<target name="test14">
-		<hbaseDeleteNamespace hadoopConfig="saturn" namespace="my"/>
+		<hbase.deleteNamespace hadoopConfig="saturn" namespace="my"/>
 	</target>
 
 	<target name="test15">
-		<hbaseAlterTable hadoopConfig="saturn" table="BBB" maxFileSize="1093741824">
+		<hbase.alterTable hadoopConfig="saturn" table="BBB" maxFileSize="1093741824">
 			<removeColumnFamily name="AAA"/>
 
 			<columnFamily name="BBB" maxVersions="1">
@@ -133,11 +133,11 @@
 
 			<metadata key="aa" value="000"/>
 			<metadata key="bb" value="111"/>
-		</hbaseAlterTable>
+		</hbase.alterTable>
 	</target>
 
 	<target name="test16">
-		<hbasePut hadoopConfig="saturn" table="AAA" rowkey="111">
+		<hbase.put hadoopConfig="saturn" table="AAA" rowkey="111">
 			<cell columnFamily="BBB" column="first">HELLO</cell>
 			<cell columnFamily="BBB" column="second" value="WORLD"/>
 			<cell columnFamily="BBB" column="bool" type="boolean" value="true"/>
@@ -150,37 +150,37 @@
 			<cell columnFamily="BBB" column="num4" type="float" value="4.55"/>
 			<cell columnFamily="BBB" column="num5" type="double" value="5.47"/>
 			<cell columnFamily="BBB" column="num6" type="bigdecimal" value="6.89"/>
-		</hbasePut>
+		</hbase.put>
 	</target>
 
 	<target name="test17">
-		<hbaseDelete hadoopConfig="saturn" table="AAA" rowkey="111">
+		<hbase.delete hadoopConfig="saturn" table="AAA" rowkey="111">
 			<cell columnFamily="BBB" column="second" allVersions="true"/>
-		</hbaseDelete>
+		</hbase.delete>
 	</target>
 
 	<target name="test18">
-		<hbaseAppend hadoopConfig="saturn" table="AAA" rowkey="111">
+		<hbase.append hadoopConfig="saturn" table="AAA" rowkey="111">
 			<cell columnFamily="BBB" column="first" value=" WORLD"/>
 			<cell columnFamily="BBB" column="second" value="TEST"/>
 			<cell columnFamily="BBB" column="third" value="TEST-2"/>
-		</hbaseAppend>
+		</hbase.append>
 	</target>
 
 	<target name="test19">
 
-		<hbaseIncrement hadoopConfig="saturn" table="AAA" rowkey="111">
+		<hbase.increment hadoopConfig="saturn" table="AAA" rowkey="111">
 			<cell columnFamily="BBB" column="num3" amount="1" property="res1"/>
-		</hbaseIncrement>
+		</hbase.increment>
 
 		<echo>${res1}</echo>
 
-		<hbaseIncrement hadoopConfig="saturn" table="AAA" rowkey="111">
+		<hbase.increment hadoopConfig="saturn" table="AAA" rowkey="111">
 			<cell columnFamily="BBB" column="num3" amount="-5" property="res1"/>
 			<cell columnFamily="BBB" column="num31" amount="10" property="res2"/>
 			<cell columnFamily="BBB" column="num32" amount="2" property="res3"/>
 			<cell columnFamily="BBB" column="num33" amount="100" property="res4"/>
-		</hbaseIncrement>
+		</hbase.increment>
 
 		<echo>${res1}, ${res2}, ${res3}, ${res4}</echo>
 
@@ -188,48 +188,48 @@
 
 	<target name="test20">
 
-		<hbaseCheckAndPut hadoopConfig="saturn" table="AAA" rowkey="111"
+		<hbase.checkAndPut hadoopConfig="saturn" table="AAA" rowkey="111"
 						  columnFamily="BBB" column="second" value="TEST"
 						  property="result">
 				<cell columnFamily="BBB" column="second" value="AAA-BBB"/>
 				<cell columnFamily="BBB" column="num1" type="int" value="120"/>
-		</hbaseCheckAndPut>
+		</hbase.checkAndPut>
 
 		<echo>${result}</echo>
 
-		<hbaseCheckAndPut hadoopConfig="saturn" table="AAA" rowkey="111"
+		<hbase.checkAndPut hadoopConfig="saturn" table="AAA" rowkey="111"
 						  columnFamily="BBB" column="second" value="AAA-BBB"
 						  property="result">
 				<cell columnFamily="BBB" column="second" value="TEST"/>
 				<cell columnFamily="BBB" column="num1" type="int" value="350"/>
-		</hbaseCheckAndPut>
+		</hbase.checkAndPut>
 
 		<echo>${result}</echo>
 
-		<hbaseCheckAndPut hadoopConfig="saturn" table="AAA" rowkey="111"
+		<hbase.checkAndPut hadoopConfig="saturn" table="AAA" rowkey="111"
 						  columnFamily="BBB" column="second" value="TEST1"
 						  property="result">
 				<cell columnFamily="BBB" column="XXX" value="123"/>
 				<cell columnFamily="BBB" column="YYY" value="321"/>
-		</hbaseCheckAndPut>
+		</hbase.checkAndPut>
 
 		<echo>${result}</echo>
 
 	</target>
 
 	<target name="test21">
-		<hbaseCheckAndDelete hadoopConfig="saturn" table="AAA" rowkey="111"
+		<hbase.checkAndDelete hadoopConfig="saturn" table="AAA" rowkey="111"
 						  columnFamily="BBB" column="second" value="TEST"
 						  property="result">
 			<cell columnFamily="BBB" column="XXX" allVersions="true"/>
 			<cell columnFamily="BBB" column="YYY" allVersions="true"/>
-		</hbaseCheckAndDelete>
+		</hbase.checkAndDelete>
 
 		<echo>${result}</echo>
 	</target>
 
 	<target name="test22">
-		<hbaseMutateRow hadoopConfig="saturn" table="AAA" rowkey="111">
+		<hbase.mutateRow hadoopConfig="saturn" table="AAA" rowkey="111">
 			<put>
 				<cell columnFamily="BBB" column="aaa" value="xxx"/>
 				<cell columnFamily="BBB" column="bbb" value="yyy"/>
@@ -238,61 +238,61 @@
 				<cell columnFamily="BBB" column="num1" allVersions="true"/>
 				<cell columnFamily="BBB" column="num2" allVersions="true"/>
 			</delete>
-		</hbaseMutateRow>
+		</hbase.mutateRow>
 	</target>
 
 	<target name="test23">
 
-		<hbaseCheckColumnExists hadoopConfig="saturn" table="AAA" rowkey="111" property="result">
+		<hbase.checkColumnExists hadoopConfig="saturn" table="AAA" rowkey="111" property="result">
 			<cell columnFamily="BBB" column="aaa"/>
 			<cell columnFamily="BBB" column="first"/>
-		</hbaseCheckColumnExists>
+		</hbase.checkColumnExists>
 
 		<echo>${result}</echo>
 
-		<hbaseCheckColumnExists hadoopConfig="saturn" table="AAA" rowkey="111" property="result">
+		<hbase.checkColumnExists hadoopConfig="saturn" table="AAA" rowkey="111" property="result">
 			<cell columnFamily="BBB" column="abc"/>
-		</hbaseCheckColumnExists>
+		</hbase.checkColumnExists>
 
 		<echo>${result}</echo>
 
 	</target>
 
 	<target name="test24">
-		<hbasePut hadoopConfig="saturn" table="AAA" rowkey="333">
+		<hbase.put hadoopConfig="saturn" table="AAA" rowkey="333">
 			<cell columnFamily="BBB" column="binary-file" file="test.jpg"/>
 			<cell columnFamily="BBB" column="text-file" file="test.txt" type="string"/>
-		</hbasePut>
+		</hbase.put>
 	</target>
 
 	<target name="test25">
-		<hbaseAppend hadoopConfig="saturn" table="AAA" rowkey="333">
+		<hbase.append hadoopConfig="saturn" table="AAA" rowkey="333">
 			<cell columnFamily="BBB" column="binary-file-2" file="test.jpg"/>
 			<cell columnFamily="BBB" column="text-file" file="test.txt" type="string"/>
-		</hbaseAppend>
+		</hbase.append>
 	</target>
 
 	<target name="test26">
-		<hbaseGet hadoopConfig="saturn" table="AAA" rowkey="333">
+		<hbase.get hadoopConfig="saturn" table="AAA" rowkey="333">
 			<cell columnFamily="BBB" column="binary-file" file="test1.jpg"/>
 			<cell columnFamily="BBB" column="text-file" file="test1.txt" type="string"/>
-		</hbaseGet>
+		</hbase.get>
 
-		<hbaseGet hadoopConfig="saturn" table="AAA" rowkey="111">
+		<hbase.get hadoopConfig="saturn" table="AAA" rowkey="111">
 			<cell columnFamily="BBB" column="bbb" property="val1"/>
 			<cell columnFamily="BBB" column="num3" property="val2" type="long"/>
 			<cell columnFamily="BBB" column="bool" property="val3" type="boolean"/>
-		</hbaseGet>
+		</hbase.get>
 
 		<echo>BBB:bbb=${val1}</echo>
 		<echo>BBB:num3=${val2}</echo>
 		<echo>BBB:bool=${val3}</echo>
 
-		<hbaseGet hadoopConfig="saturn" table="AAA" rowkey="222" reference="result1"/>
+		<hbase.get hadoopConfig="saturn" table="AAA" rowkey="222" reference="result1"/>
 
-		<hbaseGet hadoopConfig="saturn" table="AAA" rowkey="222" reference="result2">
+		<hbase.get hadoopConfig="saturn" table="AAA" rowkey="222" reference="result2">
 			<cell columnFamily="BBB"/>
-		</hbaseGet>
+		</hbase.get>
 	</target>
 
 	<target name="test27">
@@ -300,25 +300,25 @@
 		<!-- Putting first version of values -->
 		<generalTimeStamp property="timestamp1"/>
 
-		<hbasePut hadoopConfig="saturn" table="BBB" rowkey="111">
+		<hbase.put hadoopConfig="saturn" table="BBB" rowkey="111">
 			<cell columnFamily="BBB" column="first" timestamp="${timestamp1}">111</cell>
 			<cell columnFamily="BBB" column="second">222</cell>
-		</hbasePut>
+		</hbase.put>
 
 		<sleep seconds="2"/>
 
 		<!-- Putting second version of values -->
 		<generalTimeStamp property="timestamp2"/>
 
-		<hbasePut hadoopConfig="saturn" table="BBB" rowkey="111">
+		<hbase.put hadoopConfig="saturn" table="BBB" rowkey="111">
 			<cell columnFamily="BBB" column="first" timestamp="${timestamp2}">111-111</cell>
 			<cell columnFamily="BBB" column="second">222-222</cell>
-		</hbasePut>
+		</hbase.put>
 
 		<echo>timestamp1=${timestamp1}</echo>
 		<echo>timestamp2=${timestamp2}</echo>
 
-		<hbaseGet hadoopConfig="saturn" table="BBB" rowkey="111" maxVersions="2" reference="result">
+		<hbase.get hadoopConfig="saturn" table="BBB" rowkey="111" maxVersions="2" reference="result">
 			<!-- Getting first version of values -->
 			<cell columnFamily="BBB" column="first" property="val1" timestamp="${timestamp1}"/>
 			<cell columnFamily="BBB" column="second" property="val2" version="1"/>
@@ -326,7 +326,7 @@
 			<!-- Getting second version of values -->
 			<cell columnFamily="BBB" column="first" property="val3" timestamp="${timestamp2}"/>
 			<cell columnFamily="BBB" column="second" property="val4" version="0"/>
-		</hbaseGet>
+		</hbase.get>
 
 		<echo>--- VALUES EXTRACTED DIRECTLY FROM GET ACTION ---</echo>
 
@@ -337,7 +337,7 @@
 		<echo>BBB:first=${val3}</echo>
 		<echo>BBB:second=${val4}</echo>
 
-		<hbaseGetResultValues resultRef="result">
+		<hbase.getResultValues resultRef="result">
 			<!-- Getting first version of values -->
 			<cell columnFamily="BBB" column="first" property="val5" timestamp="${timestamp1}"/>
 			<cell columnFamily="BBB" column="second" property="val6" version="1"/>
@@ -345,7 +345,7 @@
 			<!-- Getting second version of values -->
 			<cell columnFamily="BBB" column="first" property="val7" timestamp="${timestamp2}"/>
 			<cell columnFamily="BBB" column="second" property="val8" version="0"/>
-		</hbaseGetResultValues>
+		</hbase.getResultValues>
 
 		<echo>--- VALUES EXTRACTED FROM RESULT REFERENCE ---</echo>
 
@@ -359,20 +359,20 @@
 		<echo>--- VALUES EXTRACTED ITERATING THROUGH RESULT STRUCTURE  ---</echo>
 
 		<generalInitArray name="families"/>
-		<hbaseGetResultFamilies refid="result" array="families"/>
+		<hbase.getResultFamilies refid="result" array="families"/>
 
 		<generalArrayLoop array="families" elementProperty="family">
 			<generalInitArray name="columns"/>
-			<hbaseGetResultColumns refid="result" columnFamily="${family}" array="columns"/>
+			<hbase.getResultColumns refid="result" columnFamily="${family}" array="columns"/>
 
 			<generalArrayLoop array="columns" elementProperty="column">
 				<generalInitArray name="timestamps"/>
-				<hbaseGetResultTimestamps refid="result" columnFamily="${family}" column="${column}" array="timestamps"/>
+				<hbase.getResultTimestamps refid="result" columnFamily="${family}" column="${column}" array="timestamps"/>
 
 				<generalArrayLoop array="timestamps" elementProperty="timestamp">
-					<hbaseGetResultValues resultRef="result">
+					<hbase.getResultValues resultRef="result">
 						<cell columnFamily="${family}" column="${column}" timestamp="${timestamp}" property="value"/>
-					</hbaseGetResultValues>
+					</hbase.getResultValues>
 
 					<echo>${family}:${column}:${timestamp}=${value}</echo>
 				</generalArrayLoop>
@@ -389,11 +389,11 @@
 				cause it holds references to used HBase resources as HTableInterface and HConnection,
 				thus you don't have a performance overhead related to reestablishing such resources
 				on each loop iteration -->
-			<hbaseResourcePoolContainer>
+			<hbase.resourcePoolContainer>
 
 				<echo>fill table in a batch</echo>
 
-				<hbaseExecuteBatch table="BBB" writeBufferSize="1048576">
+				<hbase.executeBatch table="BBB" writeBufferSize="1048576">
 					<put rowkey="111">
 						<cell columnFamily="AAA" column="val_str" value="HELLO"/>
 						<cell columnFamily="AAA" column="val_bool" type="boolean" value="true"/>
@@ -408,11 +408,11 @@
 						<cell columnFamily="BBB" column="val_str" value="WORLD"/>
 						<cell columnFamily="BBB" column="val_byte" file="test.jpg"/>
 					</put>
-				</hbaseExecuteBatch>
+				</hbase.executeBatch>
 
 				<echo>test different batch operations</echo>
 
-				<hbaseExecuteBatch table="BBB" writeBufferSize="1048576">
+				<hbase.executeBatch table="BBB" writeBufferSize="1048576">
 					<put rowkey="222">
 						<cell columnFamily="AAA" column="val_str" value="HELLO-2"/>
 					</put>
@@ -430,7 +430,7 @@
 						<cell columnFamily="AAA" column="val_double" type="double" property="val_double"/>
 						<cell columnFamily="BBB" column="val_byte" file="test1.jpg"/>
 					</get>
-				</hbaseExecuteBatch>
+				</hbase.executeBatch>
 
 				<echo>${val_long}</echo>
 				<echo>${val_int}</echo>
@@ -438,41 +438,41 @@
 
 				<echo>preparing batch list of the same operations like the previous one and execute it</echo>
 
-				<hbaseBatch batchId="test-batch"/>
+				<hbase.batch batchId="test-batch"/>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<put rowkey="222">
 						<cell columnFamily="AAA" column="val_str" value="HELLO-2"/>
 					</put>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<put rowkey="333">
 						<cell columnFamily="AAA" column="val_str" value="HELLO-3"/>
 					</put>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<increment rowkey="111">
 						<cell columnFamily="AAA" column="val_long" amount="10" property="val_long"/>
 					</increment>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<delete rowkey="111">
 						<cell columnFamily="AAA" column="val_bool"/>
 					</delete>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<get rowkey="111" reference="result">
 						<cell columnFamily="AAA" column="val_int" type="int" property="val_int"/>
 						<cell columnFamily="AAA" column="val_double" type="double" property="val_double"/>
 						<cell columnFamily="BBB" column="val_byte" file="test2.jpg"/>
 					</get>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseExecuteBatch table="BBB" writeBufferSize="1048576" batchId="test-batch"/>
+				<hbase.executeBatch table="BBB" writeBufferSize="1048576" batchId="test-batch"/>
 
 				<echo>${val_long}</echo>
 				<echo>${val_int}</echo>
@@ -481,41 +481,41 @@
 				<echo>Atomic update of the row</echo>
 
 				<!-- recreate empty batch -->
-				<hbaseBatch batchId="test-batch"/>
+				<hbase.batch batchId="test-batch"/>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<put rowkey="111">
 						<cell columnFamily="AAA" column="val_str" value="XXX"/>
 					</put>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<put rowkey="111">
 						<cell columnFamily="AAA" column="test-val" value="123" type="int"/>
 					</put>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<delete rowkey="111">
 						<cell columnFamily="AAA" column="val_bool"/>
 					</delete>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<delete rowkey="111">
 						<cell columnFamily="AAA" column="val_bigdec"/>
 					</delete>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseAddToBatch batchId="test-batch">
+				<hbase.addToBatch batchId="test-batch">
 					<delete rowkey="111">
 						<cell columnFamily="BBB" column="val_byte" />
 					</delete>
-				</hbaseAddToBatch>
+				</hbase.addToBatch>
 
-				<hbaseMutateRow table="BBB" batchId="test-batch"/>
+				<hbase.mutateRow table="BBB" batchId="test-batch"/>
 
-			</hbaseResourcePoolContainer>
+			</hbase.resourcePoolContainer>
 
 		</hadoopSession>
 
@@ -523,34 +523,34 @@
 
 	<target name="test29">
 		<echo>--- full table scan ---</echo>
-		<hbaseScan id="scan1"/>
+		<hbase.scan id="scan1"/>
 
-		<hbaseScanLoop hadoopConfig="saturn" scan="scan1" table="BBB" reference="result">
+		<hbase.scanLoop hadoopConfig="saturn" scan="scan1" table="BBB" reference="result">
 			<printResult refid="result"/>
-		</hbaseScanLoop>
+		</hbase.scanLoop>
 
 		<echo>--- full table scan for particular cells ---</echo>
-		<hbaseScan id="scan2">
+		<hbase.scan id="scan2">
 			<cell columnFamily="AAA" column="val_str" property="val_str"/>
-		</hbaseScan>
+		</hbase.scan>
 
-		<hbaseScanLoop hadoopConfig="saturn" scan="scan2" table="BBB" reference="result">
-			<hbaseGetResultRowkey property="rowkey" resultRef="result"/>
+		<hbase.scanLoop hadoopConfig="saturn" scan="scan2" table="BBB" reference="result">
+			<hbase.getResultRowkey property="rowkey" resultRef="result"/>
 			<echo>${rowkey}   ${val_str}</echo>
-		</hbaseScanLoop>
+		</hbase.scanLoop>
 
 		<echo>--- table scan for particular cells using start and stop row ---</echo>
-		<hbaseScan id="scan3" startRow="111" stopRow="333">
+		<hbase.scan id="scan3" startRow="111" stopRow="333">
 			<cell columnFamily="AAA" column="val_str" property="val_str"/>
-		</hbaseScan>
+		</hbase.scan>
 
-		<hbaseScanLoop hadoopConfig="saturn" scan="scan3" table="BBB" reference="result">
-			<hbaseGetResultRowkey property="rowkey" resultRef="result"/>
+		<hbase.scanLoop hadoopConfig="saturn" scan="scan3" table="BBB" reference="result">
+			<hbase.getResultRowkey property="rowkey" resultRef="result"/>
 			<echo>${rowkey}   ${val_str}</echo>
-		</hbaseScanLoop>
+		</hbase.scanLoop>
 
 		<echo>--- table scan for particular cells using start and stop row and using filters ---</echo>
-		<hbaseScan id="scan4" startRow="111" stopRow="444" maxVersions="20" caching="10">
+		<hbase.scan id="scan4" startRow="111" stopRow="444" maxVersions="20" caching="10">
 			<valueFilter operation="EQUAL">
 				<regexStringComparator>HE*</regexStringComparator>
 			</valueFilter>
@@ -560,19 +560,19 @@
 			<timestampsFilter>
 				1396183921213,1396183920975
 			</timestampsFilter>
-		</hbaseScan>
+		</hbase.scan>
 
-		<hbaseScanLoop hadoopConfig="saturn" scan="scan4" table="BBB" reference="result">
+		<hbase.scanLoop hadoopConfig="saturn" scan="scan4" table="BBB" reference="result">
 			<printResult refid="result"/>
-		</hbaseScanLoop>
+		</hbase.scanLoop>
 
 	</target>
 
 	<target name="test30">
 
-		<hbaseBuildVersionProvider/>
+		<hbase.buildVersionProvider/>
 
-		<hbaseResourcePoolContainer hadoopConfig="saturn1">
+		<hbase.resourcePoolContainer hadoopConfig="saturn1">
 
 			<generalBuild number="1.0">
 				<echo>HELLO</echo>
@@ -590,7 +590,7 @@
 				<echo>HELLO 1.1</echo>
 			</generalBuild>
 
-		</hbaseResourcePoolContainer>
+		</hbase.resourcePoolContainer>
 	</target>
 
 <!-- macroses -->
@@ -598,22 +598,22 @@
 		<attribute name="refid"/>
 		<sequential>
 			<generalInitArray name="families"/>
-			<hbaseGetResultFamilies refid="@{refid}" array="families"/>
+			<hbase.getResultFamilies refid="@{refid}" array="families"/>
 
 			<generalArrayLoop array="families" elementProperty="family">
 				<generalInitArray name="columns"/>
-				<hbaseGetResultColumns refid="@{refid}" columnFamily="${family}" array="columns"/>
+				<hbase.getResultColumns refid="@{refid}" columnFamily="${family}" array="columns"/>
 
 				<generalArrayLoop array="columns" elementProperty="column">
 					<generalInitArray name="timestamps"/>
-					<hbaseGetResultTimestamps refid="@{refid}" columnFamily="${family}" column="${column}" array="timestamps"/>
+					<hbase.getResultTimestamps refid="@{refid}" columnFamily="${family}" column="${column}" array="timestamps"/>
 
 					<generalArrayLoop array="timestamps" elementProperty="timestamp">
-						<hbaseGetResultValues resultRef="@{refid}">
+						<hbase.getResultValues resultRef="@{refid}">
 							<cell columnFamily="${family}" column="${column}" timestamp="${timestamp}" property="value"/>
-						</hbaseGetResultValues>
+						</hbase.getResultValues>
 
-						<hbaseGetResultRowkey property="rowkey" resultRef="@{refid}"/>
+						<hbase.getResultRowkey property="rowkey" resultRef="@{refid}"/>
 
 						<echo>${rowkey}   ${family}:${column}:${timestamp}=${value}</echo>
 					</generalArrayLoop>
