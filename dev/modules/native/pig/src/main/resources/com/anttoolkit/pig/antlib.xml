@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <antlib>
-	<taskdef name="pig.Script" classname="com.anttoolkit.pig..tasks.PigScriptTask" />
+	<taskdef name="pig.script" classname="com.anttoolkit.pig..tasks.PigScriptTask" />
 	<taskdef name="pig.relationTuplesLoop" classname="com.anttoolkit.pig..tasks.RelationTuplesLoopTask" />
 	<taskdef name="pig.bagTuplesLoop" classname="com.anttoolkit.pig..tasks.BagTuplesLoopTask" />
 	<taskdef name="pig.mapLoop" classname="com.anttoolkit.pig..tasks.MapLoopTask" />
