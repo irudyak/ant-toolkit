@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="DQL-batch" default="test3" basedir=".">
+<project name="SQL-test" default="test3" basedir=".">
 
 	<import><javaresource name="com/anttoolkit/anttoolkit.xml"/></import>
 
 	<!-- Testing Oracle -->
 	<target name="test">
-		<sqlBuildVersionProvider/>
+		<sql.buildVersionProvider/>
 
-		<sqlDatabaseBatch user="archive"
+		<sql.databaseBatch user="archive"
 				  password="123456"
 				  url="jdbc:oracle:thin:@10.0.0.10:1521:orcl"
 				  driver="oracle.jdbc.driver.OracleDriver">
@@ -32,18 +32,18 @@
 				<echo>BUILD: 1.3</echo>
 			</generalBuild>
 
-		</sqlDatabaseBatch>
+		</sql.databaseBatch>
 	</target>
 
 	<!-- Testing Oracle -->
 	<target name="test1">
-		<sqlBuildVersionProvider>
+		<sql.buildVersionProvider>
 			<property name="build.qualifier" value="CCC"/>
 			<property name="db.user" value="archive"/>
 			<property name="db.password" value="123456"/>
 			<property name="db.driver" value="oracle.jdbc.driver.OracleDriver"/>
 			<property name="db.connection.url" value="jdbc:oracle:thin:@10.0.0.10:1521:orcl"/>
-		</sqlBuildVersionProvider>
+		</sql.buildVersionProvider>
 
 		<generalBuild number="1.0" comment="AAA">
 			<echo>BUILD: 1.0</echo>
@@ -69,9 +69,9 @@
 	<!-- Testing MySQL -->
 	<target name="test2">
 
-		<sqlBuildVersionProvider/>
+		<sql.buildVersionProvider/>
 
-		<sqlDatabaseBatch user="test"
+		<sql.databaseBatch user="test"
 				  password="ZSE$zse4"
 				  url="jdbc:mysql://10.0.0.6:3306/test"
 				  driver="com.mysql.jdbc.Driver">
@@ -96,7 +96,7 @@
 				<echo>BUILD: 1.3</echo>
 			</generalBuild>
 
-		</sqlDatabaseBatch>
+		</sql.databaseBatch>
 	</target>
 
 	<target name="test3">

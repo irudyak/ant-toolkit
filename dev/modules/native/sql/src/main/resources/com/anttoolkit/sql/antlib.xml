@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <antlib>
-	<taskdef name="sqlDatabaseBatch" classname="com.anttoolkit.sql.tasks.SqlTaskContainer" />
-	<taskdef name="sqlTransaction" classname="com.anttoolkit.sql.tasks.SqlTransactionTask" />
-	<taskdef name="sqlQuery" classname="com.anttoolkit.sql.tasks.SqlUpdateQueryTask" />
-	<taskdef name="sqlSetProperty" classname="com.anttoolkit.sql.tasks.SqlSetPropertyTask" />
-	<taskdef name="sqlExist" classname="com.anttoolkit.sql.tasks.SqlExistTask" />
-	<taskdef name="sqlLoop" classname="com.anttoolkit.sql.tasks.SqlLoopTask" />
-	<taskdef name="sqlLoopProperty" classname="com.anttoolkit.sql.tasks.SqlLoopPropertyTask" />
-	<taskdef name="sqlBuildVersionProvider" classname="com.anttoolkit.sql.tasks.build.SqlBuildVersionProviderTask" />
+	<taskdef name="sql.DatabaseBatch" classname="com.anttoolkit.sql.tasks.SqlTaskContainer" />
+	<taskdef name="sql.transaction" classname="com.anttoolkit.sql.tasks.SqlTransactionTask" />
+	<taskdef name="sql.query" classname="com.anttoolkit.sql.tasks.SqlUpdateQueryTask" />
+	<taskdef name="sql.setProperty" classname="com.anttoolkit.sql.tasks.SqlSetPropertyTask" />
+	<taskdef name="sql.exist" classname="com.anttoolkit.sql.tasks.SqlExistTask" />
+	<taskdef name="sql.loop" classname="com.anttoolkit.sql.tasks.SqlLoopTask" />
+	<taskdef name="sql.loopProperty" classname="com.anttoolkit.sql.tasks.SqlLoopPropertyTask" />
+	<taskdef name="sql.buildVersionProvider" classname="com.anttoolkit.sql.tasks.build.SqlBuildVersionProviderTask" />
 </antlib>
