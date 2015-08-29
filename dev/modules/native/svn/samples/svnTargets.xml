@@ -21,7 +21,7 @@
 	<taskdef file="${svn.antsubversion.taskdef}" classpathref="svnAnt.classpath"/>
 
 	<target name="createReport" depends="getSvnLog">
-		<svnLogReport logFile="${svn.report.logFile}"
+		<svn.logReport logFile="${svn.report.logFile}"
 		              reportFile="${svn.report.reportFile}"
 		              xsltStyle="${svn.report.stylesheet}"/>
 
@@ -41,7 +41,7 @@
 			<arg value="${svn.repository}"/>
 		</exec>
 
-		<svnGetRevision infoFile="${svn.report.infoFile}"
+		<svn.getRevision infoFile="${svn.report.infoFile}"
 		              property="svn.repository.headRevision"/>
 	</target>
 
@@ -58,7 +58,7 @@
 			<arg value="${svn.repository}/${svn.report.MainModule}"/>
 		</exec>
 
-		<svnGetLatestMessageRevision logFile="${svn.report.logFile}"
+		<svn.getLatestMessageRevision logFile="${svn.report.logFile}"
 				messagePattern="${svn.report.version.pattern}"
 				property="svn.report.version.revision"/>
 
@@ -92,7 +92,7 @@
 
 	<target name="setExternalsToCurrentRevision">
 
-		<svnGetRevision infoFile="${svn.report.infoFile}"
+		<svn.getRevision infoFile="${svn.report.infoFile}"
 		              property="svn.repository.headRevision"/>
 
 		<delete file="${svn.report.infoFile}"/>
