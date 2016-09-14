@@ -422,11 +422,11 @@ public abstract class CliCommandTask
 		Template template = null;
 		boolean loaded = false;
 
-		if ((!loaded) && (org.apache.commons.lang.StringUtils.isNotBlank(ExternalPropertiesHolder.customFreemarkerTemplateFile)))
+		if ((!loaded) && (org.apache.commons.lang.StringUtils.isNotBlank(ExternalPropertiesHolder.getCustomFreemarkerTemplateFile())))
 		{
 			try
 			{
-				template = this.getExecutionService().getExternalTemplate(ExternalPropertiesHolder.customFreemarkerTemplateFile);
+				template = this.getExecutionService().getExternalTemplate(ExternalPropertiesHolder.getCustomFreemarkerTemplateFile());
 				if (template != null)
 				{
 					loaded = true;

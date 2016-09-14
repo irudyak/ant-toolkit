@@ -53,6 +53,11 @@ public class InstanceReportTask extends ApiCommandTask
 		}
 		catch (MaestroApiException e)
 		{
+			if (e instanceof MaestroExecutionException && ((MaestroExecutionException)e).getError().getCode() == -32007) {
+				this.setPropertyThreadSafe(property, "0");
+				return;
+			}
+
 			throw new BuildException("Failed to get cost report for instance " + instance, e);
 		}
 
